@@ -1,0 +1,30 @@
+<header class="header glass">
+  <div class="logo-container">
+    <div class="logo-icon">
+      <span class="material-symbols-outlined logo-diamond">diamond</span>
+    </div>
+    <h1 class="font-playfair logo-text">VGH Jewellers</h1>
+  </div>
+  <nav class="nav-links">
+    <a href="/" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a href="/gold-collection" routerLink="/gold-collection" routerLinkActive="active">Gold Collection</a>
+    <a href="/silver-collection" routerLink="/silver-collection" routerLinkActive="active">Silver Collection</a>
+    <a href="/about-us" routerLink="/about-us" routerLinkActive="active">About Us</a>
+    <a href="/contact" routerLink="/contact" routerLinkActive="active">Contact</a>
+  </nav>
+  <div class="actions">
+    <div class="search-bar glass">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="SEARCH..." class="search-input">
+    </div>
+    <button class="icon-btn" routerLink="/cart">
+      <span class="material-symbols-outlined">shopping_bag</span>
+    </button>
+    <button class="icon-btn" routerLink="/auth">
+      <span class="material-symbols-outlined">account_circle</span>
+    </button>
+    <button class="menu-btn">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</header>

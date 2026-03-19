@@ -1,0 +1,170 @@
+<div class="checkout-shipping-container">
+  <!-- Background Accents -->
+  <div class="fixed inset-0 z-0 pointer-events-none opacity-20 overflow-hidden">
+    <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"></div>
+  </div>
+
+  <div class="relative z-10 flex h-full grow flex-col">
+    <!-- Simplified Checkout Header (Optional: Can be hidden if using global header) -->
+    <header class="sticky top-0 z-50 w-full glass-panel border-b border-primary/20 checkout-header">
+      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-12">
+          <div class="flex items-center gap-3 text-primary">
+            <div class="size-6">
+              <span class="material-symbols-outlined">diamond</span>
+            </div>
+            <h1 class="text-xl font-display font-bold tracking-widest uppercase">VGH Jewellers</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <button class="relative p-2 hover:text-primary transition-colors" [routerLink]="['/cart']">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span class="absolute top-0 right-0 size-4 bg-primary text-[10px] text-black font-bold rounded-full flex items-center justify-center">3</span>
+          </button>
+          <div class="size-10 rounded-full border border-primary/20 overflow-hidden user-avatar">
+            <span class="material-symbols-outlined text-4xl text-primary/40">account_circle</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-12 px-6 lg:px-20 py-12 max-w-7xl mx-auto w-full">
+      <!-- Left Side: Form -->
+      <div class="lg:col-span-8 flex flex-col gap-8">
+        <!-- Progress Stepper -->
+        <app-checkout-stepper [currentStep]="1" class="animate-fade-up" style="animation-delay: 0.1s;"></app-checkout-stepper>
+
+        <!-- Form Section -->
+        <div class="glass-panel rounded-xl p-8 lg:p-12 animate-fade-up" style="animation-delay: 0.2s;">
+          <div class="mb-10">
+            <h2 class="font-display text-4xl mb-3 text-white">Shipping Information</h2>
+            <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Enter your destination for delivery options</p>
+          </div>
+          
+          <form (ngSubmit)="onContinue()" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            <div class="md:col-span-2">
+              <label for="fullName" class="form-label-aura">Full Name</label>
+              <input id="fullName" class="aura-input" name="fullName" [(ngModel)]="shippingData.fullName" placeholder="Johnathan Doe" type="text" required>
+            </div>
+            <div>
+              <label for="email" class="form-label-aura">Email Address</label>
+              <input id="email" class="aura-input" name="email" [(ngModel)]="shippingData.email" placeholder="j.doe@vghjewellers.com" type="email" required>
+            </div>
+            <div>
+              <label for="phone" class="form-label-aura">Phone Number</label>
+              <input id="phone" class="aura-input" name="phone" [(ngModel)]="shippingData.phone" placeholder="+1 (555) 000-0000" type="tel" required>
+            </div>
+            <div class="md:col-span-2">
+              <label for="address" class="form-label-aura">Street Address</label>
+              <input id="address" class="aura-input" name="address" [(ngModel)]="shippingData.address" placeholder="123 Luxury Avenue, Suite 400" type="text" required>
+            </div>
+            <div>
+              <label for="city" class="form-label-aura">City</label>
+              <input id="city" class="aura-input" name="city" [(ngModel)]="shippingData.city" placeholder="New York" type="text" required>
+            </div>
+            <div>
+              <label for="postalCode" class="form-label-aura">Postal Code</label>
+              <input id="postalCode" class="aura-input" name="postalCode" [(ngModel)]="shippingData.postalCode" placeholder="10001" type="text" required>
+            </div>
+            <div class="md:col-span-2">
+              <label for="country" class="form-label-aura">Country / Region</label>
+              <div class="select-wrapper">
+                <select id="country" class="aura-input" name="country" [(ngModel)]="shippingData.country">
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="France">France</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                </select>
+                <span class="material-symbols-outlined select-arrow">expand_more</span>
+              </div>
+            </div>
+            
+            <div class="md:col-span-2 pt-6">
+              <button class="w-full h-16 bg-primary text-black font-body font-bold uppercase tracking-[0.25em] text-sm rounded-lg gold-glow transition-all active:scale-[0.98] flex items-center justify-center gap-3" type="submit">
+                <span>Continue to Payment</span>
+                <span class="material-symbols-outlined text-xl">arrow_right_alt</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Side: Sidebar Summary -->
+      <aside class="lg:col-span-4 flex flex-col gap-8">
+        <div class="glass-panel rounded-xl p-8 sticky-summary animate-fade-up" style="animation-delay: 0.3s;">
+          <h3 class="text-2xl font-display mb-8 text-white">Order Summary</h3>
+          
+          <div class="space-y-6 mb-8">
+            <!-- Item 1 -->
+            <div class="flex gap-4 group">
+              <div class="size-20 rounded-lg bg-white/5 overflow-hidden border border-white/10 flex-shrink-0">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYt5qhTK9S0yNYaRo1QVkVqzPtAG0IShRs86gY9rOobMcX8Hoi2dJ_8VW_QuvZFf25pACSvP3QbKPpepUM26NcuJRqoPgFJoEgo06GL7joynevyydS4nDnTA-vFYdvp21nLhwBGjSFVVdOlrQ5ZmcAldIxV3ZUFu5RSeihQ0LRPXy3vXFZg7tp87YfnJNzvAlyy9NN8_wM-nelY0utit5McSZxnctgWTSdM8oYu_C5-uL3bjO-Fy9LxcF7sRzQd4HCcd3yF1iGL5jo" alt="Solstice Gold Frames">
+              </div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[11px] font-bold text-slate-100 uppercase tracking-widest">Solstice Gold Frames</p>
+                <p class="text-[10px] text-slate-400 mt-0.5">Quantity: 1</p>
+                <p class="text-sm font-body font-light text-primary mt-1.5">$1,250.00</p>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="flex gap-4 group">
+              <div class="size-20 rounded-lg bg-white/5 overflow-hidden border border-white/10 flex-shrink-0">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALc1c5ED3Y5muzzD772fToO2kWclQzA6tjThPBzitaH0K16eTdB4weOAdOYyGX9wjOYR7pRd1nzoHZcBdylsOmdlXdQEGEOzJ1zEry4Qld4sNOxnrfarU073hBRxJRxit6HDxMY24MtjjMmCmjn-aG3ke3-rC1BACb8dKndxRPq_0euA58QSuef1MXXG9ZgFVed_iiE5nqhUM8qbZ5yP94EjBH6daW8iYoU0qZWyMK5E-QPcHsVHMeFUpSf-eKcU8mKN2SOLxMBkob" alt="Chronos VII Watch">
+              </div>
+              <div class="flex flex-col justify-center">
+                <p class="text-[11px] font-bold text-slate-100 uppercase tracking-widest">Chronos VII Watch</p>
+                <p class="text-[10px] text-slate-400 mt-0.5">Quantity: 1</p>
+                <p class="text-sm font-body font-light text-primary mt-1.5">$4,800.00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4 pt-8 border-t border-white/10 font-body text-[13px]">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Subtotal</span>
+              <span class="text-slate-100 font-medium">$6,050.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Shipping</span>
+              <span class="text-primary uppercase text-[10px] font-bold tracking-widest">Complimentary</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Estimated Tax</span>
+              <span class="text-slate-100 font-medium">$484.00</span>
+            </div>
+            <div class="pt-6 mt-6 border-t border-white/10 flex justify-between items-end">
+              <span class="text-lg font-display uppercase tracking-widest text-white">Total</span>
+              <div class="text-right">
+                <p class="text-3xl font-body font-light text-primary glow-text">$6,534.00</p>
+                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">Duties & taxes included</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-8 border-t border-white/10">
+            <div class="flex items-start gap-4 mb-4">
+              <span class="material-symbols-outlined text-primary text-xl">verified_user</span>
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-white">Secure Checkout</p>
+                <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">Your data is protected by 256-bit SSL encryption. VGH Jewellers ensures privacy and security.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Simplified Footer -->
+    <footer class="mt-auto glass-panel border-t border-primary/20 bg-black/40 py-10 checkout-footer">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex gap-10 text-[10px] text-slate-500 uppercase tracking-[0.25em] font-bold">
+          <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+          <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+          <a class="hover:text-primary transition-colors" href="#">Returns</a>
+        </div>
+        <p class="text-[10px] text-slate-500 uppercase tracking-[0.25em] font-bold">© 2024 VGH Jewellers International. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </div>
+</div>

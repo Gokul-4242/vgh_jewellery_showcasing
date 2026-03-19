@@ -1,0 +1,142 @@
+.footer {
+  background-color: var(--bg-dark);
+  border-top: 1px solid var(--border-lighter);
+  padding: 4rem 1.5rem;
+}
+@media (min-width: 1024px) {
+  .footer { padding: 4rem 5rem; }
+}
+.footer-container {
+  max-width: 90rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .footer-container {
+    flex-wrap: wrap;
+    gap: 2.5rem;
+  }
+  .footer-brand-col {
+    flex: 1 1 100%;
+    margin-bottom: 1rem;
+  }
+  .footer-col {
+    flex: 1 1 calc(50% - 1.5rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .footer-col {
+    flex: 1 1 100%;
+  }
+}
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.brand-icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.brand-desc {
+  color: var(--text-darker);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  max-width: 200px;
+}
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+.social-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+.social-btn:hover {
+  color: var(--primary);
+}
+.social-icon {
+  font-size: 1.125rem;
+}
+.footer-title {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-darker);
+}
+.footer-links a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+.footer-links a:hover {
+  color: var(--primary);
+}
+.footer-links li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.link-item-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.link-item-center {
+  align-items: center;
+}
+.link-icon {
+  color: var(--primary);
+  font-size: 1.125rem;
+}
+.link-text {
+  transition: color 0.3s;
+}
+.link-text:hover {
+  color: var(--primary);
+}
+.footer-bottom {
+  max-width: 90rem;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-lighter);
+  text-align: center;
+  color: var(--text-darker);
+  font-size: 0.7rem;
+}

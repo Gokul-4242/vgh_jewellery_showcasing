@@ -1,0 +1,193 @@
+<div class="checkout-payment-container">
+  <!-- Background Textures -->
+  <div class="fixed inset-0 z-0 pointer-events-none opacity-20 overflow-hidden">
+    <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-primary/20 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[100px]"></div>
+  </div>
+
+  <div class="relative z-10 layout-container flex h-full grow flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full glass-panel border-b border-primary/20 checkout-header">
+      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3 text-primary">
+          <div class="size-6">
+            <span class="material-symbols-outlined">diamond</span>
+          </div>
+          <h2 class="text-xl font-display font-bold tracking-widest uppercase">VGH Jewellers</h2>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-primary text-sm">lock</span>
+          <span class="text-[10px] font-body font-bold tracking-[0.2em] text-primary uppercase">Secure Checkout</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex flex-1 flex-col lg:flex-row px-6 lg:px-20 py-12 gap-12 max-w-7xl mx-auto w-full">
+      <!-- Left Section: Payment Methods -->
+      <div class="flex-1 space-y-10">
+        <!-- Progress Stepper -->
+        <app-checkout-stepper [currentStep]="2"></app-checkout-stepper>
+
+        <!-- Payment Selector -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 switcher-grid">
+          <!-- Card Option -->
+          <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
+               [class.active-option]="paymentMethod() === 'card'"
+               (click)="setPaymentMethod('card')">
+            <span class="material-symbols-outlined text-3xl">credit_card</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Card</span>
+          </div>
+          <!-- UPI Option -->
+          <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
+               [class.active-option]="paymentMethod() === 'upi'"
+               (click)="setPaymentMethod('upi')">
+            <span class="material-symbols-outlined text-3xl">qr_code_2</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">UPI</span>
+          </div>
+          <!-- Net Banking Option -->
+          <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
+               [class.active-option]="paymentMethod() === 'banking'"
+               (click)="setPaymentMethod('banking')">
+            <span class="material-symbols-outlined text-3xl">account_balance</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Banking</span>
+          </div>
+        </div>
+
+        <!-- Card Form Container -->
+        <div *ngIf="paymentMethod() === 'card'" class="glass-panel rounded-xl p-8 space-y-8 animate-fade-in">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xl font-display text-white">Credit / Debit Card Details</h3>
+            <div class="flex gap-2">
+              <div class="card-badge">VISA</div>
+              <div class="card-badge">MC</div>
+            </div>
+          </div>
+          
+          <form class="space-y-6">
+            <div class="space-y-2">
+              <label for="cardholderName" class="form-label-aura">Cardholder Name</label>
+              <input id="cardholderName" class="aura-input" placeholder="JAMES GOLDMAN" name="cardholderName" [(ngModel)]="paymentData.cardholderName" type="text" required>
+            </div>
+            <div class="space-y-2">
+              <label for="cardNumber" class="form-label-aura">Card Number</label>
+              <div class="relative">
+                <input id="cardNumber" class="aura-input pr-12" placeholder="**** **** **** 8888" name="cardNumber" [(ngModel)]="paymentData.cardNumber" type="text" required>
+                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary/40 text-lg">lock</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label for="expiryDate" class="form-label-aura">Expiry Date</label>
+                <input id="expiryDate" class="aura-input" placeholder="MM / YY" name="expiryDate" [(ngModel)]="paymentData.expiryDate" type="text" required>
+              </div>
+              <div class="space-y-2">
+                <label for="cvv" class="form-label-aura">CVV</label>
+                <input id="cvv" class="aura-input" placeholder="***" name="cvv" [(ngModel)]="paymentData.cvv" type="password" required>
+              </div>
+            </div>
+            <div class="pt-2 flex items-center gap-3">
+              <input id="saveCard" class="checkbox-aura" type="checkbox" name="saveCard" [(ngModel)]="paymentData.saveCard">
+              <label for="saveCard" class="text-[11px] text-slate-400 font-body uppercase tracking-wider cursor-pointer">Save card for future premium purchases</label>
+            </div>
+          </form>
+        </div>
+
+        <!-- Placeholder for other methods -->
+        <div *ngIf="paymentMethod() !== 'card'" class="glass-panel rounded-xl p-12 text-center space-y-4 animate-fade-in">
+          <span class="material-symbols-outlined text-5xl text-primary/40">account_balance_wallet</span>
+          <p class="text-slate-400 font-body tracking-widest uppercase text-sm">Secure {{ paymentMethod() | uppercase }} Portal Incoming</p>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-10 py-4 opacity-50 badges-container">
+          <div class="trust-badge">
+            <span class="material-symbols-outlined">verified_user</span>
+            <span>SSL Secured</span>
+          </div>
+          <div class="trust-badge">
+            <span class="material-symbols-outlined">shield_with_heart</span>
+            <span>Secure Pay</span>
+          </div>
+          <div class="trust-badge">
+            <span class="material-symbols-outlined">gpp_good</span>
+            <span>VGH Authenticated</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar: Order Summary -->
+      <aside class="w-full lg:w-[400px] flex flex-col gap-6">
+        <div class="glass-panel rounded-xl p-8 sticky top-32 flex flex-col h-full summary-panel">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="material-symbols-outlined text-primary">shopping_bag</span>
+            <h2 class="text-xs font-bold text-white uppercase tracking-[0.3em]">Order Summary</h2>
+          </div>
+          
+          <div class="space-y-6 flex-1">
+            <div class="flex justify-between items-start border-b border-white/5 pb-6">
+              <div>
+                <h4 class="text-lg font-display text-white">VGH Jewellers Premium</h4>
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Limited Edition Membership</p>
+              </div>
+              <span class="text-white font-body font-medium">$1,200.00</span>
+            </div>
+            
+            <div class="space-y-4 pt-2 font-body text-sm">
+              <div class="flex justify-between items-center text-slate-400">
+                <span>Subtotal</span>
+                <span class="text-slate-100 font-medium">$1,200.00</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">Premium Processing</span>
+                <span class="text-slate-100 font-medium">$35.00</span>
+              </div>
+              <div class="flex justify-between items-center text-slate-400">
+                <span>Estimated Tax</span>
+                <span class="text-slate-100 font-medium">$15.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 space-y-8">
+            <div class="flex justify-between items-end pt-6 border-t border-white/10">
+              <span class="text-lg font-display uppercase tracking-widest text-white">Total</span>
+              <div class="text-right">
+                <span class="text-3xl font-body font-light text-primary glow-text">$1,250.00</span>
+                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">Duties & taxes included</p>
+              </div>
+            </div>
+            
+            <button (click)="onCompletePurchase()" class="complete-btn gold-glow">
+              Complete Purchase
+            </button>
+            
+            <p class="text-[9px] text-center text-slate-500 uppercase leading-relaxed tracking-widest px-4">
+              By clicking 'Complete Purchase', you agree to VGH Jewellers' terms of service and luxury standards.
+            </p>
+          </div>
+        </div>
+
+        <!-- Security Info Card -->
+        <div class="security-card rounded-xl p-6 border border-primary/10 flex items-start gap-4">
+          <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+          <div>
+            <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Fraud Protection</p>
+            <p class="text-[11px] text-slate-400 mt-1 leading-normal font-body">Your transaction is protected by our proprietary AI encryption layer. We never store CVV codes.</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Simple Footer -->
+    <footer class="px-6 lg:px-20 py-12 glass-panel border-t border-primary/20 mt-auto bg-black/20 checkout-footer">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold">© 2024 VGH Jewellers International Inc.</p>
+        <div class="flex gap-10 text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold font-body">
+          <a class="hover:text-primary transition-colors" href="#">Privacy</a>
+          <a class="hover:text-primary transition-colors" href="#">Terms</a>
+          <a class="hover:text-primary transition-colors" href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

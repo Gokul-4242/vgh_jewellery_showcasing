@@ -1,0 +1,63 @@
+<section class="gold-hero">
+  <div class="hero-bg">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBolnY1FuSX0sYvlJEYlJIll_XMNcxP55QpakLMiNw0oAgze4XYfxT0U-9nkkifpgVqZdboV9N4MMcv418M1-mPS-Eu2rAe1tlljUzh4urW0WYV6tp7bYjMHOsspk8shRIxXwg0OAfuRYuYs3YqksNu1YESeZZLAcKy276f4ZawGJ_GmddYkeunLEzfhT3zE_DuOO9mS7RhkBsdUULFS7U0vJtJ5TdcGCh3skyXHJUPFWdR9JHC7nLs99jt4Sq5FitmG3nW8O72fSnr" 
+         alt="The Gold Standard" class="hero-img">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content glass hero-content-vgh animate-fade-up">
+    <h1 class="font-playfair hero-title-vgh">The Gold Standard</h1>
+    <p class="hero-desc-vgh">Handcrafted 24K and 22K masterpieces that embody timeless elegance.</p>
+    <button class="btn-primary gold-glow hero-btn-vgh">Explore Pieces</button>
+  </div>
+</section>
+
+<!-- Main Gallery -->
+<main class="gallery-container">
+  <div class="gallery-layout">
+    <!-- Filters Sidebar -->
+    <div class="sidebar-wrapper">
+      <app-filters [jewelryTypes]="jewelryTypes" [purityLevels]="purityLevels"></app-filters>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <header class="content-header animate-fade-up">
+        <div class="header-text">
+          <h3 class="font-playfair section-subtitle">Curated Selection</h3>
+          <p class="stats uppercase tracking-widest">Displaying 6 of 42 Masterpieces</p>
+        </div>
+        <div class="view-toggles">
+          <button class="toggle-btn glass active">
+            <span class="material-symbols-outlined">grid_view</span>
+          </button>
+          <button class="toggle-btn">
+            <span class="material-symbols-outlined">view_list</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Product Grid -->
+      <div class="product-grid">
+        <app-product-card 
+          *ngFor="let product of products"
+          [id]="product.id"
+          [name]="product.name"
+          [price]="product.price"
+          [weight]="product.weight"
+          [category]="product.category"
+          [imageSrc]="product.imageSrc"
+          [imageAlt]="product.imageAlt">
+        </app-product-card>
+      </div>
+
+      <!-- Discovery -->
+      <div class="discovery-footer">
+        <button class="discover-btn uppercase tracking-[0.3em] gold-glow">
+          Discover More Pieces
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Unified Newsletter and Footer handled by App Shell -->

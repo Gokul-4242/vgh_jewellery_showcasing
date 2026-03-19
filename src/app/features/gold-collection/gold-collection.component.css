@@ -1,0 +1,110 @@
+.gold-hero {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.gallery-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+}
+@media (min-width: 1024px) {
+  .gallery-container { padding: 6rem 5rem; }
+}
+.gallery-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+@media (min-width: 1024px) {
+  .gallery-layout { flex-direction: row; }
+}
+.sidebar-wrapper {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .sidebar-wrapper { width: 20rem; flex-shrink: 0; }
+}
+.content-area {
+  flex: 1;
+}
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+.section-subtitle {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.stats {
+  font-size: 0.75rem;
+  color: var(--text-darker);
+}
+.view-toggles {
+  display: flex;
+  gap: 1rem;
+}
+.toggle-btn {
+  padding: 0.65rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-darker);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.toggle-btn.glass {
+  background: rgba(255, 255, 255, 0.05);
+}
+.toggle-btn.active {
+  color: var(--primary);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.discovery-footer {
+  margin-top: 6rem;
+  text-align: center;
+}
+.discover-btn {
+  padding: 1.25rem 3rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.discover-btn:hover {
+  background: var(--primary);
+  color: #000;
+  border-color: var(--primary);
+}

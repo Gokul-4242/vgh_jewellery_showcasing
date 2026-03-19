@@ -1,0 +1,166 @@
+<main class="product-details-container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumb-nav animate-fade-up">
+    <a href="#">Fine Jewelry</a>
+    <span class="material-symbols-outlined breadcrumb-icon">chevron_right</span>
+    <a href="#">Bangles</a>
+    <span class="material-symbols-outlined breadcrumb-icon">chevron_right</span>
+    <span class="current-item">{{ product.name }}</span>
+  </nav>
+
+  <div class="product-main-grid">
+    <!-- Left: Product Gallery -->
+    <div class="gallery-col animate-fade-up delay-100">
+      <div class="main-image-wrapper glass gold-glow image-zoom">
+        <img [src]="selectedImage" [alt]="product.name + ' primary view'" class="main-product-img">
+        <div class="image-gradient-overlay"></div>
+        <div class="glow-element"></div>
+      </div>
+      <div class="thumbnail-grid animate-fade-up delay-200">
+        <button class="thumbnail-item glass" 
+             *ngFor="let img of product.images" 
+             [class.active]="selectedImage === img"
+             (click)="selectedImage = img"
+             [attr.aria-label]="'View product image ' + (product.images.indexOf(img) + 1)">
+          <img [src]="img" [alt]="product.name + ' thumbnail'" class="thumbnail-img">
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Product Info -->
+    <div class="info-col animate-fade-up delay-300">
+      <div class="product-info-card glass-dark">
+        <div class="card-glow"></div>
+        <div class="info-header">
+          <div class="title-group">
+            <span class="collection-label uppercase tracking-widest">{{ product.collection }}</span>
+            <h2 class="font-playfair product-title">{{ product.name }}</h2>
+          </div>
+          <button class="favorite-btn glass gold-glow-hover">
+            <span class="material-symbols-outlined">favorite</span>
+          </button>
+        </div>
+
+        <div class="price-group">
+          <p class="current-price">{{ product.price | currency }}</p>
+          <p class="original-price" *ngIf="product.originalPrice">{{ product.originalPrice | currency }}</p>
+        </div>
+
+        <!-- Spec Cards -->
+        <div class="specs-grid">
+          <div class="spec-card glass" *ngFor="let spec of product.specs">
+            <p class="spec-label uppercase tracking-widest">{{ spec.label }}</p>
+            <p class="spec-value">{{ spec.value }}</p>
+          </div>
+        </div>
+
+        <!-- Size Selection -->
+        <div class="size-selection">
+          <p class="selection-label uppercase tracking-widest">Select Size</p>
+          <div class="size-options">
+            <button class="size-btn" 
+                    *ngFor="let size of product.sizes"
+                    [class.active]="selectedSize === size"
+                    (click)="selectedSize = size">
+              {{ size }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-buttons">
+          <button class="add-to-cart-btn uppercase tracking-widest gold-glow">
+            <span class="material-symbols-outlined cart-icon">shopping_bag</span>
+            Add to Cart
+          </button>
+          <button class="buy-now-btn glass uppercase tracking-widest">
+            Buy Now
+          </button>
+        </div>
+
+        <!-- Certifications -->
+        <div class="certifications">
+          <div class="cert-item">
+            <span class="material-symbols-outlined cert-icon">verified</span>
+            <span class="cert-text uppercase tracking-widest">Authentic</span>
+          </div>
+          <div class="cert-item">
+            <span class="material-symbols-outlined cert-icon">local_shipping</span>
+            <span class="cert-text uppercase tracking-widest">Insured</span>
+          </div>
+          <div class="cert-item">
+            <span class="material-symbols-outlined cert-icon">lock</span>
+            <span class="cert-text uppercase tracking-widest">Secure</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products Section -->
+  <div class="related-products-section animate-fade-up">
+    <div class="related-header">
+      <h3 class="related-title font-playfair">Complete the Set</h3>
+      <a class="view-more-link group" href="#">
+        View More
+        <span class="material-symbols-outlined view-more-icon group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </a>
+    </div>
+    <div class="related-grid">
+      <div class="related-item-card group" *ngFor="let rel of relatedProducts">
+        <div class="related-img-wrapper glass">
+          <img [src]="rel.imageSrc" [alt]="rel.name" class="related-img group-hover:scale-110 transition-transform duration-500">
+        </div>
+        <h5 class="related-item-name group-hover:text-primary transition-colors">{{ rel.name }}</h5>
+        <p class="related-item-price">{{ rel.price | currency }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Craftsmanship Section -->
+  <section class="craftsmanship-section animate-fade-up">
+    <div class="craftsmanship-grid">
+      <div class="video-preview-wrapper group">
+        <div class="preview-glow"></div>
+        <div class="preview-container glass">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4CjMRJe13lDkoQFpUlTY5xgUVAidk38506qmVazPy0Mnx21RelvdKPzoc98XBKFt1FzIuKT7OeNM0ZfP01ldJ6izmKJeEZ22LkKT-XxQ2YIrY5Xd8r89p-U7JqWKGQYc_JgmJKaGMJtOSlA7fuaKQPNZbRTQ81MDNKV9bZGI4BTnAN0tEQeqgi6EhvtRwv9Ii2NjdTMYvuxX40Suf_UgAU3nibcrR249NoK91OfpfODh8W3ot2ZGNAyT9CX6P8qu4aW0J4c5FZyBr" 
+               alt="Craftsmanship preview" class="preview-img">
+          <div class="play-overlay">
+            <button class="play-btn glass">
+              <span class="material-symbols-outlined play-icon">play_arrow</span>
+            </button>
+          </div>
+          <div class="preview-label uppercase tracking-widest">The Making of Aura</div>
+        </div>
+      </div>
+      <div class="craftsmanship-content">
+        <h3 class="font-playfair craftsmanship-title">Unrivaled <br><span class="highlight italic">Craftsmanship</span></h3>
+        <p class="craftsmanship-desc">
+          Each VGH Jewellers piece is a labor of love, taking over 48 hours of meticulous hand-engraving by master artisans. Using traditional techniques passed down through generations, we ensure every piece tells a unique story of heritage and luxury.
+        </p>
+        <div class="features-list">
+          <div class="feature-row group" *ngFor="let feature of product.features">
+            <div class="check-icon-wrapper">
+              <span class="material-symbols-outlined check-icon">check</span>
+            </div>
+            <div class="feature-text">
+              <p class="feature-name">{{ feature.name }}</p>
+              <p class="feature-detail uppercase tracking-wider">{{ feature.detail }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section animate-fade-up">
+    <div class="services-grid">
+      <div class="service-card glass group" *ngFor="let service of services">
+        <span class="material-symbols-outlined service-icon">{{ service.icon }}</span>
+        <h4 class="font-playfair service-title">{{ service.title }}</h4>
+        <p class="service-desc">{{ service.description }}</p>
+      </div>
+    </div>
+  </section>
+</main>

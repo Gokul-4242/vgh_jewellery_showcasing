@@ -1,0 +1,35 @@
+<div class="stepper-wrapper">
+  <div class="stepper-glass-panel">
+    <div class="stepper-content">
+      <!-- Background Connecting Line -->
+      <div class="stepper-connector"></div>
+
+      <!-- Step 1: Shipping -->
+      <div class="step-item" [class.active]="currentStep >= 1">
+        <div class="step-circle">
+          <span *ngIf="currentStep <= 1">1</span>
+          <span *ngIf="currentStep > 1" class="material-symbols-outlined">check</span>
+        </div>
+        <span class="step-label">Shipping</span>
+      </div>
+
+      <!-- Step 2: Payment -->
+      <div class="step-item" [class.active]="currentStep >= 2">
+        <div class="step-circle">
+          <span *ngIf="currentStep <= 2">2</span>
+          <span *ngIf="currentStep > 2" class="material-symbols-outlined">check</span>
+        </div>
+        <span class="step-label">Payment</span>
+      </div>
+
+      <!-- Step 3: Confirm -->
+      <div class="step-item" [class.active]="currentStep >= 3">
+        <div class="step-circle">
+          <span>3</span>
+        </div>
+        <span class="step-label">Confirm</span>
+      </div>
+
+    </div>
+  </div>
+</div>

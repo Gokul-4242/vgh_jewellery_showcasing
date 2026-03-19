@@ -1,0 +1,91 @@
+<div class="checkout-confirmation-container">
+  <!-- Cinematic Background Textures -->
+  <div class="fixed-bg">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+  </div>
+
+  <div class="layout-content">
+    <!-- Checkout Stepper (Dynamic Stage 3) -->
+    <div class="mb-12">
+      <app-checkout-stepper [currentStep]="3"></app-checkout-stepper>
+    </div>
+
+    <!-- Main Confirmation Card -->
+    <div class="main-confirmation-card">
+      <!-- Success Icon with Gold Glow -->
+      <div class="success-icon-wrapper">
+        <div class="icon-glow-bg"></div>
+        <div class="success-circle">
+          <span class="material-symbols-outlined">check</span>
+        </div>
+      </div>
+
+      <!-- Hero Text -->
+      <h1 class="hero-title">Thank You for Your Order</h1>
+      <p class="hero-subtitle">A touch of elegance is on its way to you.</p>
+
+      <!-- Order Info Grid -->
+      <div class="info-grid">
+        <div class="info-card">
+          <span class="material-symbols-outlined">confirmation_number</span>
+          <p class="info-label">Order Number</p>
+          <p class="info-value">#{{ orderNumber() }}</p>
+        </div>
+        <div class="info-card">
+          <span class="material-symbols-outlined">local_shipping</span>
+          <p class="info-label">Delivery Estimate</p>
+          <p class="info-value">{{ deliveryEstimate() }}</p>
+        </div>
+      </div>
+
+      <!-- Order Summary Card -->
+      <div class="summary-container">
+        <div class="summary-header">
+          <h3>Order Summary</h3>
+        </div>
+        
+        <div class="summary-body">
+          <!-- Single Item (Placeholder for future map) -->
+          <div class="product-row">
+            <div class="product-img-box">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVS5vkCsWHHTZY7vDyvFMjD07812yhqrzsHL2fVDm31wa4qIuyGNjOv83D5n-VuQt-YzlBOMTORPMDJ8-v--2_qpGOI56-1_SbcIo1Mh4Tr7LUWo6FAXMUDwRRJUHgIB9k_ulqZ71WyrsgTDByqrSaJmEzm9gH3joFORAqHrMLFPMYu-vQTZg3a4tObyOWKueBwxjnC44Jfws5E68iY8wFIZ9G-C36c4TCjCP-eWB0aOBBQMY-i-8X7p_ea2oDTTJb1NhPWPkpDY8U" alt="Luxury gold ring">
+            </div>
+            <div class="product-info">
+              <h4 class="product-name">Ethereal Band in 24K Gold</h4>
+              <p class="product-desc">Size: 7 • Finish: Polished</p>
+            </div>
+            <div class="product-price">$1,250.00</div>
+          </div>
+
+          <!-- Totals -->
+          <div class="totals-section">
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span>$1,250.00</span>
+            </div>
+            <div class="total-row">
+              <span>Complimentary Shipping</span>
+              <span class="text-primary font-bold uppercase text-[10px]">Free</span>
+            </div>
+            <div class="total-row final">
+              <span class="final-label">Total Amount</span>
+              <span class="final-amount">$1,250.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-primary" (click)="onTrackOrder()">Track Order</button>
+        <button class="btn-outline" routerLink="/">Continue Shopping</button>
+      </div>
+
+      <!-- Footer Help Text -->
+      <p class="confirmation-footer">
+        A confirmation email has been sent to your registered address. For any inquiries, please contact our concierge at support@vghjewellers.com
+      </p>
+    </div>
+  </div>
+</div>

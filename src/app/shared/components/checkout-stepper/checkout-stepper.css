@@ -1,0 +1,89 @@
+.stepper-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stepper-glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 53, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stepper-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.stepper-connector {
+  position: absolute;
+  top: 1.25rem; /* center vertically with the circle */
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(212, 175, 53, 0.1);
+  z-index: 1;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.step-item.active {
+  opacity: 1;
+}
+
+.step-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(212, 175, 53, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--primary);
+  transition: all 0.4s ease;
+}
+
+.step-item.active .step-circle {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 15px rgba(212, 175, 53, 0.4);
+  border-color: var(--primary);
+}
+
+.step-label {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--primary);
+}
+
+.step-item:not(.active) .step-label {
+  color: #64748b;
+}
+
+.material-symbols-outlined {
+  font-size: 1.25rem;
+  font-weight: 700;
+}

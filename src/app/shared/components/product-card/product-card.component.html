@@ -1,0 +1,19 @@
+<div class="product-card group gold-glow animate-fade-up" [routerLink]="['/product-details']">
+  <div class="product-img-wrapper">
+    <img [src]="imageSrc" [alt]="name" class="product-image">
+    <div class="quick-view">
+      <button class="quick-view-btn">Quick View</button>
+    </div>
+    <button class="favorite-btn glass">
+      <span class="material-symbols-outlined">favorite</span>
+    </button>
+  </div>
+  <div class="product-info">
+    <p class="product-category uppercase tracking-widest">{{ category }}</p>
+    <h3 class="font-playfair product-name">{{ name }}</h3>
+    <div class="product-meta">
+      <p class="product-price">{{ price | currency }}</p>
+      <p class="product-weight uppercase tracking-widest">{{ weight }}</p>
+    </div>
+  </div>
+</div>

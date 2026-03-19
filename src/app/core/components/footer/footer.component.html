@@ -1,0 +1,38 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand-col">
+      <div class="footer-brand">
+        <span class="material-symbols-outlined brand-icon">diamond</span>
+        <h2 class="font-playfair brand-name">{{ brandName }}</h2>
+      </div>
+      <p class="brand-desc">{{ brandDescription }}</p>
+      <div class="social-links">
+        <a *ngFor="let social of socialLinks" class="social-btn glass" [href]="social.href">
+          <span class="material-symbols-outlined social-icon">{{ social.icon }}</span>
+        </a>
+      </div>
+    </div>
+    
+    <div *ngFor="let col of columns" class="footer-col">
+      <h4 class="footer-title uppercase tracking-widest">{{ col.title }}</h4>
+      <ul class="footer-links">
+        <li *ngFor="let link of col.links">
+          <span *ngIf="link.icon" class="material-symbols-outlined link-icon">{{ link.icon }}</span>
+          
+          <ng-container *ngIf="!link.icon">
+            <a *ngIf="link.href.startsWith('/')" [routerLink]="link.href">{{ link.label }}</a>
+            <a *ngIf="!link.href.startsWith('/')" [href]="link.href">{{ link.label }}</a>
+          </ng-container>
+
+          <ng-container *ngIf="link.icon">
+            <span *ngIf="!link.contentHtml">{{ link.label }}</span>
+            <span *ngIf="link.contentHtml" [innerHTML]="link.contentHtml"></span>
+          </ng-container>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    {{ copyrightText }}
+  </div>
+</footer>

@@ -1,0 +1,308 @@
+.about-container {
+  overflow-x: hidden;
+}
+
+/* Cinematic Hero Section */
+.heritage-hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.05;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Heritage & Story */
+.story-section {
+  padding: 8rem 1.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+@media (min-width: 1024px) {
+  .story-section { padding: 8rem 5rem; }
+}
+.story-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .story-grid { flex-direction: row; }
+}
+.story-content {
+  flex: 1;
+}
+.story-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+}
+.story-title .highlight {
+  color: var(--primary);
+}
+.glass-desc-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+}
+.story-text {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+.story-text + .story-text {
+  margin-top: 1.5rem;
+}
+
+.story-visuals {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.visual-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.pt-12 {
+  padding-top: 3rem;
+}
+.visual-img-wrapper {
+  height: 20rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.story-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.stat-card {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  text-align: center;
+}
+.stat-number {
+  font-size: 1.875rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-darker);
+}
+
+/* Craftsmanship Process */
+.process-section {
+  padding: 8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .process-section { padding: 8rem 5rem; }
+}
+.process-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50rem;
+  height: 50rem;
+  background: rgba(212, 175, 55, 0.05);
+  border-radius: 9999px;
+  filter: blur(150px);
+  z-index: -1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.section-subtitle {
+  color: var(--text-darker);
+  font-size: 1.125rem;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .process-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.process-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  transition: all 0.3s;
+}
+.process-icon {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+.step-title {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.step-desc {
+  font-size: 0.875rem;
+  color: var(--text-darker);
+  line-height: 1.6;
+}
+
+/* Mission Statement */
+.mission-section {
+  padding: 8rem 1.5rem;
+}
+@media (min-width: 1024px) {
+  .mission-section { padding: 8rem 5rem; }
+}
+.mission-card {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3rem;
+  border-radius: 2rem;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .mission-card { padding: 6rem; }
+}
+.quote-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  opacity: 0.5;
+  margin-bottom: 2rem;
+}
+.mission-text {
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  color: #fff;
+  font-style: italic;
+  line-height: 1.2;
+  margin-bottom: 2.5rem;
+}
+.mission-divider {
+  width: 6rem;
+  height: 2px;
+  background: var(--primary);
+  margin: 0 auto 2rem;
+}
+.mission-label {
+  font-size: 0.875rem;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Ethics & Sustainability */
+.ethics-section {
+  padding: 8rem 1.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+@media (min-width: 1024px) {
+  .ethics-section { padding: 8rem 5rem; }
+}
+.ethics-header {
+  margin-bottom: 4rem;
+}
+.ethics-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.ethics-title .highlight {
+  color: var(--primary);
+}
+.ethics-subtitle {
+  color: var(--text-darker);
+  font-size: 1.125rem;
+}
+
+.ethics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 768px) {
+  .ethics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.ethics-card {
+  position: relative;
+  height: 28rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+.ethics-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s;
+}
+.ethics-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+.ethics-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem;
+}
+.ethics-card-title {
+  font-size: 1.875rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.ethics-card-desc {
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 28rem;
+}
+
+/* Animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.delay-200 { animation-delay: 0.2s; }
+.delay-400 { animation-delay: 0.4s; }

@@ -1,0 +1,36 @@
+<section class="story-section">
+  <div class="story-container">
+    <div class="story-flex">
+      <div class="story-text-col">
+        <h2 class="font-playfair story-title">{{ title }}</h2>
+        <p class="story-desc">{{ description }}</p>
+        
+        <div class="features-list">
+          <div *ngFor="let feature of features" class="feature-item">
+            <div class="feature-icon-wrapper">
+              <span class="material-symbols-outlined">{{ feature.icon }}</span>
+            </div>
+            <div>
+              <h5 class="feature-title">{{ feature.title }}</h5>
+              <p class="feature-desc">{{ feature.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="story-img-col">
+        <div class="img-col-1">
+          <div *ngFor="let img of column1Images" [ngClass]="['img-wrapper', img.containerClass]">
+            <img [alt]="img.alt" class="grid-img" [src]="img.src"/>
+          </div>
+        </div>
+        <div class="img-col-2">
+          <div *ngFor="let img of column2Images" [ngClass]="['img-wrapper', img.containerClass]">
+            <img [alt]="img.alt" class="grid-img" [src]="img.src"/>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>

@@ -1,0 +1,111 @@
+<main class="contact-page-container">
+  <!-- Cinematic Hero Section -->
+  <section class="contact-hero">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content glass hero-content-vgh animate-fade-up">
+      <h1 class="font-playfair hero-title-vgh italic">Bespoke Consultation</h1>
+      <p class="hero-desc-vgh">
+        Step into the world of VGH Jewellers. Whether you're seeking a custom masterpiece or have inquiries about our collections, our artisans are here to assist.
+      </p>
+      <button class="btn-primary gold-glow hero-btn-vgh">Get In Touch</button>
+    </div>
+  </section>
+
+  <!-- Main Contact Content -->
+  <section class="contact-grid-section">
+    <div class="contact-grid">
+      <!-- Left: Contact Information -->
+      <div class="contact-info-col animate-fade-up">
+        <div class="info-header">
+          <h2 class="font-playfair section-title">Connect with Our Studio</h2>
+          <p class="section-desc">
+            Every piece tells a story. Let us help you write yours. Visit our boutique or reach out via our digital channels.
+          </p>
+        </div>
+
+        <div class="info-cards-grid">
+          <div class="info-item" *ngFor="let info of contactInfo">
+            <div class="icon-wrapper">
+              <span class="material-symbols-outlined">{{ info.icon }}</span>
+            </div>
+            <div class="item-text">
+              <p class="item-label uppercase tracking-widest">{{ info.label }}</p>
+              <p class="item-value">{{ info.value }}</p>
+              <p class="item-subtext">{{ info.subtext }}</p>
+            </div>
+          </div>
+
+          <div class="info-item wide">
+            <div class="icon-wrapper">
+              <span class="material-symbols-outlined">location_on</span>
+            </div>
+            <div class="item-text">
+              <p class="item-label uppercase tracking-widest">Visit the Boutique</p>
+              <p class="item-value leading-relaxed">
+                742 Fifth Avenue, 12th Floor<br>
+                Manhattan, New York, NY 10019
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stylized Dark Map -->
+        <div class="map-container glass gold-glow-hover">
+          <img class="map-placeholder" alt="Manhattan location map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKPjytie6PEMWaynoLRcBJHzTpORrXzTL8-aQ_guTAXZKRvmhUyEILLygWXqiQGUjuWd0759KtDsKaMslcxUTZPz8x7Xpjc28EXaXitT8BpiaYyd-QykerB2XT7MXa-mnwOTV6X73d0gb8L6f-NdRG8IQ8ACnnvouljMSj2jngiwxrbkqUvQXmxovZRRdtv3ip_MJU7xg-DO1TRnRVcBmF2rXxtqwg_mDCFZYyn7mGQt_0Du26XQqjZC_rX4E-dyTXwmy7Tt167Zxb">
+          <div class="map-ping-wrapper">
+            <div class="ping-circle"></div>
+            <div class="ping-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="contact-form-col animate-fade-up delay-200">
+        <div class="glass-card form-card">
+          <div class="card-icon-overlay">
+            <span class="material-symbols-outlined">edit_note</span>
+          </div>
+          <h3 class="font-playfair form-title">Send a Message</h3>
+          <p class="form-subtitle">Our artisans will personally review your inquiry.</p>
+          
+          <form class="bespoke-form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName" class="form-label-aura">Full Name</label>
+                <input type="text" id="fullName" class="aura-input" name="fullName" [(ngModel)]="formData.fullName" placeholder="Julianne Moore" required>
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label-aura">Email Address</label>
+                <input type="email" id="email" class="aura-input" name="email" [(ngModel)]="formData.email" placeholder="julianne@example.com" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inquiryType" class="form-label-aura">Inquiry Type</label>
+              <div class="select-wrapper">
+                <select id="inquiryType" class="aura-input" name="inquiryType" [(ngModel)]="formData.inquiryType">
+                  <option *ngFor="let type of inquiryTypes" [value]="type">{{ type }}</option>
+                </select>
+                <span class="material-symbols-outlined select-arrow">expand_more</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label-aura">Your Message</label>
+              <textarea id="message" class="aura-input" name="message" [(ngModel)]="formData.message" rows="5" placeholder="Tell us about the piece of your dreams..." required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn uppercase tracking-[0.2em] gold-glow">
+              Request Consultation
+            </button>
+            <p class="form-footer-note italic">
+              By submitting, you agree to our privacy policy and terms of service.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

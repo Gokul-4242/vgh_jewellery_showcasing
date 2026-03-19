@@ -1,0 +1,107 @@
+<div class="auth-page bg-mesh">
+  <!-- Animated Background Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Main Content -->
+  <main class="auth-main">
+    <div class="glass-card auth-card">
+      <div class="card-content">
+        
+        <!-- Login Form -->
+        <div class="form-container" [class.active-form]="isLoginMode" [class.hidden-form]="!isLoginMode">
+          <div class="text-center mb-10">
+            <h1 class="font-serif text-4xl text-white mb-3 stagger-in" style="animation-delay: 0.1s;">Welcome Back</h1>
+            <p class="font-body text-slate-400 text-sm leading-relaxed stagger-in" style="animation-delay: 0.2s;">Please enter your credentials to access your premium vault.</p>
+          </div>
+          
+          <form (ngSubmit)="onLoginSubmit()" class="space-y-6">
+            <div class="form-group stagger-in" style="animation-delay: 0.3s;">
+              <label for="loginEmail" class="form-label-aura">Email Address</label>
+              <input type="email" id="loginEmail" class="aura-input" placeholder="name@vghjewellers.com" required>
+            </div>
+            
+            <div class="form-group stagger-in" style="animation-delay: 0.4s;">
+              <div class="flex justify-between items-center mb-1">
+                <label for="loginPassword" class="form-label-aura">Password</label>
+                <a class="forgot-link" href="#">Forgot?</a>
+              </div>
+              <div class="relative">
+                <input type="password" id="loginPassword" class="aura-input pr-12" placeholder="••••••••" required>
+                <button type="button" class="password-toggle">
+                  <span class="material-symbols-outlined">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 stagger-in" style="animation-delay: 0.5s;">
+              <input type="checkbox" id="remember" class="form-checkbox">
+              <label for="remember" class="checkbox-label">Remember device for 30 days</label>
+            </div>
+
+            <button type="submit" class="auth-btn gold-gradient gold-glow stagger-in" style="animation-delay: 0.6s;">
+              Access Account
+            </button>
+          </form>
+
+          <div class="form-footer stagger-in" style="animation-delay: 0.7s;">
+            <p>New to VGH Jewellers? <button class="toggle-link" (click)="toggleForm()">Apply for Membership</button></p>
+          </div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="form-container" [class.active-form]="!isLoginMode" [class.hidden-form]="isLoginMode">
+          <div class="text-center mb-8">
+            <h2 class="font-serif text-4xl text-white mb-3">Join VGH Jewellers</h2>
+            <p class="font-body text-slate-400 text-sm leading-relaxed">Enter the inner circle of luxury living.</p>
+          </div>
+
+          <form (ngSubmit)="onSignupSubmit()" class="space-y-5">
+            <div class="form-group">
+              <label for="fullName" class="form-label-aura">Full Name</label>
+              <div class="relative">
+                <span class="material-symbols-outlined input-icon">person</span>
+                <input type="text" id="fullName" class="aura-input icon-input" placeholder="Alexander Thorne" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="signupEmail" class="form-label-aura">Email Address</label>
+              <div class="relative">
+                <span class="material-symbols-outlined input-icon">mail</span>
+                <input type="email" id="signupEmail" class="aura-input icon-input" placeholder="alexander@vgh.luxury" required>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group">
+                <label for="signupPassword" class="form-label-aura">Password</label>
+                <input type="password" id="signupPassword" class="aura-input" placeholder="••••••••" required>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword" class="form-label-aura">Confirm</label>
+                <input type="password" id="confirmPassword" class="aura-input" placeholder="••••••••" required>
+              </div>
+            </div>
+
+            <div class="terms-group">
+              <input type="checkbox" id="terms" class="form-checkbox mt-1">
+              <label for="terms" class="terms-label">
+                I agree to the <a class="text-primary hover:underline" href="#">Terms of Excellence</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
+              </label>
+            </div>
+
+            <button type="submit" class="auth-btn gold-gradient gold-glow">
+              Create Account
+            </button>
+          </form>
+
+          <div class="form-footer">
+            <p>Already have an account? <button class="toggle-link" (click)="toggleForm()">Login</button></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>

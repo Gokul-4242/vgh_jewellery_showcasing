@@ -1,0 +1,17 @@
+<section class="collections-section">
+  <h3 class="font-playfair collections-title">{{ title }}</h3>
+  <div class="collections-grid">
+    <!-- Collection Cards -->
+    <div *ngFor="let collection of collections" class="collection-card gold-glow">
+      <img [alt]="collection.imageAlt" class="collection-img" [src]="collection.imageSrc"/>
+      <div class="collection-overlay"></div>
+      <div class="collection-content glass">
+        <h4 class="font-playfair collection-name">{{ collection.title }}</h4>
+        <p class="collection-desc">{{ collection.description }}</p>
+        <span class="collection-link">
+          {{ collection.linkText }} <span class="material-symbols-outlined link-icon">arrow_forward</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,54 @@
+<aside class="sidebar-filters glass">
+  <div class="filters-header">
+    <h3 class="font-playfair filters-title">Filters</h3>
+    <button class="reset-btn uppercase">Reset</button>
+  </div>
+  
+  <div class="filter-groups">
+    <!-- Jewelry Type -->
+    <div class="filter-group" *ngIf="jewelryTypes.length">
+      <div class="group-header">
+        <span class="material-symbols-outlined group-icon">diamond</span>
+        <span class="group-label uppercase tracking-widest">Jewelry Type</span>
+      </div>
+      <div class="checkbox-list">
+        <label class="checkbox-item" *ngFor="let type of jewelryTypes">
+          <input type="checkbox" class="filter-checkbox" [checked]="type.checked">
+          <span class="label-text">{{ type.label }}</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Purity -->
+    <div class="filter-group" *ngIf="purityLevels.length">
+      <div class="group-header">
+        <span class="material-symbols-outlined group-icon">hotel_class</span>
+        <span class="group-label uppercase tracking-widest">Purity Level</span>
+      </div>
+      <div class="purity-grid">
+        <button *ngFor="let p of purityLevels" 
+                class="purity-btn uppercase tracking-widest" 
+                [class.active]="p.active">
+          {{ p.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="filter-group">
+      <div class="group-header">
+        <span class="material-symbols-outlined group-icon">payments</span>
+        <span class="group-label uppercase tracking-widest">Price Range</span>
+      </div>
+      <input type="range" class="price-slider">
+      <div class="price-labels uppercase tracking-widest">
+        <span>{{ minPrice }}</span>
+        <span>{{ maxPrice }}</span>
+      </div>
+    </div>
+
+    <button class="update-btn uppercase tracking-widest gold-glow">
+      Update Gallery
+    </button>
+  </div>
+</aside>

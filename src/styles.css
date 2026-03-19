@@ -1,1 +1,165 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary: #d4af37;
+  --primary-hover: #c4a130;
+  --bg-light: #f8f7f6;
+  --bg-dark: #121212;
+  --text-light: #f1f5f9;
+  --text-muted: #cbd5e1;
+  --text-darker: #94a3b8;
+  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Montserrat', sans-serif;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-lighter: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+}
+
+.gold-glow:hover {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  border-color: var(--primary);
+}
+
+.font-playfair {
+  font-family: var(--font-display);
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--bg-dark);
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Global Aura Form Styling */
+.aura-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  color: var(--text-light);
+  font-family: var(--font-sans);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  outline: none;
+}
+
+.aura-input:focus {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2);
+}
+
+.aura-input::placeholder {
+  color: var(--text-darker);
+  opacity: 0.5;
+}
+
+/* Specialized input heights */
+input.aura-input, 
+select.aura-input {
+  height: 3.5rem;
+  padding: 0 1.25rem;
+}
+
+textarea.aura-input {
+  resize: none;
+  min-height: 8rem;
+}
+
+.form-label-aura {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--primary);
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+/* Global Hero Styling */
+.hero-content-vgh {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  max-width: 48rem;
+  text-align: center;
+  margin: 0 1rem;
+}
+@media (min-width: 768px) {
+  .hero-content-vgh { padding: 4rem; }
+}
+
+.hero-title-vgh {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  .hero-title-vgh { font-size: 4.5rem; }
+}
+
+.hero-desc-vgh {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+@media (min-width: 768px) {
+  .hero-desc-vgh { font-size: 1.25rem; }
+}
+
+.hero-btn-vgh {
+  padding: 1rem 2.5rem;
+  font-size: 0.875rem;
+}
+

@@ -1,0 +1,66 @@
+<section class="silver-hero">
+  <div class="hero-bg">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1BIVZOEkjny6liqAEU8efO7o9RvZVFcODKMzbXHzO0WjBpOxeVJvfl-xUoKvSE0EdGJGXI5SriumWj4r_ZNNIe59AxvLtAoYV23n6gnMBKOOcXgvnJwtDG9-g8XHuZqiqP4y5Bv-KQ3d0FPdQ3tTTsWa5lOJlTKolxskeOYbbYkjTtRWWOGcpXFmz-O49ZDa898BiZQnWdlyV0S1eC9XTUV-Pq-o7cg4HVVUHeFFr8gGoL-oDtuzt98EF0QI-YISSTHNxqBRDFnuI" 
+         alt="The Silver Standard" class="hero-img">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content glass hero-content-vgh animate-fade-up">
+    <h1 class="font-playfair hero-title-vgh">The Silver Standard</h1>
+    <p class="hero-desc-vgh">Exquisite 925 Sterling Silver pieces for the modern minimalist. Timeless elegance reimagined.</p>
+    <button class="btn-primary gold-glow hero-btn-vgh">Explore Pieces</button>
+  </div>
+</section>
+
+<!-- Main Gallery -->
+<main class="gallery-container">
+  <div class="gallery-layout">
+    <!-- Filters Sidebar -->
+    <div class="sidebar-wrapper">
+      <app-filters 
+        [jewelryTypes]="jewelryTypes" 
+        [purityLevels]="purityLevels"
+        minPrice="$50"
+        maxPrice="$2,000+">
+      </app-filters>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <header class="content-header animate-fade-up">
+        <div class="header-text">
+          <h3 class="font-playfair section-subtitle">Minimalist Selection</h3>
+          <p class="stats uppercase tracking-widest">Displaying 6 of 28 Essentials</p>
+        </div>
+        <div class="view-toggles">
+          <button class="toggle-btn glass active">
+            <span class="material-symbols-outlined">grid_view</span>
+          </button>
+          <button class="toggle-btn">
+            <span class="material-symbols-outlined">view_list</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Product Grid -->
+      <div class="product-grid">
+        <app-product-card 
+          *ngFor="let product of products"
+          [id]="product.id"
+          [name]="product.name"
+          [price]="product.price"
+          [weight]="product.weight"
+          [category]="product.category"
+          [imageSrc]="product.imageSrc"
+          [imageAlt]="product.imageAlt">
+        </app-product-card>
+      </div>
+
+      <!-- Discovery -->
+      <div class="discovery-footer">
+        <button class="discover-btn uppercase tracking-[0.3em] gold-glow">
+          Load More Pieces
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
