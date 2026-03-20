@@ -1,0 +1,235 @@
+.showcase-section {
+  padding: 6rem 1.5rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .showcase-section { padding: 8rem 5rem; }
+}
+
+.showcase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+}
+
+.showcase-title {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.showcase-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-btn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: var(--bg-dark);
+  border-color: var(--primary);
+}
+
+/* Product Grid */
+.product-grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  padding: 1rem 0 2rem;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.product-grid::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.product-card {
+  flex: 0 0 320px; /* Non-shrinking fixed width */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-light);
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.product-image-container {
+  aspect-ratio: 1;
+  background: #1a1a1a;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transition: transform 0.6s;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(212, 175, 55, 0.05), transparent);
+  pointer-events: none;
+}
+
+/* Product Info */
+.product-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.product-cat {
+  color: var(--primary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.product-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-darker);
+  font-size: 0.8125rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: 1rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-item .material-symbols-outlined {
+  font-size: 1.125rem;
+  opacity: 0.7;
+}
+
+/* Footer Section of Card */
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.currency {
+  font-size: 1.125rem;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.price {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #fff;
+  font-family: var(--font-display);
+}
+
+.view-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.view-btn:hover {
+  background: #fff;
+  color: var(--bg-dark);
+  border-color: #fff;
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* Showcase Footer */
+.showcase-footer {
+  text-align: center;
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 3rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: var(--bg-dark);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+.view-all-btn:hover {
+  transform: translateY(-5px);
+  background: #fff;
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+}

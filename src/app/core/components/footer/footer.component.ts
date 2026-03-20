@@ -23,8 +23,8 @@ interface FooterColumn {
 })
 export class FooterComponent {
   @Input() brandName: string = 'VGH Jewellers';
-  @Input() brandDescription: string = 'Elevating personal style with conscious luxury and timeless craftsmanship.';
-  @Input() copyrightText: string = '© 2024 VGH Jewellers Premium Jewelry. All rights reserved.';
+  @Input() brandDescription: string = 'Handcrafted jewellery with certified purity and custom design options you can trust.';
+  @Input() copyrightText: string = '© 2026 VGH Jewellers. All rights reserved.';
   
   @Input() socialLinks: FooterLink[] = [
     { label: 'Public', href: '#', icon: 'public' },
@@ -62,7 +62,7 @@ export class FooterComponent {
     {
       title: 'Contact Us',
       links: [
-        { label: 'Address', href: 'https://www.google.com/maps/place/VGH+Jewellers/@8.1826844,77.4346691,54m/data=!3m1!1e3!4m6!3m5!1s0x3b04f1d80eb80b57:0xbbdb0aebb78415a4!8m2!3d8.1827003!4d77.4346704!16s%2Fg%2F11w8v2ldsm?entry=ttu&g_ep=EgoyMDI2MDMxNy4wIKXMDSoASAFQAw%3D%3D', icon: 'location_on', contentHtml: 'VGH Jewellers, Ammasimadam Street,Meenakshipuram.' },
+        { label: 'Address', href: 'https://www.google.com/maps/place/VGH+Jewellers/@8.1826943,77.4347207,21z/data=!4m14!1m7!3m6!1s0x3b04f1d80eb80b57:0xbbdb0aebb78415a4!2sVGH+Jewellers!8m2!3d8.1827003!4d77.4346704!16s%2Fg%2F11w8v2ldsm!3m5!1s0x3b04f1d80eb80b57:0xbbdb0aebb78415a4!8m2!3d8.1827003!4d77.4346704!16s%2Fg%2F11w8v2ldsm?entry=ttu&g_ep=EgoyMDI2MDMxNy4wIKXMDSoASAFQAw%3D%3D', icon: 'location_on', contentHtml: 'VGH Jewellers, Ammasimadam Street,Meenakshipuram.' },
         { label: 'vghjewellers@gmail.com', href: 'mailto:vghjewellers@gmail.com', icon: 'mail' },
         { label: 'vghjewellers', href: 'tel:+917904394546', icon: 'call' }
       ]

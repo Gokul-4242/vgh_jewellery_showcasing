@@ -61,26 +61,7 @@
   font-size: 0.75rem;
   color: var(--text-darker);
 }
-.view-toggles {
-  display: flex;
-  gap: 1rem;
-}
-.toggle-btn {
-  padding: 0.65rem;
-  border-radius: 0.5rem;
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--text-darker);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.toggle-btn.glass {
-  background: rgba(255, 255, 255, 0.05);
-}
-.toggle-btn.active {
-  color: var(--primary);
-  border-color: rgba(212, 175, 55, 0.3);
-}
+
 
 .product-grid {
   display: grid;

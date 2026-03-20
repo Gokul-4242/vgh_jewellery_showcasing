@@ -21,19 +21,19 @@ interface ImageGrid {
   styleUrl: './brand-story.component.css'
 })
 export class BrandStoryComponent {
-  @Input() title: string = 'A Legacy of Artistry';
-  @Input() description: string = 'Founded on the principles of uncompromising quality and timeless beauty, VGH Jewellers brings together traditional techniques with visionary design.';
+  @Input() title: string = 'Handcrafted Jewellery You Can Trust';
+  @Input() description: string = 'We create jewellery by hand, focusing on quality, precision, and your exact requirements. Every piece is crafted with care, ensuring both design satisfaction and certified purity.';
   
   @Input() features: StoryFeature[] = [
     {
       icon: 'draw',
-      title: 'Master Craftsmanship',
-      description: 'Every piece is meticulously handcrafted by our master artisans, ensuring a unique soul in every curve and facet.'
+      title: 'Handcrafted by Skilled Artisans',
+      description: 'Each piece is carefully made by experienced craftsmen, ensuring attention to detail in every design.'
     },
     {
       icon: 'history_edu',
-      title: 'Heritage & Honor',
-      description: 'Drawing from generations of jewelry-making heritage, we honor the past while defining the future of luxury.'
+      title: 'Custom Design Available',
+      description: 'We create jewellery based on your design, size, and preferences—tailored exactly to your needs.'
     }
   ];
 

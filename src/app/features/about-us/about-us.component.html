@@ -7,12 +7,12 @@
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content glass hero-content-vgh animate-fade-up">
-      <h1 class="font-playfair hero-title-vgh">Our Heritage</h1>
+      <h1 class="font-playfair hero-title-vgh">Our Craft & Commitment</h1>
       <p class="hero-desc-vgh">
-        A century of redefining elegance through the alchemy of gold and light. We don't just create jewelry; we forge legacies.
+       We create handcrafted jewellery tailored to your needs, combining skilled workmanship with certified gold purity. Every piece is made with care, precision, and complete transparency.
       </p>
       <button class="btn-primary gold-glow hero-btn-vgh uppercase tracking-widest">
-        Explore Our Timeline
+        View Our Designs
       </button>
     </div>
   </section>
@@ -21,13 +21,14 @@
   <section class="story-section">
     <div class="story-grid">
       <div class="story-content animate-fade-up">
-        <h2 class="font-playfair story-title">A Legacy of <br><span class="highlight">Artistry</span></h2>
+        <h2 class="font-playfair story-title">Crafted with<br><span class="highlight">Experience & Artistry</span></h2>
         <div class="glass-desc-card glass">
           <p class="story-text">
-            Founded in the heart of Paris in 1924, VGH Jewellers began as a small family atelier dedicated to the pursuit of the perfect brilliance. 
+            We are a jewellery shop built on skilled craftsmanship and customer trust.
+Every piece is made by hand, with attention to detail, quality, and your specific requirements. 
           </p>
           <p class="story-text">
-            Through three generations of master goldsmiths, we have preserved the secret techniques that give our pieces their signature "liquid glow," blending age-old craftsmanship with modern sculptural aesthetics.
+           From traditional designs to modern styles, we create jewellery that matches your vision—without compromising on purity or finish.
           </p>
         </div>
       </div>
@@ -38,14 +39,14 @@
                  alt="Vintage jewelry boutique" class="story-img">
           </div>
           <div class="stat-card glass">
-            <p class="font-playfair stat-number">1924</p>
-            <p class="stat-label uppercase tracking-widest">The First Atelier</p>
+            <p class="font-playfair stat-number">Handcrafted Jewellery</p>
+            <p class="stat-label uppercase tracking-widest">Every piece is made by skilled artisans, not mass-produced.</p>
           </div>
         </div>
         <div class="visual-col pt-12 animate-fade-up delay-400">
           <div class="stat-card glass">
-            <p class="font-playfair stat-number">100+</p>
-            <p class="stat-label uppercase tracking-widest">Master Craftsmen</p>
+            <p class="font-playfair stat-number">Custom Design Available</p>
+            <p class="stat-label uppercase tracking-widest">We create jewellery based on your design, size, and preference.</p>
           </div>
           <div class="visual-img-wrapper gold-glow">
             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf9EIeLpMeuXfLZyUAr3Eg59aQYIS9hADdBRoy5m0KL3hX6HIDRMgXU5YkVxBlrpSnLz13a7t1mg5U8_4CF8J88wnoYBzE_WVUDwN9zv_68AtnZXsLw0fzHthxMaA3pjQw77UGMtXw56AVYsRRQNxhxEFgYrL2Q9sPuFDx6eSfVPP5SsFXwhFqT50sozKU4xJnqoSQd9EleEzHthHh8t6B8s5j0TceHpxL8mZHSmxWhc_UM0hvVhI4f2u6fgNjM_5fXTiVYLKEnJMV" 
@@ -61,7 +62,7 @@
     <div class="process-bg-glow"></div>
     <div class="section-header animate-fade-up">
       <h2 class="font-playfair section-title">The Art of Creation</h2>
-      <p class="section-subtitle">Every masterpiece follows a journey of meticulous refinement, where precision meets passion.</p>
+      <p class="section-subtitle">Every piece we craft is shaped by hand, guided by experience, and built to last generations. From concept to completion, we focus on precision, purity, and personalization.</p>
     </div>
     <div class="process-grid">
       <div class="process-card glass gold-glow animate-fade-up" 
@@ -69,7 +70,7 @@
            [style.animation-delay]="(i * 0.1) + 's'">
         <span class="material-symbols-outlined process-icon">{{ step.icon }}</span>
         <h4 class="font-playfair step-title">{{ step.title }}</h4>
-        <p class="step-desc">{{ step.description }}</p>
+        <p class="step-desc" [innerHTML]="step.description"></p>
       </div>
     </div>
   </section>
@@ -79,7 +80,7 @@
     <div class="mission-card glass">
       <span class="material-symbols-outlined quote-icon">format_quote</span>
       <h2 class="font-playfair mission-text">
-        "Our mission is to redefine elegance—not as a standard to be met, but as an experience of light and form that empowers the soul."
+        "We don’t just sell jewellery — we create it by hand, customize it for you, and certify every gram for complete trust."
       </h2>
       <div class="mission-divider"></div>
       <p class="mission-label uppercase tracking-[0.3em]">The VGH Philosophy</p>
@@ -89,8 +90,8 @@
   <!-- Ethics & Sustainability -->
   <section class="ethics-section">
     <div class="ethics-header animate-fade-up">
-      <h2 class="font-playfair ethics-title">Ethical Sourcing & <span class="highlight">Sustainability</span></h2>
-      <p class="ethics-subtitle">Responsibility is the core of true luxury. We ensure every facet of our production honors the Earth and its people.</p>
+      <h2 class="font-playfair ethics-title">Purity, Transparency &<span class="highlight">Trust</span></h2>
+      <p class="ethics-subtitle">We believe trust matters more than words. Every piece we sell is verified, certified, and crafted with complete transparency.</p>
     </div>
     <div class="ethics-grid">
       <div class="ethics-card group animate-fade-up" 

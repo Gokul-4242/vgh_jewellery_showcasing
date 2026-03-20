@@ -55,27 +55,27 @@ export class ProductDetailsComponent {
     ],
     sizes: ['2.4', '2.6', '2.8'],
     features: [
-      { name: 'Sustainable Sourcing', detail: 'Ethically mined 22K pure gold' },
-      { name: 'Artisan Polishing', detail: 'Hand-finished mirror luster' },
-      { name: 'Serial Certification', detail: 'Unique limited edition serials' }
+      { name: 'Handcrafted by Experts', detail: 'Each ornament is made by skilled craftsmen with careful detailing and finishing.' },
+      { name: 'Certified Purity', detail: 'All gold jewellery is BIS hallmarked and comes with purity assurance.' },
+      { name: 'Quality Assured', detail: 'All jewellery is checked for quality and finished with proper standards before delivery.' }
     ]
   };
 
   services: BrandService[] = [
     {
       icon: 'auto_awesome',
-      title: 'Jewelry Care',
-      description: 'To maintain brilliance, avoid contact with harsh chemicals. Clean gently with a soft microfiber cloth.'
+      title: 'BIS Hallmarked Gold',
+      description: 'Certified purity with proper hallmarking for complete trust and transparency.'
     },
     {
       icon: 'local_shipping',
-      title: 'White Glove Delivery',
-      description: 'Complimentary insured express shipping on all orders over $2,000. Each package is discreetly wrapped.'
+      title: 'Delivery Timeline',
+      description: 'Customized jewellery orders are crafted with care and typically delivered within 10–15 days.'
     },
     {
       icon: 'workspace_premium',
-      title: 'Lifetime Warranty',
-      description: 'Our pieces are designed for eternity. We provide a lifetime warranty covering any manufacturing defects.'
+      title: 'Design Your Own Jewellery',
+      description: 'Share your idea and we’ll craft it exactly to your requirement.'
     }
   ];
 

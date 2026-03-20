@@ -62,12 +62,15 @@
 }
 
 .info-cards-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2.5rem;
 }
-@media (min-width: 640px) {
-  .info-cards-grid { grid-template-columns: 1fr 1fr; }
+@media (min-width: 768px) {
+  .info-cards-grid { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  }
 }
 .info-item {
   display: flex;
@@ -90,20 +93,29 @@
   flex-shrink: 0;
 }
 .item-label {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--primary);
-  font-weight: 700;
-  margin-bottom: 0.35rem;
+  opacity: 0.9;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 .item-value {
-  color: var(--text-muted);
+  color: #fff;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  word-break: break-word;
 }
 .item-subtext {
   color: var(--text-darker);
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  margin-top: 0.35rem;
+  white-space: pre-line;
+}
+
+.map-link-wrapper {
+  text-decoration: none;
+  display: block;
 }
 
 .map-container {
@@ -207,21 +219,99 @@
   flex-direction: column;
 }
 
-.select-wrapper {
+/* Custom Select Styles */
+.custom-select-aura {
   position: relative;
-}
-.select-wrapper select {
-  appearance: none;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.125rem 1.5rem;
   cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  user-select: none;
 }
-.select-arrow {
+
+.custom-select-aura:hover, .select-active {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.selected-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.placeholder-mode {
+  color: #fff;
+  opacity: 0.5;
+}
+
+.dropdown-chevron {
+  color: var(--primary);
+  transition: transform 0.4s ease;
+}
+
+.select-active .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+/* Floating Dropdown Menu */
+.dropdown-menu-aura {
   position: absolute;
-  right: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--text-darker);
-  font-size: 1.5rem;
+  top: calc(100% + 1rem);
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  z-index: 100;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8); /* Stronger shadow */
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transform-origin: top;
+  background: #1a1a1a; /* Solid background for visibility */
+  backdrop-filter: blur(20px);
+}
+
+.menu-label {
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 800;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+  letter-spacing: 0.2em;
+}
+
+.menu-option {
+  padding: 1.25rem 0;
+  font-size: 14px ; 
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.menu-option:last-child {
+  border-bottom: none;
+}
+
+.menu-option:hover {
+  color: var(--primary);
+  padding-left: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Animations */
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .submit-btn {

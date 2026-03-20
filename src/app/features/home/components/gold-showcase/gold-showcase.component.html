@@ -1,0 +1,55 @@
+<section class="showcase-section">
+  <div class="showcase-header">
+    <div class="header-text">
+      <h2 class="font-playfair showcase-title">{{ title }}</h2>
+      <p class="showcase-subtitle">{{ subtitle }}</p>
+    </div>
+    <div class="nav-controls">
+      <button class="nav-btn" (click)="scrollLeft()" aria-label="Previous products"><span class="material-symbols-outlined">chevron_left</span></button>
+      <button class="nav-btn" (click)="scrollRight()" aria-label="Next products"><span class="material-symbols-outlined">chevron_right</span></button>
+    </div>
+  </div>
+
+  <div class="product-grid" #scrollContainer>
+    <div *ngFor="let product of products" class="product-card aura-border">
+      <div class="product-image-container">
+        <img [src]="product.imageSrc" [alt]="product.altText" class="product-img">
+        <div class="image-overlay"></div>
+      </div>
+      
+      <div class="product-info">
+        <h4 class="product-name">{{ product.name }}</h4>
+        <p class="product-cat">{{ product.category }}</p>
+        
+        <div class="product-meta">
+          <div class="meta-item">
+            <span class="material-symbols-outlined">weight</span>
+            <span>{{ product.weight }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="material-symbols-outlined">verified</span>
+            <span>Authentic</span>
+          </div>
+        </div>
+
+        <div class="product-footer">
+          <div class="price-tag">
+            <span class="currency">₹</span>
+            <span class="price">{{ product.price | number }}</span>
+          </div>
+          <a [routerLink]="['/product-details']" class="view-btn">
+            View Details
+            <span class="material-symbols-outlined btn-icon">arrow_outward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="showcase-footer">
+    <a routerLink="/gold-collection" class="view-all-btn">
+      View All Collections
+      <span class="material-symbols-outlined">trending_flat</span>
+    </a>
+  </div>
+</section>

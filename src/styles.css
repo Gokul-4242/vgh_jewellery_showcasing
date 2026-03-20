@@ -84,6 +84,7 @@ button {
   font-family: var(--font-sans);
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   outline: none;
+  color-scheme: dark;
 }
 
 .aura-input:focus {
@@ -163,3 +164,92 @@ textarea.aura-input {
   font-size: 0.875rem;
 }
 
+/* Global Rate Card Styling */
+.rate-card-premium {
+  padding: 1rem 1.75rem;
+  border-radius: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 280px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.rate-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary);
+}
+
+.rate-icon {
+  font-size: 1.25rem;
+}
+
+.rate-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.rate-values {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rate-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.purity {
+  font-size: 0.65rem;
+  color: var(--text-darker);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.price {
+  font-size: 1.25rem;
+  color: #fff;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.divider {
+  width: 1px;
+  height: 2rem;
+  background: var(--border-light);
+  margin: 0 1rem;
+}
+
+.silver-theme {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.silver-theme .rate-header {
+  color: #fff;
+  opacity: 0.9;
+}
+
+.silver-theme .rate-icon {
+  color: #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .rate-card-premium {
+    min-width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

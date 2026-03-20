@@ -5,11 +5,12 @@
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content glass hero-content-vgh animate-fade-up">
-      <h1 class="font-playfair hero-title-vgh italic">Bespoke Consultation</h1>
+      <h1 class="font-playfair hero-title-vgh italic">Custom Jewellery Consultation</h1>
       <p class="hero-desc-vgh">
-        Step into the world of VGH Jewellers. Whether you're seeking a custom masterpiece or have inquiries about our collections, our artisans are here to assist.
+      Looking for a custom design or have questions about our jewellery?
+We help you create ornaments based on your requirement, budget, and design preference.
       </p>
-      <button class="btn-primary gold-glow hero-btn-vgh">Get In Touch</button>
+      <button (click)="scrollToForm()" class="btn-primary gold-glow hero-btn-vgh">Discuss Your Design</button>
     </div>
   </section>
 
@@ -19,9 +20,10 @@
       <!-- Left: Contact Information -->
       <div class="contact-info-col animate-fade-up">
         <div class="info-header">
-          <h2 class="font-playfair section-title">Connect with Our Studio</h2>
+          <h2 class="font-playfair section-title">Connect with Us</h2>
           <p class="section-desc">
-            Every piece tells a story. Let us help you write yours. Visit our boutique or reach out via our digital channels.
+           Have questions or looking for a custom design?
+Reach out to us directly—we’re here to help you with designs, pricing, and details.
           </p>
         </div>
 
@@ -42,33 +44,36 @@
               <span class="material-symbols-outlined">location_on</span>
             </div>
             <div class="item-text">
-              <p class="item-label uppercase tracking-widest">Visit the Boutique</p>
+              <p class="item-label uppercase tracking-widest">Visit the Store</p>
               <p class="item-value leading-relaxed">
-                742 Fifth Avenue, 12th Floor<br>
-                Manhattan, New York, NY 10019
+                VGH Jewellers<br>
+                Ammasimadam Street, Meenakshipuram, Nagercoil-629001, Kanyakumari District, Tamil Nadu, India.
               </p>
             </div>
           </div>
         </div>
 
         <!-- Stylized Dark Map -->
-        <div class="map-container glass gold-glow-hover">
-          <img class="map-placeholder" alt="Manhattan location map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKPjytie6PEMWaynoLRcBJHzTpORrXzTL8-aQ_guTAXZKRvmhUyEILLygWXqiQGUjuWd0759KtDsKaMslcxUTZPz8x7Xpjc28EXaXitT8BpiaYyd-QykerB2XT7MXa-mnwOTV6X73d0gb8L6f-NdRG8IQ8ACnnvouljMSj2jngiwxrbkqUvQXmxovZRRdtv3ip_MJU7xg-DO1TRnRVcBmF2rXxtqwg_mDCFZYyn7mGQt_0Du26XQqjZC_rX4E-dyTXwmy7Tt167Zxb">
-          <div class="map-ping-wrapper">
-            <div class="ping-circle"></div>
-            <div class="ping-dot"></div>
+        <a href="https://www.google.com/maps/place/VGH+Jewellers/@8.1826943,77.4347207,21z/data=!4m14!1m7!3m6!1s0x3b04f1d80eb80b57:0xbbdb0aebb78415a4!2sVGH+Jewellers!8m2!3d8.1827003!4d77.4346704!16s%2Fg%2F11w8v2ldsm!3m5!1s0x3b04f1d80eb80b57:0xbbdb0aebb78415a4!8m2!3d8.1827003!4d77.4346704!16s%2Fg%2F11w8v2ldsm?entry=ttu&g_ep=EgoyMDI2MDMxNy4wIKXMDSoASAFQAw%3D%3D" 
+           target="_blank" class="map-link-wrapper">
+          <div class="map-container glass gold-glow-hover">
+            <img class="map-placeholder" alt="VGH Jewellers Nagercoil location map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKPjytie6PEMWaynoLRcBJHzTpORrXzTL8-aQ_guTAXZKRvmhUyEILLygWXqiQGUjuWd0759KtDsKaMslcxUTZPz8x7Xpjc28EXaXitT8BpiaYyd-QykerB2XT7MXa-mnwOTV6X73d0gb8L6f-NdRG8IQ8ACnnvouljMSj2jngiwxrbkqUvQXmxovZRRdtv3ip_MJU7xg-DO1TRnRVcBmF2rXxtqwg_mDCFZYyn7mGQt_0Du26XQqjZC_rX4E-dyTXwmy7Tt167Zxb">
+            <div class="map-ping-wrapper">
+              <div class="ping-circle"></div>
+              <div class="ping-dot"></div>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
 
       <!-- Right: Contact Form -->
-      <div class="contact-form-col animate-fade-up delay-200">
+      <div id="contact-message-section" class="contact-form-col animate-fade-up delay-200">
         <div class="glass-card form-card">
           <div class="card-icon-overlay">
             <span class="material-symbols-outlined">edit_note</span>
           </div>
-          <h3 class="font-playfair form-title">Send a Message</h3>
-          <p class="form-subtitle">Our artisans will personally review your inquiry.</p>
+          <h3 class="font-playfair form-title">Request a Consultation</h3>
+          <p class="form-subtitle">Fill in your details and we’ll get back to you shortly.</p>
           
           <form class="bespoke-form" (ngSubmit)="onSubmit()">
             <div class="form-row">
@@ -83,12 +88,33 @@
             </div>
 
             <div class="form-group">
-              <label for="inquiryType" class="form-label-aura">Inquiry Type</label>
-              <div class="select-wrapper">
-                <select id="inquiryType" class="aura-input" name="inquiryType" [(ngModel)]="formData.inquiryType">
-                  <option *ngFor="let type of inquiryTypes" [value]="type">{{ type }}</option>
-                </select>
-                <span class="material-symbols-outlined select-arrow">expand_more</span>
+              <label id="inquiry-type-label" class="form-label-aura">Inquiry Type</label>
+              <div 
+                #dropdownRef
+                class="custom-select-aura" 
+                (click)="toggleDropdown()" 
+                (keydown.enter)="toggleDropdown()"
+                role="button"
+                tabindex="0"
+                aria-labelledby="inquiry-type-label"
+                [class.select-active]="isDropdownOpen">
+                <div class="selected-value" [class.placeholder-mode]="formData.inquiryType === 'Select Inquiry Type...'">
+                  <span>{{ formData.inquiryType }}</span>
+                  <span class="material-symbols-outlined dropdown-chevron">expand_more</span>
+                </div>
+                
+                <div class="dropdown-menu-aura animate-scale-in" *ngIf="isDropdownOpen">
+                  <div class="menu-label uppercase tracking-[0.2em]">Inquiry Selection</div>
+                  <div 
+                    *ngFor="let type of inquiryTypes" 
+                    class="menu-option"
+                    role="button"
+                    tabindex="0"
+                    (click)="selectOption(type); $event.stopPropagation()"
+                    (keydown.enter)="selectOption(type); $event.stopPropagation()">
+                    {{ type }}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -98,11 +124,11 @@
             </div>
 
             <button type="submit" class="submit-btn uppercase tracking-[0.2em] gold-glow">
-              Request Consultation
+              Get a Callback
             </button>
-            <p class="form-footer-note italic">
+            <!-- <p class="form-footer-note italic">
               By submitting, you agree to our privacy policy and terms of service.
-            </p>
+            </p> -->
           </form>
         </div>
       </div>

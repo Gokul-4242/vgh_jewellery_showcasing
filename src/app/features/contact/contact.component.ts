@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,18 +10,27 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
+  @ViewChild('dropdownRef') dropdownRef!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (this.isDropdownOpen && this.dropdownRef && !this.dropdownRef.nativeElement.contains(event.target)) {
+      this.isDropdownOpen = false;
+    }
+  }
+
   contactInfo = [
     {
       icon: 'mail',
-      label: 'Email Us',
-      value: 'concierge@vghjewellers.com',
-      subtext: '24h response time'
+      label: 'Email Support',
+      value: 'vghjewellers@gmail.com',
+      subtext: 'Official Support'
     },
     {
       icon: 'call',
-      label: 'Call Us',
-      value: '+1 (888) VGH-GOLD',
-      subtext: 'Mon - Sat, 10am - 7pm'
+      label: 'Call / WhatsApp',
+      value: '+91 79043 94546',
+      subtext: 'Mon - Sun, 10am - 9pm'
     }
   ];
 
@@ -35,13 +44,31 @@ export class ContactComponent {
   formData = {
     fullName: '',
     email: '',
-    inquiryType: this.inquiryTypes[0],
+    inquiryType: 'Select Inquiry Type...',
     message: ''
   };
+
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectOption(type: string) {
+    this.formData.inquiryType = type;
+    this.isDropdownOpen = false;
+  }
 
   onSubmit() {
     console.log('Form submitted:', this.formData);
     // Add submission logic here
     alert('Thank you for your inquiry. Our artisans will contact you soon.');
+  }
+
+  scrollToForm() {
+    const el = document.getElementById('contact-message-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

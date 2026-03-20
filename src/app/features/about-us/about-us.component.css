@@ -306,3 +306,8 @@
 }
 .delay-200 { animation-delay: 0.2s; }
 .delay-400 { animation-delay: 0.4s; }
+
+:host ::ng-deep .highlight {
+  color: var(--primary);
+  font-weight: 600;
+}
