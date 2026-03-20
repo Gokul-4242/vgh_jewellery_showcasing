@@ -17,16 +17,32 @@
       <h4 class="footer-title uppercase tracking-widest">{{ col.title }}</h4>
       <ul class="footer-links">
         <li *ngFor="let link of col.links">
-          <span *ngIf="link.icon" class="material-symbols-outlined link-icon">{{ link.icon }}</span>
-          
-          <ng-container *ngIf="!link.icon">
-            <a *ngIf="link.href.startsWith('/')" [routerLink]="link.href">{{ link.label }}</a>
-            <a *ngIf="!link.href.startsWith('/')" [href]="link.href">{{ link.label }}</a>
+          <ng-container *ngIf="link.href !== '#' && (link.href.startsWith('http') || link.href.startsWith('mailto:') || link.href.startsWith('tel:'))">
+            <a [href]="link.href" class="contact-link">
+              <span *ngIf="link.icon" class="material-symbols-outlined link-icon">{{ link.icon }}</span>
+              <span *ngIf="!link.contentHtml">{{ link.label }}</span>
+              <span *ngIf="link.contentHtml" [innerHTML]="link.contentHtml"></span>
+            </a>
           </ng-container>
 
-          <ng-container *ngIf="link.icon">
-            <span *ngIf="!link.contentHtml">{{ link.label }}</span>
-            <span *ngIf="link.contentHtml" [innerHTML]="link.contentHtml"></span>
+          <ng-container *ngIf="link.href === '#' || link.href.startsWith('/')">
+            <ng-container *ngIf="!link.icon">
+              <a *ngIf="link.href.startsWith('/')" [routerLink]="link.href">{{ link.label }}</a>
+              <a *ngIf="!link.href.startsWith('/')" [href]="link.href">{{ link.label }}</a>
+            </ng-container>
+
+            <ng-container *ngIf="link.icon">
+              <a *ngIf="link.href.startsWith('/')" [routerLink]="link.href" class="contact-link">
+                <span class="material-symbols-outlined link-icon">{{ link.icon }}</span>
+                <span *ngIf="!link.contentHtml">{{ link.label }}</span>
+                <span *ngIf="link.contentHtml" [innerHTML]="link.contentHtml"></span>
+              </a>
+              <ng-container *ngIf="!link.href.startsWith('/')">
+                <span class="material-symbols-outlined link-icon">{{ link.icon }}</span>
+                <span *ngIf="!link.contentHtml">{{ link.label }}</span>
+                <span *ngIf="link.contentHtml" [innerHTML]="link.contentHtml"></span>
+              </ng-container>
+            </ng-container>
           </ng-container>
         </li>
       </ul>
