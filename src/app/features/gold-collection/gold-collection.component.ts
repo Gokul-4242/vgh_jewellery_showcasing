@@ -94,6 +94,45 @@ export class GoldCollectionComponent {
 
   isFiltersVisible = false;
 
+  get filteredProducts(): Product[] {
+    const activeTypes = this.jewelryTypes.filter(t => t.checked).map(t => t.label.toLowerCase());
+    const activePurities = this.purityLevels.filter(p => p.active).map(p => p.label.toLowerCase());
+
+    return this.products.filter(product => {
+      const name = product.name.toLowerCase();
+      const cat = product.category.toLowerCase();
+      
+      let typeMatch = true;
+      if (activeTypes.length > 0) {
+         typeMatch = activeTypes.some(t => {
+           if (t === 'necklaces') return name.includes('chain') || name.includes('pendant') || name.includes('necklace');
+           if (t === 'rings') return name.includes('ring') || name.includes('band');
+           if (t === 'bracelets') return name.includes('bracelet') || name.includes('bangle') || name.includes('cuff');
+           if (t === 'earrings') return name.includes('earring') || name.includes('stud') || name.includes('hoop');
+           return false;
+         });
+      }
+
+      let purityMatch = true;
+      if (activePurities.length > 0) {
+         purityMatch = activePurities.some(p => {
+           if (p.includes('24k')) return cat.includes('24k');
+           if (p.includes('22k')) return cat.includes('22k');
+           if (p.includes('18k')) return cat.includes('18k');
+           if (p.includes('rose')) return cat.includes('rose');
+           return false;
+         });
+      }
+
+      return typeMatch && purityMatch;
+    });
+  }
+
+  onFilterChange(event: { types: FilterOption[], purities: FilterOption[] }) {
+    this.jewelryTypes = event.types;
+    this.purityLevels = event.purities;
+  }
+
   toggleFilters() {
     this.isFiltersVisible = !this.isFiltersVisible;
   }

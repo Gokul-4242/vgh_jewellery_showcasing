@@ -54,14 +54,15 @@
         [jewelryTypes]="jewelryTypes" 
         [purityLevels]="purityLevels"
         minPrice="$50"
-        maxPrice="$2,000+">
+        maxPrice="$2,000+"
+        (filterChange)="onFilterChange($event)">
       </app-filters>
     </div>
 
     <!-- Product Grid -->
     <div class="product-grid">
       <app-product-card 
-        *ngFor="let product of products"
+        *ngFor="let product of filteredProducts"
         [id]="product.id"
         [name]="product.name"
         [price]="product.price"

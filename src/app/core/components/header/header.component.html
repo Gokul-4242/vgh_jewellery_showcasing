@@ -7,7 +7,7 @@
   </div>
 
   <!-- Desktop Navigation -->
-  <nav class="nav-links">
+  <nav class="nav-links" aria-label="Main Navigation">
     <a *ngFor="let item of navItems" 
        [routerLink]="item.path" 
        routerLinkActive="active" 
@@ -17,17 +17,34 @@
   </nav>
 
   <div class="actions">
-    <div class="search-bar glass">
-      <span class="material-symbols-outlined search-icon">search</span>
-      <input type="text" placeholder="SEARCH..." class="search-input">
+    <div class="search-container">
+      <div class="search-bar glass">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" placeholder="SEARCH..." class="search-input"
+               [(ngModel)]="searchQuery"
+               (ngModelChange)="onSearchChange()"
+               (focus)="onSearchFocus()"
+               (blur)="onSearchBlur()">
+      </div>
+      
+      <!-- Search dropdown -->
+      <div class="search-results-dropdown glass" *ngIf="isSearchActive && searchResults.length > 0">
+        <div class="search-result-item" *ngFor="let res of searchResults" (mousedown)="goToResult(res)">
+          <span class="res-name">{{ res.name }}</span>
+          <span class="res-type">{{ res.type }}</span>
+        </div>
+      </div>
+      <div class="search-results-dropdown glass empty-state" *ngIf="isSearchActive && searchResults.length === 0 && searchQuery">
+        No results found for "{{ searchQuery }}"
+      </div>
     </div>
 
     <!-- Grouped for better spacing control -->
     <div class="icon-group">
-      <button class="icon-btn" routerLink="/cart" (click)="closeMenu()">
+      <button class="icon-btn" routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">
         <span class="material-symbols-outlined">shopping_bag</span>
       </button>
-      <button class="icon-btn" routerLink="/auth" (click)="closeMenu()">
+      <button class="icon-btn" routerLink="/auth" routerLinkActive="active" (click)="closeMenu()">
         <span class="material-symbols-outlined">account_circle</span>
       </button>
       <button class="menu-btn" (click)="toggleMenu()">
@@ -37,8 +54,8 @@
   </div>
 
   <!-- Mobile Navigation Overlay -->
-  <div class="mobile-menu-overlay glass" *ngIf="isMenuOpen" (click)="closeMenu()">
-    <nav class="mobile-nav" (click)="$event.stopPropagation()">
+  <div class="mobile-menu-overlay glass" *ngIf="isMenuOpen" (click)="closeMenu()" (keydown.enter)="closeMenu()" tabindex="0">
+    <nav class="mobile-nav" aria-label="Mobile Navigation" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
       <div class="mobile-nav-header">
         <span class="menu-label font-playfair">NATIVE NAVIGATION</span>
         <div class="menu-divider"></div>

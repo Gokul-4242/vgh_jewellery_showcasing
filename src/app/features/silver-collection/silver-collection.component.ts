@@ -93,6 +93,44 @@ export class SilverCollectionComponent {
 
   isFiltersVisible = false;
 
+  get filteredProducts(): Product[] {
+    const activeTypes = this.jewelryTypes.filter(t => t.checked).map(t => t.label.toLowerCase());
+    const activePurities = this.purityLevels.filter(p => p.active).map(p => p.label.toLowerCase());
+
+    return this.products.filter(product => {
+      const name = product.name.toLowerCase();
+      const cat = product.category.toLowerCase();
+      
+      let typeMatch = true;
+      if (activeTypes.length > 0) {
+         typeMatch = activeTypes.some(t => {
+           if (t === 'necklaces') return name.includes('chain') || name.includes('pendant') || name.includes('necklace');
+           if (t === 'rings') return name.includes('ring') || name.includes('band');
+           if (t === 'bracelets') return name.includes('bracelet') || name.includes('bangle') || name.includes('cuff');
+           if (t === 'earrings') return name.includes('earring') || name.includes('stud') || name.includes('hoop');
+           return false;
+         });
+      }
+
+      let purityMatch = true;
+      if (activePurities.length > 0) {
+         purityMatch = activePurities.some(p => {
+           if (p === '925 sterling') return cat.includes('925');
+           if (p === 'fine silver') return cat.includes('fine');
+           if (p === 'oxidized') return cat.includes('oxidized');
+           return false;
+         });
+      }
+
+      return typeMatch && purityMatch;
+    });
+  }
+
+  onFilterChange(event: { types: FilterOption[], purities: FilterOption[] }) {
+    this.jewelryTypes = event.types;
+    this.purityLevels = event.purities;
+  }
+
   toggleFilters() {
     this.isFiltersVisible = !this.isFiltersVisible;
   }

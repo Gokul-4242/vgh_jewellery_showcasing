@@ -1,7 +1,7 @@
 <aside class="sidebar-filters glass">
   <div class="filters-header">
     <h3 class="font-playfair filters-title">Filters</h3>
-    <button class="reset-btn uppercase">Reset</button>
+    <button class="reset-btn uppercase" (click)="resetFilters()">Reset</button>
   </div>
   
   <div class="filter-groups">
@@ -13,7 +13,7 @@
       </div>
       <div class="checkbox-list">
         <label class="checkbox-item" *ngFor="let type of jewelryTypes">
-          <input type="checkbox" class="filter-checkbox" [checked]="type.checked">
+          <input type="checkbox" class="filter-checkbox" [checked]="type.checked" (change)="toggleType(type)">
           <span class="label-text">{{ type.label }}</span>
         </label>
       </div>
@@ -28,7 +28,8 @@
       <div class="purity-grid">
         <button *ngFor="let p of purityLevels" 
                 class="purity-btn uppercase tracking-widest" 
-                [class.active]="p.active">
+                [class.active]="p.active"
+                (click)="togglePurity(p)">
           {{ p.label }}
         </button>
       </div>
