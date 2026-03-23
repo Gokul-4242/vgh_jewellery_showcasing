@@ -1,30 +1,58 @@
-<header class="header glass">
-  <div class="logo-container">
+<header class="header glass" [class.menu-open]="isMenuOpen">
+  <div class="logo-container" routerLink="/">
     <div class="logo-icon">
       <span class="material-symbols-outlined logo-diamond">diamond</span>
     </div>
     <h1 class="font-playfair logo-text">VGH Jewellers</h1>
   </div>
+
+  <!-- Desktop Navigation -->
   <nav class="nav-links">
-    <a href="/" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-    <a href="/gold-collection" routerLink="/gold-collection" routerLinkActive="active">Gold Collection</a>
-    <a href="/silver-collection" routerLink="/silver-collection" routerLinkActive="active">Silver Collection</a>
-    <a href="/about-us" routerLink="/about-us" routerLinkActive="active">About Us</a>
-    <a href="/contact" routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a *ngFor="let item of navItems" 
+       [routerLink]="item.path" 
+       routerLinkActive="active" 
+       [routerLinkActiveOptions]="{exact: item.exact}">
+      {{ item.label }}
+    </a>
   </nav>
+
   <div class="actions">
     <div class="search-bar glass">
       <span class="material-symbols-outlined search-icon">search</span>
       <input type="text" placeholder="SEARCH..." class="search-input">
     </div>
-    <button class="icon-btn" routerLink="/cart">
-      <span class="material-symbols-outlined">shopping_bag</span>
-    </button>
-    <button class="icon-btn" routerLink="/auth">
-      <span class="material-symbols-outlined">account_circle</span>
-    </button>
-    <button class="menu-btn">
-      <span class="material-symbols-outlined">menu</span>
-    </button>
+
+    <!-- Grouped for better spacing control -->
+    <div class="icon-group">
+      <button class="icon-btn" routerLink="/cart" (click)="closeMenu()">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </button>
+      <button class="icon-btn" routerLink="/auth" (click)="closeMenu()">
+        <span class="material-symbols-outlined">account_circle</span>
+      </button>
+      <button class="menu-btn" (click)="toggleMenu()">
+        <span class="material-symbols-outlined">{{ isMenuOpen ? 'close' : 'menu' }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-menu-overlay glass" *ngIf="isMenuOpen" (click)="closeMenu()">
+    <nav class="mobile-nav" (click)="$event.stopPropagation()">
+      <div class="mobile-nav-header">
+        <span class="menu-label font-playfair">NATIVE NAVIGATION</span>
+        <div class="menu-divider"></div>
+      </div>
+      <a *ngFor="let item of navItems" 
+         [routerLink]="item.path" 
+         routerLinkActive="active-mobile" 
+         [routerLinkActiveOptions]="{exact: item.exact}"
+         (click)="closeMenu()"
+         class="mobile-nav-item">
+        <span class="nav-number">0{{ navItems.indexOf(item) + 1 }}</span>
+        <span class="nav-label">{{ item.label }}</span>
+        <span class="material-symbols-outlined nav-arrow">trending_flat</span>
+      </a>
+    </nav>
   </div>
 </header>

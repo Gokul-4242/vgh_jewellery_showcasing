@@ -7,15 +7,49 @@
   <div class="hero-content glass hero-content-vgh animate-fade-up">
     <h1 class="font-playfair hero-title-vgh">Silver Jewellery</h1>
     <p class="hero-desc-vgh">Stylish 925 silver jewellery designed for daily wear and special occasions, with quality you can trust.</p>
-    <button class="btn-primary gold-glow hero-btn-vgh">Explore Silver Collection</button>
+    <button (click)="scrollToProducts()" class="btn-primary gold-glow hero-btn-vgh">Explore Silver Collection</button>
   </div>
 </section>
 
 <!-- Main Gallery -->
-<main class="gallery-container">
-  <div class="gallery-layout">
-    <!-- Filters Sidebar -->
-    <div class="sidebar-wrapper">
+<main id="silver-products" class="gallery-container">
+  <!-- Content Area -->
+  <div class="content-area">
+    <header class="content-header animate-fade-up">
+      <div class="header-text">
+        <h3 class="font-playfair section-subtitle">Available Silver Jewellery</h3>
+        <p class="stats uppercase tracking-widest">Showing handcrafted 925 silver designs</p>
+      </div>
+      <div class="rate-display-aura animate-fade-in">
+        <div class="rate-card-premium glass silver-theme">
+          <div class="rate-header">
+            <span class="material-symbols-outlined rate-icon">trending_up</span>
+            <span class="rate-label uppercase tracking-widest">Today's Silver Rate</span>
+          </div>
+          <div class="rate-values">
+            <div class="rate-item">
+              <span class="purity">Fine 99.9</span>
+              <span class="price">₹ 98.50</span>
+            </div>
+            <div class="divider"></div>
+            <div class="rate-item">
+              <span class="purity">Sterling 92.5</span>
+              <span class="price">₹ 91.20</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Gallery Control Bar & Sidebar (Repositioned after rate) -->
+    <div class="mobile-filter-bar animate-fade-up">
+      <button class="filter-toggle-btn" (click)="toggleFilters()">
+        <span class="material-symbols-outlined">{{ isFiltersVisible ? 'close' : 'tune' }}</span>
+        <span class="btn-label uppercase tracking-widest">{{ isFiltersVisible ? 'Close Filters' : 'Refine Selection' }}</span>
+      </button>
+    </div>
+
+    <div class="sidebar-wrapper" [class.mobile-active]="isFiltersVisible">
       <app-filters 
         [jewelryTypes]="jewelryTypes" 
         [purityLevels]="purityLevels"
@@ -24,54 +58,25 @@
       </app-filters>
     </div>
 
-    <!-- Content Area -->
-    <div class="content-area">
-      <header class="content-header animate-fade-up">
-        <div class="header-text">
-          <h3 class="font-playfair section-subtitle">Available Silver Jewellery</h3>
-          <p class="stats uppercase tracking-widest">Showing handcrafted 925 silver designs</p>
-        </div>
-        <div class="rate-display-aura animate-fade-in">
-          <div class="rate-card-premium glass silver-theme">
-            <div class="rate-header">
-              <span class="material-symbols-outlined rate-icon">trending_up</span>
-              <span class="rate-label uppercase tracking-widest">Today's Silver Rate</span>
-            </div>
-            <div class="rate-values">
-              <div class="rate-item">
-                <span class="purity">Fine 99.9</span>
-                <span class="price">₹ 98.50</span>
-              </div>
-              <div class="divider"></div>
-              <div class="rate-item">
-                <span class="purity">Sterling 92.5</span>
-                <span class="price">₹ 91.20</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+    <!-- Product Grid -->
+    <div class="product-grid">
+      <app-product-card 
+        *ngFor="let product of products"
+        [id]="product.id"
+        [name]="product.name"
+        [price]="product.price"
+        [weight]="product.weight"
+        [category]="product.category"
+        [imageSrc]="product.imageSrc"
+        [imageAlt]="product.imageAlt">
+      </app-product-card>
+    </div>
 
-      <!-- Product Grid -->
-      <div class="product-grid">
-        <app-product-card 
-          *ngFor="let product of products"
-          [id]="product.id"
-          [name]="product.name"
-          [price]="product.price"
-          [weight]="product.weight"
-          [category]="product.category"
-          [imageSrc]="product.imageSrc"
-          [imageAlt]="product.imageAlt">
-        </app-product-card>
-      </div>
-
-      <!-- Discovery -->
-      <div class="discovery-footer">
-        <button class="discover-btn uppercase tracking-[0.3em] gold-glow">
-          Load More Pieces
-        </button>
-      </div>
+    <!-- Discovery -->
+    <div class="discovery-footer">
+      <button class="discover-btn uppercase tracking-[0.3em] gold-glow">
+        Load More Pieces
+      </button>
     </div>
   </div>
 </main>

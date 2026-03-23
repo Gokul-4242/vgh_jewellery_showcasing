@@ -7,18 +7,12 @@
   <div class="hero-content glass hero-content-vgh animate-fade-up">
     <h1 class="font-playfair hero-title-vgh">The Gold Standard</h1>
     <p class="hero-desc-vgh">Handcrafted gold jewellery with BIS hallmark certification and custom design options.</p>
-    <button class="btn-primary gold-glow hero-btn-vgh">Explore Gold Jewellery</button>
+    <button (click)="scrollToProducts()" class="btn-primary gold-glow hero-btn-vgh">Explore Gold Jewellery</button>
   </div>
 </section>
 
 <!-- Main Gallery -->
-<main class="gallery-container">
-  <div class="gallery-layout">
-    <!-- Filters Sidebar -->
-    <div class="sidebar-wrapper">
-      <app-filters [jewelryTypes]="jewelryTypes" [purityLevels]="purityLevels"></app-filters>
-    </div>
-
+<main id="gold-products" class="gallery-container">
     <!-- Content Area -->
     <div class="content-area">
       <header class="content-header animate-fade-up">
@@ -47,6 +41,18 @@
         </div>
       </header>
 
+      <!-- Gallery Control Bar & Sidebar (Repositioned after rate) -->
+      <div class="mobile-filter-bar animate-fade-up">
+        <button class="filter-toggle-btn" (click)="toggleFilters()">
+          <span class="material-symbols-outlined">{{ isFiltersVisible ? 'close' : 'tune' }}</span>
+          <span class="btn-label uppercase tracking-widest">{{ isFiltersVisible ? 'Close Filters' : 'Refine Selection' }}</span>
+        </button>
+      </div>
+
+      <div class="sidebar-wrapper" [class.mobile-active]="isFiltersVisible">
+        <app-filters [jewelryTypes]="jewelryTypes" [purityLevels]="purityLevels"></app-filters>
+      </div>
+
       <!-- Product Grid -->
       <div class="product-grid">
         <app-product-card 
@@ -61,14 +67,13 @@
         </app-product-card>
       </div>
 
-      <!-- Discovery -->
+       <!-- Discovery -->
       <div class="discovery-footer">
         <button class="discover-btn uppercase tracking-[0.3em] gold-glow">
           Discover More Pieces
         </button>
       </div>
     </div>
-  </div>
 </main>
 
 <!-- Unified Newsletter and Footer handled by App Shell -->

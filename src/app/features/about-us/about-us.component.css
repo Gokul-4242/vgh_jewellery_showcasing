@@ -5,11 +5,24 @@
 /* Cinematic Hero Section */
 .heritage-hero {
   position: relative;
-  height: 100vh;
+  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 1024px) {
+  .heritage-hero { height: 75vh; }
+}
+
+@media (max-width: 768px) {
+  .heritage-hero { height: 70vh; }
+}
+
+@media (max-width: 480px) {
+  .heritage-hero { height: 60vh; }
+}
+
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -29,42 +42,52 @@
 
 /* Heritage & Story */
 .story-section {
-  padding: 8rem 1.5rem;
+  padding: 4rem 1.5rem;
   max-width: 80rem;
   margin: 0 auto;
 }
+
 @media (min-width: 1024px) {
   .story-section { padding: 8rem 5rem; }
 }
 .story-grid {
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3rem;
   align-items: center;
 }
 @media (min-width: 1024px) {
-  .story-grid { flex-direction: row; }
+  .story-grid { flex-direction: row; gap: 5rem; }
 }
 .story-content {
   flex: 1;
 }
 .story-title {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: 2.25rem;
   color: #fff;
   line-height: 1.1;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+  .story-title { font-size: clamp(2.5rem, 5vw, 4.5rem); }
 }
 .story-title .highlight {
   color: var(--primary);
 }
 .glass-desc-card {
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1.5rem;
+}
+@media (min-width: 768px) {
+  .glass-desc-card { padding: 2rem; }
 }
 .story-text {
   color: var(--text-muted);
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.6;
+}
+@media (min-width: 768px) {
+  .story-text { font-size: 1.125rem; }
 }
 .story-text + .story-text {
   margin-top: 1.5rem;
@@ -73,8 +96,12 @@
 .story-visuals {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .story-visuals { grid-template-columns: repeat(2, 1fr); }
 }
 .visual-col {
   display: flex;
@@ -82,13 +109,19 @@
   gap: 1.5rem;
 }
 .pt-12 {
-  padding-top: 3rem;
+  padding-top: 0;
+}
+@media (min-width: 1024px) {
+  .pt-12 { padding-top: 3rem; }
 }
 .visual-img-wrapper {
-  height: 20rem;
+  height: 15rem;
   border-radius: 1.5rem;
   overflow: hidden;
   transition: all 0.3s;
+}
+@media (min-width: 768px) {
+  .visual-img-wrapper { height: 20rem; }
 }
 .story-img {
   width: 100%;
@@ -96,18 +129,21 @@
   object-fit: cover;
 }
 .stat-card {
-  padding: 1.5rem;
+  padding: 1.25rem;
   border-radius: 1.5rem;
   text-align: center;
 }
 .stat-number {
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   color: var(--primary);
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
+@media (min-width: 768px) {
+  .stat-number { font-size: 1.875rem; }
+}
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-darker);
 }
 

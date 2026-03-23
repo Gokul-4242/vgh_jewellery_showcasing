@@ -233,3 +233,54 @@
   background: #fff;
   box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
 }
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .showcase-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .showcase-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .showcase-title {
+    font-size: 2.25rem;
+  }
+
+  .nav-controls {
+    display: none; /* Hide navigation buttons on mobile as requested */
+  }
+
+  .product-grid {
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .product-card {
+    flex: 0 0 280px; /* Slightly narrower cards for smaller screens */
+    padding: 1rem;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
+
+  .view-btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-title {
+    font-size: 1.75rem;
+  }
+
+  .product-card {
+    flex: 0 0 calc(100vw - 3rem); /* Full width minus side padding */
+  }
+}

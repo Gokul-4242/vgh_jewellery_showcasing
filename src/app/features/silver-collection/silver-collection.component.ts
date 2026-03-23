@@ -90,4 +90,14 @@ export class SilverCollectionComponent {
       imageAlt: 'Woven silver cuff bracelet'
     }
   ];
+
+  isFiltersVisible = false;
+
+  toggleFilters() {
+    this.isFiltersVisible = !this.isFiltersVisible;
+  }
+
+  scrollToProducts() {
+    document.getElementById('silver-products')?.scrollIntoView({ behavior: 'smooth' });
+  }
 }

@@ -91,4 +91,14 @@ export class GoldCollectionComponent {
       imageAlt: 'Elegant gold drop earrings'
     }
   ];
+
+  isFiltersVisible = false;
+
+  toggleFilters() {
+    this.isFiltersVisible = !this.isFiltersVisible;
+  }
+
+  scrollToProducts() {
+    document.getElementById('gold-products')?.scrollIntoView({ behavior: 'smooth' });
+  }
 }
