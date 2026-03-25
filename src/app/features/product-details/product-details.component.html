@@ -42,8 +42,8 @@
         </div>
 
         <div class="price-group">
-          <p class="current-price">{{ product.price | currency }}</p>
-          <p class="original-price" *ngIf="product.originalPrice">{{ product.originalPrice | currency }}</p>
+          <p class="current-price">{{ product.price | currency:'INR' }}</p>
+          <p class="original-price" *ngIf="product.originalPrice">{{ product.originalPrice | currency:'INR' }}</p>
         </div>
 
         <!-- Spec Cards -->
@@ -112,7 +112,7 @@
           <img [src]="rel.imageSrc" [alt]="rel.name" class="related-img group-hover:scale-110 transition-transform duration-500">
         </div>
         <h5 class="related-item-name group-hover:text-primary transition-colors">{{ rel.name }}</h5>
-        <p class="related-item-price">{{ rel.price | currency }}</p>
+        <p class="related-item-price">{{ rel.price | currency:'INR' }}</p>
       </div>
     </div>
   </div>

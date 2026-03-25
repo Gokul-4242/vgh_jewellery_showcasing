@@ -49,7 +49,7 @@
                   <span class="w-4 text-center font-body text-sm font-bold text-white">{{ item.quantity }}</span>
                   <button (click)="updateQuantity(item.id, 1)" class="w-6 h-6 flex items-center justify-center hover:text-primary transition-colors text-lg">+</button>
                 </div>
-                <p class="text-2xl font-body text-white font-light">{{ (item.price * item.quantity) | currency }}</p>
+                <p class="text-2xl font-body text-white font-light">{{ (item.price * item.quantity) | currency:'INR' }}</p>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@
             <div class="space-y-5 font-body text-sm">
               <div class="flex justify-between items-center text-slate-400">
                 <span>Subtotal</span>
-                <span class="text-slate-100 font-medium">{{ subtotal() | currency }}</span>
+                <span class="text-slate-100 font-medium">{{ subtotal() | currency:'INR' }}</span>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-slate-400">Shipping</span>
@@ -76,13 +76,13 @@
               </div>
               <div class="flex justify-between items-center text-slate-400">
                 <span>Estimated Tax (8.5%)</span>
-                <span class="text-slate-100 font-medium">{{ salesTax() | currency }}</span>
+                <span class="text-slate-100 font-medium">{{ salesTax() | currency:'INR' }}</span>
               </div>
               
               <div class="pt-8 mt-4 border-t border-white/10 flex justify-between items-end">
                 <span class="text-lg font-display text-white">Total Amount</span>
                 <div class="text-right">
-                  <p class="text-4xl font-body font-light text-primary glow-text">{{ total() | currency }}</p>
+                  <p class="text-4xl font-body font-light text-primary glow-text">{{ total() | currency:'INR' }}</p>
                   <p class="text-[10px] text-slate-500 mt-2 uppercase tracking-tighter">Duties & taxes included</p>
                 </div>
               </div>

@@ -17,8 +17,8 @@ export interface FilterOption {
 export class FiltersComponent {
   @Input() jewelryTypes: FilterOption[] = [];
   @Input() purityLevels: FilterOption[] = [];
-  @Input() minPrice: string = '$500';
-  @Input() maxPrice: string = '$10,000+';
+  @Input() minPrice: string = '₹500';
+  @Input() maxPrice: string = '₹10,000+';
 
   @Output() filterChange = new EventEmitter<{
     types: FilterOption[],
