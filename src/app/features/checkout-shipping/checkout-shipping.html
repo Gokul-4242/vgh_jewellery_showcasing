@@ -1,8 +1,8 @@
 <div class="checkout-shipping-container">
   <!-- Background Accents -->
-  <div class="fixed inset-0 z-0 pointer-events-none opacity-20 overflow-hidden">
-    <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]"></div>
-    <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"></div>
+  <div class="background-effects-container">
+    <div class="bg-shape-top"></div>
+    <div class="bg-shape-bottom"></div>
   </div>
 
   <div class="relative z-10 flex h-full grow flex-col">
@@ -18,9 +18,9 @@
           </div>
         </div>
         <div class="flex items-center gap-6">
-          <button class="relative p-2 hover:text-primary transition-colors" [routerLink]="['/cart']">
+          <button class="cart-nav-btn" [routerLink]="['/cart']">
             <span class="material-symbols-outlined">shopping_bag</span>
-            <span class="absolute top-0 right-0 size-4 bg-primary text-[10px] text-black font-bold rounded-full flex items-center justify-center">3</span>
+            <span class="cart-badge-count">3</span>
           </button>
           <div class="size-10 rounded-full border border-primary/20 overflow-hidden user-avatar">
             <span class="material-symbols-outlined text-4xl text-primary/40">account_circle</span>
@@ -33,10 +33,10 @@
       <!-- Left Side: Form -->
       <div class="lg:col-span-8 flex flex-col gap-8">
         <!-- Progress Stepper -->
-        <app-checkout-stepper [currentStep]="1" class="animate-fade-up" style="animation-delay: 0.1s;"></app-checkout-stepper>
+        <app-checkout-stepper [currentStep]="1" class="animate-fade-up delay-1"></app-checkout-stepper>
 
         <!-- Form Section -->
-        <div class="glass-panel rounded-xl p-8 lg:p-12 animate-fade-up" style="animation-delay: 0.2s;">
+        <div class="glass-panel rounded-xl p-8 lg:p-12 animate-fade-up delay-2">
           <div class="mb-10">
             <h2 class="font-display text-4xl mb-3 text-white">Shipping Information</h2>
             <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Enter your destination for delivery options</p>
@@ -81,7 +81,7 @@
             </div>
             
             <div class="md:col-span-2 pt-6">
-              <button class="w-full h-16 bg-primary text-black font-body font-bold uppercase tracking-[0.25em] text-sm rounded-lg gold-glow transition-all active:scale-[0.98] flex items-center justify-center gap-3" type="submit">
+              <button class="proceed-btn gold-glow" type="submit">
                 <span>Proceed to Payment</span>
                 <span class="material-symbols-outlined text-xl">arrow_right_alt</span>
               </button>
@@ -92,42 +92,42 @@
 
       <!-- Right Side: Sidebar Summary -->
       <aside class="lg:col-span-4 flex flex-col gap-8">
-        <div class="glass-panel rounded-xl p-8 sticky-summary animate-fade-up" style="animation-delay: 0.3s;">
+        <div class="glass-panel rounded-xl p-8 sticky-summary animate-fade-up delay-3">
           <h3 class="text-2xl font-display mb-8 text-white">Order Summary</h3>
           
           <div class="space-y-6 mb-8">
             <!-- Item 1 -->
-            <div class="flex gap-4 group">
+            <div class="flex gap-4 group cart-item-card">
               <div class="size-20 rounded-lg bg-white/5 overflow-hidden border border-white/10 flex-shrink-0">
-                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYt5qhTK9S0yNYaRo1QVkVqzPtAG0IShRs86gY9rOobMcX8Hoi2dJ_8VW_QuvZFf25pACSvP3QbKPpepUM26NcuJRqoPgFJoEgo06GL7joynevyydS4nDnTA-vFYdvp21nLhwBGjSFVVdOlrQ5ZmcAldIxV3ZUFu5RSeihQ0LRPXy3vXFZg7tp87YfnJNzvAlyy9NN8_wM-nelY0utit5McSZxnctgWTSdM8oYu_C5-uL3bjO-Fy9LxcF7sRzQd4HCcd3yF1iGL5jo" alt="Solstice Gold Frames">
+                <img class="w-full h-full object-cover cart-item-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYt5qhTK9S0yNYaRo1QVkVqzPtAG0IShRs86gY9rOobMcX8Hoi2dJ_8VW_QuvZFf25pACSvP3QbKPpepUM26NcuJRqoPgFJoEgo06GL7joynevyydS4nDnTA-vFYdvp21nLhwBGjSFVVdOlrQ5ZmcAldIxV3ZUFu5RSeihQ0LRPXy3vXFZg7tp87YfnJNzvAlyy9NN8_wM-nelY0utit5McSZxnctgWTSdM8oYu_C5-uL3bjO-Fy9LxcF7sRzQd4HCcd3yF1iGL5jo" alt="Solstice Gold Frames">
               </div>
               <div class="flex flex-col justify-center">
-                <p class="text-[11px] font-bold text-slate-100 uppercase tracking-widest">Solstice Gold Frames</p>
-                <p class="text-[10px] text-slate-400 mt-0.5">Quantity: 1</p>
+                <p class="item-title">Solstice Gold Frames</p>
+                <p class="item-quantity">Quantity: 1</p>
                 <p class="text-sm font-body font-light text-primary mt-1.5">₹1,250.00</p>
               </div>
             </div>
             <!-- Item 2 -->
-            <div class="flex gap-4 group">
+            <div class="flex gap-4 group cart-item-card">
               <div class="size-20 rounded-lg bg-white/5 overflow-hidden border border-white/10 flex-shrink-0">
-                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALc1c5ED3Y5muzzD772fToO2kWclQzA6tjThPBzitaH0K16eTdB4weOAdOYyGX9wjOYR7pRd1nzoHZcBdylsOmdlXdQEGEOzJ1zEry4Qld4sNOxnrfarU073hBRxJRxit6HDxMY24MtjjMmCmjn-aG3ke3-rC1BACb8dKndxRPq_0euA58QSuef1MXXG9ZgFVed_iiE5nqhUM8qbZ5yP94EjBH6daW8iYoU0qZWyMK5E-QPcHsVHMeFUpSf-eKcU8mKN2SOLxMBkob" alt="Chronos VII Watch">
+                <img class="w-full h-full object-cover cart-item-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALc1c5ED3Y5muzzD772fToO2kWclQzA6tjThPBzitaH0K16eTdB4weOAdOYyGX9wjOYR7pRd1nzoHZcBdylsOmdlXdQEGEOzJ1zEry4Qld4sNOxnrfarU073hBRxJRxit6HDxMY24MtjjMmCmjn-aG3ke3-rC1BACb8dKndxRPq_0euA58QSuef1MXXG9ZgFVed_iiE5nqhUM8qbZ5yP94EjBH6daW8iYoU0qZWyMK5E-QPcHsVHMeFUpSf-eKcU8mKN2SOLxMBkob" alt="Chronos VII Watch">
               </div>
               <div class="flex flex-col justify-center">
-                <p class="text-[11px] font-bold text-slate-100 uppercase tracking-widest">Chronos VII Watch</p>
-                <p class="text-[10px] text-slate-400 mt-0.5">Quantity: 1</p>
+                <p class="item-title">Chronos VII Watch</p>
+                <p class="item-quantity">Quantity: 1</p>
                 <p class="text-sm font-body font-light text-primary mt-1.5">₹4,800.00</p>
               </div>
             </div>
           </div>
 
-          <div class="space-y-4 pt-8 border-t border-white/10 font-body text-[13px]">
+          <div class="space-y-4 pt-8 border-t border-white/10 font-body summary-totals">
             <div class="flex justify-between">
               <span class="text-slate-400">Subtotal</span>
               <span class="text-slate-100 font-medium">₹6,050.00</span>
             </div>
             <div class="flex justify-between">
               <span class="text-slate-400">Shipping</span>
-              <span class="text-primary uppercase text-[10px] font-bold tracking-widest">Free Delivery</span>
+              <span class="shipping-free-label">Free Delivery</span>
             </div>
             <div class="flex justify-between">
               <span class="text-slate-400">Estimated Tax</span>
@@ -137,7 +137,7 @@
               <span class="text-lg font-display uppercase tracking-widest text-white">Total</span>
               <div class="text-right">
                 <p class="text-3xl font-body font-light text-primary glow-text">₹6,534.00</p>
-                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">All taxes included</p>
+                <p class="tax-info-label">All taxes included</p>
               </div>
             </div>
           </div>
@@ -146,8 +146,8 @@
             <div class="flex items-start gap-4 mb-4">
               <span class="material-symbols-outlined text-primary text-xl">verified_user</span>
               <div>
-                <p class="text-[10px] font-bold uppercase tracking-widest text-white">Secure Checkout</p>
-                <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">Your details are secure and protected. We ensure safe transactions.</p>
+                <p class="security-title">Secure Checkout</p>
+                <p class="security-desc">Your details are secure and protected. We ensure safe transactions.</p>
               </div>
             </div>
           </div>

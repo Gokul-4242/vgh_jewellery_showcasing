@@ -1,8 +1,8 @@
 <div class="checkout-payment-container">
   <!-- Background Textures -->
-  <div class="fixed inset-0 z-0 pointer-events-none opacity-20 overflow-hidden">
-    <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-primary/20 blur-[120px]"></div>
-    <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[100px]"></div>
+  <div class="background-effects-container">
+    <div class="bg-shape-top"></div>
+    <div class="bg-shape-bottom"></div>
   </div>
 
   <div class="relative z-10 layout-container flex h-full grow flex-col">
@@ -17,7 +17,7 @@
         </div>
         <div class="flex items-center gap-4">
           <span class="material-symbols-outlined text-primary text-sm">lock</span>
-          <span class="text-[10px] font-body font-bold tracking-[0.2em] text-primary uppercase">Secure Checkout</span>
+          <span class="secure-checkout-label">Secure Checkout</span>
         </div>
       </div>
     </header>
@@ -35,21 +35,21 @@
                [class.active-option]="paymentMethod() === 'card'"
                (click)="setPaymentMethod('card')">
             <span class="material-symbols-outlined text-3xl">credit_card</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Card</span>
+            <span class="payment-method-label">Card</span>
           </div>
           <!-- UPI Option -->
           <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
                [class.active-option]="paymentMethod() === 'upi'"
                (click)="setPaymentMethod('upi')">
             <span class="material-symbols-outlined text-3xl">qr_code_2</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">UPI</span>
+            <span class="payment-method-label">UPI</span>
           </div>
           <!-- Net Banking Option -->
           <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
                [class.active-option]="paymentMethod() === 'banking'"
                (click)="setPaymentMethod('banking')">
             <span class="material-symbols-outlined text-3xl">account_balance</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Banking</span>
+            <span class="payment-method-label">Banking</span>
           </div>
         </div>
 
@@ -72,7 +72,7 @@
               <label for="cardNumber" class="form-label-aura">Card Number</label>
               <div class="relative">
                 <input id="cardNumber" class="aura-input pr-12" placeholder="**** **** **** 8888" name="cardNumber" [(ngModel)]="paymentData.cardNumber" type="text" required>
-                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary/40 text-lg">lock</span>
+                <span class="material-symbols-outlined input-icon-lock">lock</span>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-6">
@@ -87,7 +87,7 @@
             </div>
             <div class="pt-2 flex items-center gap-3">
               <input id="saveCard" class="checkbox-aura" type="checkbox" name="saveCard" [(ngModel)]="paymentData.saveCard">
-              <label for="saveCard" class="text-[11px] text-slate-400 font-body uppercase tracking-wider cursor-pointer">Save card for faster checkout</label>
+              <label for="saveCard" class="checkbox-save-label">Save card for faster checkout</label>
             </div>
           </form>
         </div>
@@ -116,18 +116,18 @@
       </div>
 
       <!-- Right Sidebar: Order Summary -->
-      <aside class="w-full lg:w-[400px] flex flex-col gap-6">
+      <aside class="w-full summary-sidebar flex flex-col gap-6">
         <div class="glass-panel rounded-xl p-8 sticky top-32 flex flex-col h-full summary-panel">
           <div class="flex items-center gap-3 mb-8">
             <span class="material-symbols-outlined text-primary">shopping_bag</span>
-            <h2 class="text-xs font-bold text-white uppercase tracking-[0.3em]">Order Summary</h2>
+            <h2 class="summary-title">Order Summary</h2>
           </div>
           
           <div class="space-y-6 flex-1">
             <div class="flex justify-between items-start border-b border-white/5 pb-6">
               <div>
                 <h4 class="text-lg font-display text-white">VGH Jewellers Premium</h4>
-                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Limited Edition Membership</p>
+                <p class="membership-badge-label">Limited Edition Membership</p>
               </div>
               <span class="text-white font-body font-medium">₹1,200.00</span>
             </div>
@@ -153,7 +153,7 @@
               <span class="text-lg font-display uppercase tracking-widest text-white">Total</span>
               <div class="text-right">
                 <span class="text-3xl font-body font-light text-primary glow-text">₹1,250.00</span>
-                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">Duties & taxes included</p>
+                <p class="tax-info-label">Duties & taxes included</p>
               </div>
             </div>
             
@@ -161,7 +161,7 @@
               Complete Purchase
             </button>
             
-            <!-- <p class="text-[9px] text-center text-slate-500 uppercase leading-relaxed tracking-widest px-4">
+            <!-- <p class="terms-disclaimer">
               By clicking 'Complete Purchase', you agree to VGH Jewellers' terms of service and luxury standards.
             </p> -->
           </div>
@@ -171,8 +171,8 @@
         <div class="security-card rounded-xl p-6 border border-primary/10 flex items-start gap-4">
           <span class="material-symbols-outlined text-primary mt-0.5">info</span>
           <div>
-            <p class="text-[10px] font-bold text-primary uppercase tracking-widest">Fraud Protection</p>
-            <p class="text-[11px] text-slate-400 mt-1 leading-normal font-body">Your payment is secure and encrypted. We do not store your card details.</p>
+            <p class="security-title">Fraud Protection</p>
+            <p class="security-desc">Your payment is secure and encrypted. We do not store your card details.</p>
           </div>
         </div>
       </aside>

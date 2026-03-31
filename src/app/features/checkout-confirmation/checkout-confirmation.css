@@ -50,6 +50,10 @@
   padding: 4rem 1.5rem;
 }
 
+.stepper-wrapper {
+  margin-bottom: 3rem;
+}
+
 /* Main Card */
 .main-confirmation-card {
   background: rgba(255, 255, 255, 0.03);
@@ -253,6 +257,13 @@
   justify-content: space-between;
   font-size: 0.875rem;
   color: #94a3b8;
+}
+
+.shipping-free-label {
+  color: var(--primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.625rem;
 }
 
 .total-row.final {

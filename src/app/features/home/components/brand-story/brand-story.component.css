@@ -92,8 +92,8 @@
   border-radius: 0.75rem;
   overflow: hidden;
 }
-.h-64 { height: 16rem; }
-.h-48 { height: 12rem; }
+.img-wrapper-tall { height: 16rem; }
+.img-wrapper-short { height: 12rem; }
 .grid-img {
   width: 100%;
   height: 100%;

@@ -1,4 +1,35 @@
 /* Layout & Utility Classes - Replicating Tailwind in Vanilla CSS */
+.background-effects-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  overflow: hidden;
+}
+
+.bg-shape-top {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  border-radius: 9999px;
+  background-color: rgba(212, 175, 53, 0.1);
+  filter: blur(120px);
+}
+
+.bg-shape-bottom {
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  background-color: rgba(212, 175, 53, 0.05);
+  filter: blur(100px);
+}
+
 .checkout-shipping-container {
   min-height: 100vh;
   width: 100%;
@@ -235,4 +266,120 @@ main {
 .aura-input:focus {
   border-color: rgba(212, 175, 53, 0.5) !important;
   box-shadow: 0 0 0 1px rgba(212, 175, 53, 0.2) !important;
+}
+
+/* Extracted Semantic Components */
+.cart-nav-btn {
+  position: relative;
+  padding: 0.5rem;
+  transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.cart-nav-btn:hover {
+  color: var(--primary);
+}
+
+.cart-badge-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--primary);
+  font-size: 0.625rem;
+  color: #000;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+.proceed-btn {
+  width: 100%;
+  height: 4rem;
+  background-color: var(--primary);
+  color: #000;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: none;
+  cursor: pointer;
+}
+
+.proceed-btn:active {
+  transform: scale(0.98);
+}
+
+.cart-item-img {
+  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.cart-item-card:hover .cart-item-img {
+  transform: scale(1.1);
+}
+
+.item-title {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.item-quantity {
+  font-size: 0.625rem;
+  color: #94a3b8;
+  margin-top: 0.125rem;
+}
+
+.summary-totals {
+  font-size: 0.8125rem;
+}
+
+.shipping-free-label {
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.tax-info-label {
+  font-size: 0.625rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+}
+
+.security-title {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+
+.security-desc {
+  font-size: 0.6875rem;
+  color: #94a3b8;
+  margin-top: 0.125rem;
+  line-height: 1.625;
 }

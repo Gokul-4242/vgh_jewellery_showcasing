@@ -108,11 +108,11 @@
   flex-direction: column;
   gap: 1.5rem;
 }
-.pt-12 {
+.visual-col-offset {
   padding-top: 0;
 }
 @media (min-width: 1024px) {
-  .pt-12 { padding-top: 3rem; }
+  .visual-col-offset { padding-top: 3rem; }
 }
 .visual-img-wrapper {
   height: 15rem;
@@ -145,6 +145,8 @@
 .stat-label {
   font-size: 0.7rem;
   color: var(--text-darker);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 /* Craftsmanship Process */
@@ -261,6 +263,8 @@
   font-size: 0.875rem;
   color: var(--primary);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
 }
 
 /* Ethics & Sustainability */
@@ -308,6 +312,9 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.7s;
+}
+.ethics-card:hover .ethics-img {
+  transform: scale(1.1);
 }
 .ethics-overlay {
   position: absolute;

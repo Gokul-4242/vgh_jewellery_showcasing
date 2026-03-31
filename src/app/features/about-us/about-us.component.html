@@ -9,7 +9,7 @@
     <div class="hero-content glass hero-content-vgh animate-fade-up">
       <h1 class="font-playfair hero-title-vgh">Craft & Commitment</h1>
       <p class="hero-desc-vgh">Handcrafted jewellery with certified purity and trusted craftsmanship.</p>
-      <button [routerLink]="['/gold-collection']" fragment="gold-products" class="btn-primary gold-glow hero-btn-vgh uppercase tracking-widest">
+      <button [routerLink]="['/gold-collection']" fragment="gold-products" class="btn-primary gold-glow hero-btn-vgh">
         View Our Designs
       </button>
     </div>
@@ -38,13 +38,13 @@ Every piece is made by hand, with attention to detail, quality, and your specifi
           </div>
           <div class="stat-card glass">
             <p class="font-playfair stat-number">Handcrafted Jewellery</p>
-            <p class="stat-label uppercase tracking-widest">Every piece is made by skilled artisans, not mass-produced.</p>
+            <p class="stat-label">Every piece is made by skilled artisans, not mass-produced.</p>
           </div>
         </div>
-        <div class="visual-col pt-12 animate-fade-up delay-400">
+        <div class="visual-col visual-col-offset animate-fade-up delay-400">
           <div class="stat-card glass">
             <p class="font-playfair stat-number">Custom Design Available</p>
-            <p class="stat-label uppercase tracking-widest">We create jewellery based on your design, size, and preference.</p>
+            <p class="stat-label">We create jewellery based on your design, size, and preference.</p>
           </div>
           <div class="visual-img-wrapper gold-glow">
             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf9EIeLpMeuXfLZyUAr3Eg59aQYIS9hADdBRoy5m0KL3hX6HIDRMgXU5YkVxBlrpSnLz13a7t1mg5U8_4CF8J88wnoYBzE_WVUDwN9zv_68AtnZXsLw0fzHthxMaA3pjQw77UGMtXw56AVYsRRQNxhxEFgYrL2Q9sPuFDx6eSfVPP5SsFXwhFqT50sozKU4xJnqoSQd9EleEzHthHh8t6B8s5j0TceHpxL8mZHSmxWhc_UM0hvVhI4f2u6fgNjM_5fXTiVYLKEnJMV" 
@@ -81,7 +81,7 @@ Every piece is made by hand, with attention to detail, quality, and your specifi
         "We don’t just sell jewellery — we create it by hand, customize it for you, and certify every gram for complete trust."
       </h2>
       <div class="mission-divider"></div>
-      <p class="mission-label uppercase tracking-[0.3em]">The VGH Philosophy</p>
+      <p class="mission-label">The VGH Philosophy</p>
     </div>
   </section>
 
@@ -92,10 +92,10 @@ Every piece is made by hand, with attention to detail, quality, and your specifi
       <p class="ethics-subtitle">We believe trust matters more than words. Every piece we sell is verified, certified, and crafted with complete transparency.</p>
     </div>
     <div class="ethics-grid">
-      <div class="ethics-card group animate-fade-up" 
+      <div class="ethics-card animate-fade-up" 
            *ngFor="let item of ethics; let i = index"
            [style.animation-delay]="(i * 0.1) + 's'">
-        <img [src]="item.image" [alt]="item.title" class="ethics-img group-hover:scale-110">
+        <img [src]="item.image" [alt]="item.title" class="ethics-img">
         <div class="ethics-overlay"></div>
         <div class="ethics-content">
           <h3 class="font-playfair ethics-card-title">{{ item.title }}</h3>

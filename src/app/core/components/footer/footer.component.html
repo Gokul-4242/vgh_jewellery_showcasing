@@ -14,7 +14,7 @@
     </div>
     
     <div *ngFor="let col of columns" class="footer-col">
-      <h4 class="footer-title uppercase tracking-widest">{{ col.title }}</h4>
+      <h4 class="footer-title">{{ col.title }}</h4>
       <ul class="footer-links">
         <li *ngFor="let link of col.links">
           <ng-container *ngIf="link.href !== '#' && (link.href.startsWith('http') || link.href.startsWith('mailto:') || link.href.startsWith('tel:'))">

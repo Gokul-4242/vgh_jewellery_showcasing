@@ -3,6 +3,10 @@
 }
 
 /* Cinematic Hero Section */
+.hero-title-italic {
+  font-style: italic;
+}
+
 .contact-hero {
   position: relative;
   height: 85vh;
@@ -122,12 +126,14 @@
   opacity: 0.9;
   font-weight: 800;
   margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 .item-value {
   color: #fff;
   font-weight: 500;
   font-size: 1.125rem;
-  line-height: 1.4;
+  line-height: 1.625;
   word-break: break-word;
 }
 .item-subtext {
@@ -320,6 +326,7 @@
   margin-bottom: 2rem;
   opacity: 0.8;
   letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .menu-option {
@@ -361,6 +368,8 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 .submit-btn:hover {
   transform: translateY(-2px);
@@ -371,6 +380,7 @@
   font-size: 0.75rem;
   color: var(--text-muted);
   margin-top: 1rem;
+  font-style: italic;
 }
 
 /* Animations */

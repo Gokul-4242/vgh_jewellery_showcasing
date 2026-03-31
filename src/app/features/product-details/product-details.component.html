@@ -33,7 +33,7 @@
         <div class="card-glow"></div>
         <div class="info-header">
           <div class="title-group">
-            <span class="collection-label uppercase tracking-widest">{{ product.collection }}</span>
+            <span class="collection-label">{{ product.collection }}</span>
             <h2 class="font-playfair product-title">{{ product.name }}</h2>
           </div>
           <button class="favorite-btn glass gold-glow-hover">
@@ -49,14 +49,14 @@
         <!-- Spec Cards -->
         <div class="specs-grid">
           <div class="spec-card glass" *ngFor="let spec of product.specs">
-            <p class="spec-label uppercase tracking-widest">{{ spec.label }}</p>
+            <p class="spec-label">{{ spec.label }}</p>
             <p class="spec-value">{{ spec.value }}</p>
           </div>
         </div>
 
         <!-- Size Selection -->
         <div class="size-selection">
-          <p class="selection-label uppercase tracking-widest">Select Size</p>
+          <p class="selection-label">Select Size</p>
           <div class="size-options">
             <button class="size-btn" 
                     *ngFor="let size of product.sizes"
@@ -69,11 +69,11 @@
 
         <!-- Actions -->
         <div class="action-buttons">
-          <button class="add-to-cart-btn uppercase tracking-widest gold-glow">
+          <button class="add-to-cart-btn gold-glow">
             <span class="material-symbols-outlined cart-icon">shopping_bag</span>
             Add to Cart
           </button>
-          <button class="buy-now-btn glass uppercase tracking-widest">
+          <button class="buy-now-btn glass">
             Buy Now
           </button>
         </div>
@@ -82,15 +82,15 @@
         <div class="certifications">
           <div class="cert-item">
             <span class="material-symbols-outlined cert-icon">verified</span>
-            <span class="cert-text uppercase tracking-widest">Authentic</span>
+            <span class="cert-text">Authentic</span>
           </div>
           <div class="cert-item">
             <span class="material-symbols-outlined cert-icon">local_shipping</span>
-            <span class="cert-text uppercase tracking-widest">Insured</span>
+            <span class="cert-text">Insured</span>
           </div>
           <div class="cert-item">
             <span class="material-symbols-outlined cert-icon">lock</span>
-            <span class="cert-text uppercase tracking-widest">Secure</span>
+            <span class="cert-text">Secure</span>
           </div>
         </div>
       </div>
@@ -101,17 +101,17 @@
   <div class="related-products-section animate-fade-up">
     <div class="related-header">
       <h3 class="related-title font-playfair">Complete the Set</h3>
-      <a class="view-more-link group" href="#">
+      <a class="view-more-link" href="#">
         View More
-        <span class="material-symbols-outlined view-more-icon group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        <span class="material-symbols-outlined view-more-icon">arrow_forward</span>
       </a>
     </div>
     <div class="related-grid">
-      <div class="related-item-card group" *ngFor="let rel of relatedProducts">
+      <div class="related-item-card" *ngFor="let rel of relatedProducts">
         <div class="related-img-wrapper glass">
-          <img [src]="rel.imageSrc" [alt]="rel.name" class="related-img group-hover:scale-110 transition-transform duration-500">
+          <img [src]="rel.imageSrc" [alt]="rel.name" class="related-img">
         </div>
-        <h5 class="related-item-name group-hover:text-primary transition-colors">{{ rel.name }}</h5>
+        <h5 class="related-item-name">{{ rel.name }}</h5>
         <p class="related-item-price">{{ rel.price | currency:'INR' }}</p>
       </div>
     </div>
@@ -130,22 +130,22 @@
               <span class="material-symbols-outlined play-icon">play_arrow</span>
             </button>
           </div>
-          <div class="preview-label uppercase tracking-widest">The Making of Aura</div>
+          <div class="preview-label">The Making of Aura</div>
         </div>
       </div>
       <div class="craftsmanship-content">
-        <h3 class="font-playfair craftsmanship-title">Unrivaled <br><span class="highlight italic">Craftsmanship</span></h3>
+        <h3 class="font-playfair craftsmanship-title">Unrivaled <br><span class="highlight craftsmanship-title-highlight">Craftsmanship</span></h3>
         <p class="craftsmanship-desc">
          Every piece is carefully handcrafted by experienced artisans, ensuring precision, durability, and a refined finish. We focus on quality workmanship and attention to detail to deliver jewellery that lasts and meets your expectations.
         </p>
         <div class="features-list">
-          <div class="feature-row group" *ngFor="let feature of product.features">
+          <div class="feature-row" *ngFor="let feature of product.features">
             <div class="check-icon-wrapper">
               <span class="material-symbols-outlined check-icon">check</span>
             </div>
             <div class="feature-text">
               <p class="feature-name">{{ feature.name }}</p>
-              <p class="feature-detail uppercase tracking-wider">{{ feature.detail }}</p>
+              <p class="feature-detail">{{ feature.detail }}</p>
             </div>
           </div>
         </div>

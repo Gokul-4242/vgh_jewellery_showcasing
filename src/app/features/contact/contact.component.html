@@ -7,7 +7,7 @@
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content glass hero-content-vgh animate-fade-up">
-      <h1 class="font-playfair hero-title-vgh italic">Custom Consultation</h1>
+      <h1 class="font-playfair hero-title-vgh hero-title-italic">Custom Consultation</h1>
       <p class="hero-desc-vgh">
       Custom jewellery made to your design and budget.
       </p>
@@ -34,7 +34,7 @@ Reach out to us directly—we’re here to help you with designs, pricing, and d
               <span class="material-symbols-outlined">{{ info.icon }}</span>
             </div>
             <div class="item-text">
-              <p class="item-label uppercase tracking-widest">{{ info.label }}</p>
+              <p class="item-label">{{ info.label }}</p>
               <p class="item-value">{{ info.value }}</p>
               <p class="item-subtext">{{ info.subtext }}</p>
             </div>
@@ -45,8 +45,8 @@ Reach out to us directly—we’re here to help you with designs, pricing, and d
               <span class="material-symbols-outlined">location_on</span>
             </div>
             <div class="item-text">
-              <p class="item-label uppercase tracking-widest">Visit the Store</p>
-              <p class="item-value leading-relaxed">
+              <p class="item-label">Visit the Store</p>
+              <p class="item-value">
                 VGH Jewellers<br>
                 Ammasimadam Street, Meenakshipuram, Nagercoil-629001, Kanyakumari District, Tamil Nadu, India.
               </p>
@@ -105,7 +105,7 @@ Reach out to us directly—we’re here to help you with designs, pricing, and d
                 </div>
                 
                 <div class="dropdown-menu-aura animate-scale-in" *ngIf="isDropdownOpen">
-                  <div class="menu-label uppercase tracking-[0.2em]">Inquiry Selection</div>
+                  <div class="menu-label">Inquiry Selection</div>
                   <div 
                     *ngFor="let type of inquiryTypes" 
                     class="menu-option"
@@ -124,10 +124,10 @@ Reach out to us directly—we’re here to help you with designs, pricing, and d
               <textarea id="message" class="aura-input" name="message" [(ngModel)]="formData.message" rows="5" placeholder="Tell us about the piece of your dreams..." required></textarea>
             </div>
 
-            <button type="submit" class="submit-btn uppercase tracking-[0.2em] gold-glow">
+            <button type="submit" class="submit-btn gold-glow">
               Get a Callback
             </button>
-            <!-- <p class="form-footer-note italic">
+            <!-- <p class="form-footer-note">
               By submitting, you agree to our privacy policy and terms of service.
             </p> -->
           </form>

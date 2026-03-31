@@ -76,6 +76,11 @@
   flex-shrink: 0;
 }
 
+.rate-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 .section-subtitle {
   font-size: 2rem;
   color: #fff;
@@ -85,6 +90,8 @@
 .stats {
   font-size: 0.75rem;
   color: var(--text-darker);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .sidebar-wrapper {
@@ -136,6 +143,8 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.5s;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
 }
 
 .discover-btn:hover {
@@ -197,6 +206,8 @@
 .filter-toggle-btn .btn-label {
   font-size: 0.75rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 @keyframes fade-up {

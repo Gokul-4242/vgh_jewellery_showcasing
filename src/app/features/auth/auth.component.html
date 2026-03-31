@@ -11,17 +11,17 @@
         <!-- Login Form -->
         <div class="form-container" [class.active-form]="isLoginMode" [class.hidden-form]="!isLoginMode">
           <div class="form-header">
-            <h1 class="form-title stagger-in" style="animation-delay: 0.1s;">Welcome Back</h1>
-            <p class="form-subtitle stagger-in" style="animation-delay: 0.2s;">Please enter your credentials to access your premium vault.</p>
+            <h1 class="form-title stagger-in delay-1">Welcome Back</h1>
+            <p class="form-subtitle stagger-in delay-2">Please enter your credentials to access your premium vault.</p>
           </div>
 
           <form (ngSubmit)="onLoginSubmit()" class="auth-form">
-            <div class="field-group stagger-in" style="animation-delay: 0.3s;">
+            <div class="field-group stagger-in delay-3">
               <label for="loginEmail" class="field-label">Email Address</label>
               <input type="email" id="loginEmail" class="aura-input" placeholder="name@vghjewellers.com" required>
             </div>
 
-            <div class="field-group stagger-in" style="animation-delay: 0.4s;">
+            <div class="field-group stagger-in delay-4">
               <label for="loginPassword" class="field-label">Password</label>
               <div class="password-wrapper">
                 <input type="password" id="loginPassword" class="aura-input" placeholder="••••••••" required>
@@ -31,17 +31,17 @@
               </div>
             </div>
 
-            <div class="remember-row stagger-in" style="animation-delay: 0.5s;">
+            <div class="remember-row stagger-in delay-5">
               <input type="checkbox" id="remember" class="form-checkbox">
               <label for="remember" class="checkbox-label">Remember device for 30 days</label>
             </div>
 
-            <button type="submit" class="auth-btn stagger-in" style="animation-delay: 0.6s;">
+            <button type="submit" class="auth-btn stagger-in delay-6">
               Access Account
             </button>
           </form>
 
-          <div class="form-footer stagger-in" style="animation-delay: 0.7s;">
+          <div class="form-footer stagger-in delay-7">
             <p>New to VGH Jewellers? <button class="toggle-link" (click)="toggleForm()">Sign Up</button></p>
           </div>
         </div>

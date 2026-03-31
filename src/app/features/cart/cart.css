@@ -1,4 +1,35 @@
 /* Layout & Utility Classes - Replicating Tailwind in Vanilla CSS */
+.background-effects-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  overflow: hidden;
+}
+
+.bg-shape-top {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  border-radius: 9999px;
+  background-color: rgba(212, 175, 53, 0.2);
+  filter: blur(120px);
+}
+
+.bg-shape-bottom {
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  background-color: rgba(212, 175, 53, 0.1);
+  filter: blur(100px);
+}
+
 .cart-page-container {
   min-height: 100vh;
   width: 100%;
@@ -149,6 +180,7 @@
 .opacity-20 { opacity: 0.2; }
 
 /* Typography */
+.text-2xs { font-size: 0.625rem; }
 .text-xs { font-size: 0.75rem; }
 .text-sm { font-size: 0.875rem; }
 .text-lg { font-size: 1.125rem; }
@@ -187,6 +219,30 @@
   border-color: rgba(212, 175, 53, 0.3);
   transform: translateY(-4px);
   background: rgba(255, 255, 255, 0.05);
+}
+
+.cart-item-img {
+  transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.cart-item-card:hover .cart-item-img {
+  transform: scale(1.1);
+}
+
+.remove-btn {
+  transition: color 0.3s;
+}
+
+.remove-btn:hover {
+  color: #f87171;
+}
+
+.quantity-btn {
+  transition: color 0.3s;
+}
+
+.quantity-btn:not(:disabled):hover {
+  color: var(--primary);
 }
 
 .summary-card {
