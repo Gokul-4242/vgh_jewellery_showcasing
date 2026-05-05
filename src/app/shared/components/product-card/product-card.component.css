@@ -12,6 +12,9 @@
   position: relative;
   height: 66.666%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .product-image {
   width: 100%;
@@ -71,6 +74,32 @@
 .favorite-btn:hover {
   background-color: var(--primary);
   color: #fff;
+}
+
+/* Out of Stock Styling */
+.out-of-stock-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(185, 28, 28, 0.85); /* Deep red, semi-transparent */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+
+/* Dim the image if the badge is present */
+.product-card:has(.out-of-stock-badge) .product-image {
+  filter: grayscale(80%) opacity(0.6);
 }
 .product-info {
   padding: 2rem;

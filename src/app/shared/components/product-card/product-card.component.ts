@@ -17,4 +17,5 @@ export class ProductCardComponent {
   @Input() category: string = '';
   @Input() imageSrc: string = '';
   @Input() imageAlt: string = '';
+  @Input() inStock: boolean = true;
 }

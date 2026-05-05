@@ -29,12 +29,12 @@
             <div class="rate-values">
               <div class="rate-item">
                 <span class="purity">24K</span>
-                <span class="price">₹ 7,850</span>
+                <span class="price">₹ {{ liveRates.gold24k | number }}</span>
               </div>
               <div class="divider"></div>
               <div class="rate-item">
                 <span class="purity">22K</span>
-                <span class="price">₹ 7,200</span>
+                <span class="price">₹ {{ liveRates.gold22k | number }}</span>
               </div>
             </div>
           </div>
@@ -63,7 +63,8 @@
           [weight]="product.weight"
           [category]="product.category"
           [imageSrc]="product.imageSrc"
-          [imageAlt]="product.imageAlt">
+          [imageAlt]="product.imageAlt"
+          [inStock]="product.inStock">
         </app-product-card>
       </div>
 

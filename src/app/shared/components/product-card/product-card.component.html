@@ -4,6 +4,9 @@
     <div class="quick-view">
       <button class="quick-view-btn">Quick View</button>
     </div>
+    <div *ngIf="!inStock" class="out-of-stock-badge">
+      Out of Stock
+    </div>
     <button class="favorite-btn glass">
       <span class="material-symbols-outlined">favorite</span>
     </button>

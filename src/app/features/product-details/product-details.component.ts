@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../core/services/product.service';
 
 interface ProductSpec {
   label: string;
@@ -35,31 +37,69 @@ interface BrandService {
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
-export class ProductDetailsComponent {
-  product: Product = {
-    name: 'VGH Jewellers Bangle',
-    collection: 'Heritage Collection',
-    price: 4250,
-    originalPrice: 5100,
-    images: [
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCsSouJb4ZF1ndb42xqE6Q-GmkUymadtMqCVcBAb3UxxAeDIaA3QeDGUURRGSu9RNcVu5X0sMP-dZwrXH0GO7WFAjjNscaNr7WAV4NiYJoFPOzwmBK0O4XOl-9qdmTnb7_tUaleN7WbzARt8jmm8wrJwdfLUNmpBegHDgDuiPKBn23tJiXQa-NaKG0EX_Y5WxDeNdSIIRcf_C3CKb5zusZV1Radc-xCAHRK4rMuWnIHQMACcEclmFBHsRMe1dt4Vca4mmwv2XhH2PjR',
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCWrtI0nAdp6AFxgZLoC8f4jGLu-B2lgS3hUqWPj3-Efr9mvgLmPg3bnyKWGvrXvU5K3ZF7yB9eHQFZm9rcbVsRs1ISf7Z890ZTZ4gKVuyo27WLKz47ffp5E84givRGNWh-Vi5OnOl896ya45mcvP3iHxnH1lFK3_R9E9qFhmEcaWV8bk-qtKyvKkmv0L3qKpwIoJSMKgNP2VN-qv52cZMTE7E071OOVmgMvK_HupZbcUWtOCvnQWQclxPdyVDRoSJ_RgAwIwsQ6z5d',
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB4NJ-njiyqCQB_pFGHmgaP6EIjKW8orJdizQzibOLvMvb40bRrmsjsvEhgj1MsWlJUcYVUmW0xrIFw16atfb-AUS2SlV5JNRbzD_o_WYGrti2Df-U1bEtywDWY-lr2FKet8cIi94m4Wlf-EfeCxIkXIUMXvsMAYFt1BbQDPAoObhgHd4ACxjvNLzO5lFf2Q7DSazmJMlwBRnN4Q8-sfHuoT2b4_9ef4Hwd2xe3ntSHEI2dim_WDsHLta_78yVEtsOwrHI9dXHDVIS0',
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuATgmTSOTE73RR-pNQZKqkRJifVz9k2IA9zPPs7dtZM5sSyFciUal2_WSQEQY3c8535l_m1_OqU6q15NxH_mv6lQUxG9F3NOUfw_jnAl-KMFOpFz0Hfp5uvhUXFDuJ5i8UIM0LP-xSOkl5U0FOl3v9GPPG3bTVRpe2tjzLg-hjXbGbAClVBcZDC-gJVM2uDXq7Os0noHEloMWbIou98Q-7Y6lCMVswFfg8MNwAXNugNKwFwDtqQy-xVvKOXw_wTV_F2bcZEOcmGNZwE'
-    ],
-    specs: [
-      { label: 'Metal', value: '22K Solid Gold' },
-      { label: 'Weight', value: '42.5 Grams' },
-      { label: 'Purity', value: '91.6% Pure Gold' },
-      { label: 'Diameter', value: '2.4" (Standard)' }
-    ],
-    sizes: ['2.4', '2.6', '2.8'],
-    features: [
-      { name: 'Handcrafted by Experts', detail: 'Each ornament is made by skilled craftsmen with careful detailing and finishing.' },
-      { name: 'Certified Purity', detail: 'All gold jewellery is BIS hallmarked and comes with purity assurance.' },
-      { name: 'Quality Assured', detail: 'All jewellery is checked for quality and finished with proper standards before delivery.' }
-    ]
-  };
+export class ProductDetailsComponent implements OnInit {
+  product: Product | null = null;
+  isLoading = true;
+
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService
+  ) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.fetchProductDetails(id);
+      }
+    });
+  }
+
+  fetchProductDetails(id: string) {
+    this.productService.getRates().subscribe(rateRes => {
+      const rates = rateRes.data;
+
+      this.productService.getProduct(id).subscribe(prodRes => {
+        const p = prodRes.data;
+        
+        let rate = rates.gold24k;
+        if (p.material === 'gold22k') rate = rates.gold22k;
+        if (p.material === 'silver') rate = rates.silver;
+
+        // Dynamic price calculation
+        const TotalWeight = p.weight + (p.weight * (p.wastagePercent / 100));
+        const estimatedPrice = Math.round((TotalWeight * rate) + p.makingCharge + (p.stoneCost || 0));
+
+        this.product = {
+          name: p.name,
+          collection: p.category,
+          price: estimatedPrice,
+          originalPrice: Math.round(estimatedPrice * 1.15), // Aesthetic markdown presentation
+          images: p.images.map((img: any) => img.url),
+          specs: [
+            { label: 'Material', value: p.material },
+            { label: 'Weight', value: `${p.weight} Grams` },
+            { label: 'Making Charge', value: `₹${p.makingCharge}` },
+            { label: 'Wastage', value: `${p.wastagePercent}%` }
+          ],
+          sizes: p.sizes || ['Standard'],
+          features: [
+            { name: 'Live Estimate', detail: 'This price is dynamically updated from today\'s bullion rate.' },
+            { name: 'Certified Purity', detail: 'All jewelry is authenticated.' }
+          ]
+        };
+
+        if (this.product.images.length > 0) {
+          this.selectedImage = this.product.images[0];
+        }
+        if (this.product.sizes.length > 0) {
+          this.selectedSize = this.product.sizes[0];
+        }
+        
+        this.isLoading = false;
+      });
+    });
+  }
 
   services: BrandService[] = [
     {
@@ -79,8 +119,8 @@ export class ProductDetailsComponent {
     }
   ];
 
-  selectedImage: string = this.product.images[0];
-  selectedSize: string = this.product.sizes[0];
+  selectedImage: string = '';
+  selectedSize: string = '';
 
   relatedProducts = [
     {

@@ -28,13 +28,8 @@
           </div>
           <div class="rate-values">
             <div class="rate-item">
-              <span class="purity">Fine 99.9</span>
-              <span class="price">₹ 98.50</span>
-            </div>
-            <div class="divider"></div>
-            <div class="rate-item">
-              <span class="purity">Sterling 92.5</span>
-              <span class="price">₹ 91.20</span>
+              <span class="purity">Silver / gm</span>
+              <span class="price">₹ {{ liveRates.silver | number:'1.2-2' }}</span>
             </div>
           </div>
         </div>
@@ -69,7 +64,8 @@
         [weight]="product.weight"
         [category]="product.category"
         [imageSrc]="product.imageSrc"
-        [imageAlt]="product.imageAlt">
+        [imageAlt]="product.imageAlt"
+        [inStock]="product.inStock">
       </app-product-card>
     </div>
 
