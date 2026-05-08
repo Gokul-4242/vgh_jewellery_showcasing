@@ -22,6 +22,13 @@ export class ProductService {
     return this.api.get('/products', params);
   }
 
+  searchProducts(query: string, limit: number = 5): Observable<any> {
+    let params = new HttpParams()
+      .set('search', query)
+      .set('limit', limit.toString());
+    return this.api.get('/products', params);
+  }
+
   getProduct(id: string): Observable<any> {
     return this.api.get(`/products/${id}`);
   }

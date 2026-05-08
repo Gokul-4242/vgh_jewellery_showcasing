@@ -1,15 +1,13 @@
-<div class="product-card group gold-glow animate-fade-up" [routerLink]="['/product-details']">
+<div class="product-card group gold-glow animate-fade-up" [routerLink]="['/product-details', id]">
+
   <div class="product-img-wrapper">
     <img [src]="imageSrc" [alt]="name" class="product-image">
-    <div class="quick-view">
+    <div class="quick-view" [routerLink]="['/product-details', id]">
       <button class="quick-view-btn">Quick View</button>
     </div>
     <div *ngIf="!inStock" class="out-of-stock-badge">
       Out of Stock
     </div>
-    <button class="favorite-btn glass">
-      <span class="material-symbols-outlined">favorite</span>
-    </button>
   </div>
   <div class="product-info">
     <p class="product-category uppercase tracking-widest">{{ category }}</p>

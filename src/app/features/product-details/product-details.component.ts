@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
+import { CartService } from '../../core/services/cart.service';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 
 interface ProductSpec {
   label: string;
@@ -33,7 +37,7 @@ interface BrandService {
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
@@ -43,8 +47,13 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private router: Router,
+    private productService: ProductService,
+    private cartService: CartService,
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
   ) {}
+
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -56,48 +65,92 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   fetchProductDetails(id: string) {
-    this.productService.getRates().subscribe(rateRes => {
-      const rates = rateRes.data;
+    this.isLoading = true;
+    
+    forkJoin({
+      rateRes: this.productService.getRates().pipe(
+        catchError(err => {
+          console.error('Rates fetch failed, using defaults:', err);
+          return of({ data: { gold24k: 0, gold22k: 0, silver: 0 } });
+        })
+      ),
+      prodRes: this.productService.getProduct(id)
+    }).subscribe({
+      next: ({ rateRes, prodRes }) => {
+        this.ngZone.run(() => {
+          try {
+            console.log('Product Details Response:', prodRes);
+            console.log('Rates Response:', rateRes);
 
-      this.productService.getProduct(id).subscribe(prodRes => {
-        const p = prodRes.data;
-        
-        let rate = rates.gold24k;
-        if (p.material === 'gold22k') rate = rates.gold22k;
-        if (p.material === 'silver') rate = rates.silver;
+            const p = prodRes?.data || prodRes;
+            let rates = rateRes?.data || rateRes;
+            if (Array.isArray(rates)) rates = rates[0];
 
-        // Dynamic price calculation
-        const TotalWeight = p.weight + (p.weight * (p.wastagePercent / 100));
-        const estimatedPrice = Math.round((TotalWeight * rate) + p.makingCharge + (p.stoneCost || 0));
+            if (!p) {
+              throw new Error('Product data is missing from response');
+            }
 
-        this.product = {
-          name: p.name,
-          collection: p.category,
-          price: estimatedPrice,
-          originalPrice: Math.round(estimatedPrice * 1.15), // Aesthetic markdown presentation
-          images: p.images.map((img: any) => img.url),
-          specs: [
-            { label: 'Material', value: p.material },
-            { label: 'Weight', value: `${p.weight} Grams` },
-            { label: 'Making Charge', value: `₹${p.makingCharge}` },
-            { label: 'Wastage', value: `${p.wastagePercent}%` }
-          ],
-          sizes: p.sizes || ['Standard'],
-          features: [
-            { name: 'Live Estimate', detail: 'This price is dynamically updated from today\'s bullion rate.' },
-            { name: 'Certified Purity', detail: 'All jewelry is authenticated.' }
-          ]
-        };
+            console.log('Processing product:', p.name || p.id);
 
-        if (this.product.images.length > 0) {
-          this.selectedImage = this.product.images[0];
-        }
-        if (this.product.sizes.length > 0) {
-          this.selectedSize = this.product.sizes[0];
-        }
-        
-        this.isLoading = false;
-      });
+            const mat = (p.material || '').toLowerCase();
+            let rate = rates?.gold24k || 0;
+            if (mat.includes('22k')) rate = rates?.gold22k || 0;
+            if (mat.includes('silver')) rate = rates?.silver || 0;
+
+            const wastage = p.wastagePercent || 0;
+            const making = p.makingCharge || 0;
+            const stone = p.stoneCost || 0;
+            const weight = p.weight || 0;
+            
+            const totalWeight = weight + (weight * (wastage / 100));
+            const estimatedPrice = Math.round((totalWeight * rate) + making + stone);
+
+            this.product = {
+              name: p.name || 'Fine Jewellery Piece',
+              collection: p.category || 'Exclusive Collection',
+              price: estimatedPrice,
+              originalPrice: Math.round(estimatedPrice * 1.15),
+              images: Array.isArray(p.images) ? p.images.map((img: any) => {
+                if (typeof img === 'string') return img;
+                return img?.url || '';
+              }).filter((url: string) => !!url) : [],
+              specs: [
+                { label: 'Material', value: p.material || 'Premium Alloy' },
+                { label: 'Weight', value: `${weight} Grams` },
+                { label: 'Making Charge', value: `₹${making}` },
+                { label: 'Wastage', value: `${wastage}%` }
+              ],
+              sizes: p.sizes || ['Standard'],
+              features: [
+                { name: 'Live Estimate', detail: 'This price is dynamically updated from today\'s bullion rate.' },
+                { name: 'Certified Purity', detail: 'All jewelry is authenticated.' }
+              ]
+            };
+
+            if (this.product.images.length > 0) {
+              this.selectedImage = this.product.images[0];
+            }
+            if (this.product.sizes.length > 0) {
+              this.selectedSize = this.product.sizes[0];
+            }
+            
+            console.log('Mapping complete, displaying UI. Product:', this.product.name);
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          } catch (err) {
+            console.error('Critical mapping error:', err);
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          }
+        });
+      },
+      error: (err) => {
+        this.ngZone.run(() => {
+          console.error('API Fetch Error:', err);
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        });
+      }
     });
   }
 
@@ -144,4 +197,22 @@ export class ProductDetailsComponent implements OnInit {
       imageSrc: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIGHEwLD1BSjiiWkqxHh2_0R9hdwRxgpNeAkjon5fsRs_Ft-smdZHQ9hTR8CXsZg9AinIE8YcUS6YqNtdc1-DXPJVHMDI2dYZ0ii5kGXdcbiOVPN_pLtQQgEJsovxcnJe0n3F_oE8W-_m5ZmzX1UdG4CIA7tMmPENafQKGHYhrP0JoTTg6MObIM_M8mlPoG1-Plgn-Ph1bBnuT-ZK8XvwhpWIf38Fp3ip7R_oeuuBcMu1faRHVLMhaEVZ4a7qnSKIluPNz2poMpbIM'
     }
   ];
+
+  addToCart() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.cartService.addToCart(id, 1).subscribe({
+        next: () => {
+          this.router.navigate(['/cart']);
+        },
+        error: (err) => {
+          console.error('Error adding to cart', err);
+          if (err.status === 401) {
+            this.router.navigate(['/auth']);
+          }
+        }
+      });
+    }
+  }
 }
+

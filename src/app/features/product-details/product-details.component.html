@@ -1,9 +1,22 @@
-<main class="product-details-container" *ngIf="product">
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="aura-spinner"></div>
+  <p class="loading-text font-playfair">Unveiling Craftsmanship...</p>
+</div>
+
+<div class="empty-state-container" *ngIf="!isLoading && !product">
+  <h2 class="font-playfair">Piece Not Found</h2>
+  <p>The jewel you're looking for might have been moved or is no longer available.</p>
+  <button routerLink="/gold-collection" class="btn-primary gold-glow">Back to Collection</button>
+</div>
+
+<main class="product-details-container" *ngIf="!isLoading && product">
   <!-- Breadcrumbs -->
   <nav class="breadcrumb-nav animate-fade-up">
-    <a href="#">Fine Jewelry</a>
+    <a routerLink="/">Home</a>
     <span class="material-symbols-outlined breadcrumb-icon">chevron_right</span>
-    <a href="#">Bangles</a>
+    <a [routerLink]="product.collection.toLowerCase().includes('silver') ? '/silver-collection' : '/gold-collection'">
+      {{ product.collection }} Collection
+    </a>
     <span class="material-symbols-outlined breadcrumb-icon">chevron_right</span>
     <span class="current-item">{{ product.name }}</span>
   </nav>
@@ -36,9 +49,6 @@
             <span class="collection-label">{{ product.collection }}</span>
             <h2 class="font-playfair product-title">{{ product.name }}</h2>
           </div>
-          <button class="favorite-btn glass gold-glow-hover">
-            <span class="material-symbols-outlined">favorite</span>
-          </button>
         </div>
 
         <div class="price-group">
@@ -69,10 +79,11 @@
 
         <!-- Actions -->
         <div class="action-buttons">
-          <button class="add-to-cart-btn gold-glow">
+          <button (click)="addToCart()" class="add-to-cart-btn gold-glow">
             <span class="material-symbols-outlined cart-icon">shopping_bag</span>
             Add to Cart
           </button>
+
           <button class="buy-now-btn glass">
             Buy Now
           </button>

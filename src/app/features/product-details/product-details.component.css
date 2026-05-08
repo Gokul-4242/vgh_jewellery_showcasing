@@ -603,3 +603,65 @@
 .delay-100 { animation-delay: 100ms; }
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
+
+/* Loading & Empty State */
+.loading-overlay {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.aura-spinner {
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(212, 175, 55, 0.1);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: aura-spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  position: relative;
+}
+
+.aura-spinner::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(212, 175, 55, 0.05);
+  border-radius: 50%;
+}
+
+@keyframes aura-spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: var(--primary);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.empty-state-container {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.empty-state-container h2 {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.empty-state-container p {
+  color: var(--text-darker);
+  max-width: 400px;
+  line-height: 1.6;
+}

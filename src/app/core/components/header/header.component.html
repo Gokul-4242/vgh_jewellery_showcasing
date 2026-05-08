@@ -28,22 +28,27 @@
       </div>
       
       <!-- Search dropdown -->
-      <div class="search-results-dropdown glass" *ngIf="isSearchActive && searchResults.length > 0">
+      <div class="search-results-dropdown glass" *ngIf="isSearchActive && searchResults.length > 0 && !isSearching">
         <div class="search-result-item" *ngFor="let res of searchResults" (mousedown)="goToResult(res)">
           <span class="res-name">{{ res.name }}</span>
           <span class="res-type">{{ res.type }}</span>
         </div>
       </div>
-      <div class="search-results-dropdown glass empty-state" *ngIf="isSearchActive && searchResults.length === 0 && searchQuery">
+      <div class="search-results-dropdown glass empty-state" *ngIf="isSearchActive && isSearching">
+        Searching...
+      </div>
+      <div class="search-results-dropdown glass empty-state" *ngIf="isSearchActive && searchResults.length === 0 && searchQuery.length >= 2 && !isSearching">
         No results found for "{{ searchQuery }}"
       </div>
     </div>
 
     <!-- Grouped for better spacing control -->
     <div class="icon-group">
-      <button class="icon-btn" routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">
+      <button class="icon-btn relative" routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">
         <span class="material-symbols-outlined">shopping_bag</span>
+        <span *ngIf="itemCount() > 0" class="cart-badge">{{ itemCount() }}</span>
       </button>
+
       <button class="icon-btn" routerLink="/auth" routerLinkActive="active" (click)="closeMenu()">
         <span class="material-symbols-outlined">account_circle</span>
       </button>

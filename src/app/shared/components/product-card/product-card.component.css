@@ -79,21 +79,20 @@
 /* Out of Stock Styling */
 .out-of-stock-badge {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(185, 28, 28, 0.85); /* Deep red, semi-transparent */
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(185, 28, 28, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(185, 28, 28, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
   font-weight: 700;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
   z-index: 10;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
   pointer-events: none;
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { FiltersComponent, FilterOption } from '../../shared/components/filters/filters.component';
@@ -11,6 +11,7 @@ interface Product {
   price: number;
   weight: string;
   category: string;
+  material: string;
   imageSrc: string;
   imageAlt: string;
   inStock: boolean;
@@ -25,7 +26,7 @@ interface Product {
 })
 export class SilverCollectionComponent implements OnInit {
   jewelryTypes: FilterOption[] = [
-    { label: 'Earrings', checked: true },
+    { label: 'Earrings', checked: false },
     { label: 'Necklaces', checked: false },
     { label: 'Rings', checked: false },
     { label: 'Bracelets', checked: false }
@@ -33,45 +34,74 @@ export class SilverCollectionComponent implements OnInit {
 
   purityLevels: FilterOption[] = [
     { label: '925 Sterling', active: true },
-    { label: 'Fine Silver', active: false },
-    { label: 'Oxidized', active: false }
+    // { label: 'Fine Silver', active: false },
+    // { label: 'Oxidized', active: false }
   ];
 
   products: Product[] = [];
   liveRates: any = { silver: 0 };
   isLoading = true;
 
-  constructor(private productService: ProductService, private ngZone: NgZone) {}
+  constructor(private productService: ProductService, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    forkJoin({
-      rateRes: this.productService.getRates(),
-      prodRes: this.productService.getProducts(1, 50)
-    }).subscribe(({ rateRes, prodRes }) => {
-      const rates = Array.isArray((rateRes as any).data) ? (rateRes as any).data[0] : (rateRes as any).data;
-      const backendProducts = (prodRes as any).data;
+    // Fetch Rates independently
+    this.productService.getRates().subscribe({
+      next: (rateRes: any) => {
+        let parsedRes = rateRes;
+        if (typeof rateRes === 'string') {
+          try { parsedRes = JSON.parse(rateRes); } catch(e) {}
+        }
+        
+        let rates = parsedRes?.data || parsedRes;
+        if (Array.isArray(rates)) rates = rates[0];
 
-      this.ngZone.run(() => {
-        this.liveRates = rates || { silver: 0 };
-        this.products = backendProducts
-          .filter((p: any) => p.material === 'silver')
-          .map((p: any) => {
-            const rate = this.liveRates.silver;
-            const totalWeight = p.weight + (p.weight * (p.wastagePercent / 100));
-            const estimatedPrice = Math.round((totalWeight * rate) + p.makingCharge + (p.stoneCost || 0));
-            return {
-              id: p._id,
-              name: p.name,
-              price: estimatedPrice,
-              weight: `${p.weight} Grams`,
-              category: p.category,
-              imageSrc: p.images && p.images.length > 0 ? p.images[0].url : 'https://placehold.co/400',
-              imageAlt: p.name,
-              inStock: p.stock > 0
-            };
-          });
-        this.isLoading = false;
-      });
+        this.ngZone.run(() => {
+          if (rates && typeof rates === 'object') {
+            this.liveRates = { ...this.liveRates, ...rates };
+            this.cdr.detectChanges();
+          }
+        });
+      },
+      error: (err) => console.error('Failed to fetch rates:', err)
+    });
+
+    // Fetch Products independently with 'silver' filter
+    this.productService.getProducts(1, 50, 'silver').subscribe({
+      next: (prodRes) => {
+        const backendProducts = (prodRes as any).data;
+        this.ngZone.run(() => {
+          if (backendProducts && Array.isArray(backendProducts)) {
+            this.products = backendProducts
+              .filter((p: any) => p.material.toLowerCase().includes('silver'))
+              .map((p: any) => {
+                const rate = this.liveRates?.silver || 0;
+                const totalWeight = p.weight + (p.weight * (p.wastagePercent / 100));
+                const estimatedPrice = Math.round((totalWeight * rate) + p.makingCharge + (p.stoneCost || 0));
+                return {
+                  id: p._id,
+                  name: p.name,
+                  price: estimatedPrice,
+                  weight: `${p.weight} Grams`,
+                  category: p.category,
+                  material: p.material,
+                  imageSrc: p.images && p.images.length > 0 ? p.images[0].url : 'https://placehold.co/400',
+                  imageAlt: p.name,
+                  inStock: p.stock > 0
+                };
+              });
+          }
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        });
+      },
+      error: (err) => {
+        console.error('Failed to fetch products:', err);
+        this.ngZone.run(() => { 
+          this.isLoading = false; 
+          this.cdr.detectChanges();
+        });
+      }
     });
   }
 
@@ -99,9 +129,8 @@ export class SilverCollectionComponent implements OnInit {
       let purityMatch = true;
       if (activePurities.length > 0) {
          purityMatch = activePurities.some(p => {
-           if (p === '925 sterling') return cat.includes('925');
-           if (p === 'fine silver') return cat.includes('fine');
-           if (p === 'oxidized') return cat.includes('oxidized');
+           const mat = product.material.toLowerCase();
+           if (p === '925 sterling') return mat.includes('925') || mat.includes('sterling');
            return false;
          });
       }
