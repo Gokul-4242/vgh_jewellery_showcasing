@@ -48,8 +48,8 @@
       <app-filters 
         [jewelryTypes]="jewelryTypes" 
         [purityLevels]="purityLevels"
-        minPrice="₹50"
-        maxPrice="₹2,000+"
+        [minPrice]="selectedMinPrice"
+        [maxPrice]="selectedMaxPrice"
         (filterChange)="onFilterChange($event)">
       </app-filters>
     </div>

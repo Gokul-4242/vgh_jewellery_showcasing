@@ -42,6 +42,8 @@ export class GoldCollectionComponent implements OnInit {
   products: Product[] = [];
   liveRates: any = { gold24k: 0, gold22k: 0};
   isLoading = true;
+  selectedMinPrice: number = 0;
+  selectedMaxPrice: number = 100000;
 
   constructor(private productService: ProductService, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
@@ -116,6 +118,11 @@ export class GoldCollectionComponent implements OnInit {
     const activePurities = this.purityLevels.filter(p => p.active).map(p => p.label.toLowerCase());
 
     return this.products.filter(product => {
+      // Price Filter Check
+      if (product.price < this.selectedMinPrice || product.price > this.selectedMaxPrice) {
+        return false;
+      }
+
       const name = product.name.toLowerCase();
       const cat = product.category.toLowerCase();
       
@@ -145,9 +152,11 @@ export class GoldCollectionComponent implements OnInit {
     });
   }
 
-  onFilterChange(event: { types: FilterOption[], purities: FilterOption[] }) {
+  onFilterChange(event: { types: FilterOption[], purities: FilterOption[], minPrice?: number, maxPrice?: number }) {
     this.jewelryTypes = event.types;
     this.purityLevels = event.purities;
+    if (event.minPrice !== undefined) this.selectedMinPrice = event.minPrice;
+    if (event.maxPrice !== undefined) this.selectedMaxPrice = event.maxPrice;
   }
 
   toggleFilters() {

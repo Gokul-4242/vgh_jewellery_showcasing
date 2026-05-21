@@ -306,3 +306,64 @@
   position: relative;
   z-index: 101;
 }
+/* User Info & Logout Styles */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.75rem;
+  margin-left: 0.25rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .user-name { max-width: 120px; }
+  .user-info { gap: 0.75rem; }
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-darker);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  color: #ff4d4d;
+  transform: scale(1.1);
+}
+
+.logout-btn .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+.logout-mobile {
+  color: #ff4d4d !important;
+  border-top: 1px solid rgba(255, 77, 77, 0.2);
+  margin-top: 1rem;
+}
+
+.logout-mobile .nav-label {
+  color: #ff4d4d;
+}
+
+.logout-mobile .nav-number {
+  color: #ff4d4d;
+  opacity: 0.5;
+}

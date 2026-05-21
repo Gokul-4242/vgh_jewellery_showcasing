@@ -41,14 +41,60 @@
         <span class="material-symbols-outlined group-icon">payments</span>
         <span class="group-label uppercase tracking-widest">Price Range</span>
       </div>
-      <input type="range" class="price-slider">
+      
+      <!-- Premium Price Inputs -->
+      <div class="price-input-container">
+        <div class="price-input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" 
+                 class="price-num-input" 
+                 [(ngModel)]="selectedMinPrice" 
+                 (ngModelChange)="onPriceInputChange()" 
+                 placeholder="0">
+        </div>
+        <span class="price-to-separator">to</span>
+        <div class="price-input-wrapper">
+          <span class="currency-symbol">₹</span>
+          <input type="number" 
+                 class="price-num-input" 
+                 [(ngModel)]="selectedMaxPrice" 
+                 (ngModelChange)="onPriceInputChange()" 
+                 placeholder="100000">
+        </div>
+      </div>
+
+      <!-- Overlapping sliders for double range slider -->
+      <div class="slider-container">
+        <div class="slider-track" [ngStyle]="getTrackStyle()"></div>
+        <input type="range" 
+               class="price-slider dual-slider min-slider" 
+               [min]="sliderMin" 
+               [max]="sliderMax" 
+               [(ngModel)]="selectedMinPrice" 
+               (input)="onSliderChange('min')">
+        <input type="range" 
+               class="price-slider dual-slider max-slider" 
+               [min]="sliderMin" 
+               [max]="sliderMax" 
+               [(ngModel)]="selectedMaxPrice" 
+               (input)="onSliderChange('max')">
+
+        <!-- Dynamic Tooltips mapped to thumb positions -->
+        <div class="slider-thumb-wrapper min-thumb-wrapper" [ngStyle]="getMinThumbStyle()">
+          <span class="slider-tooltip">₹{{ selectedMinPrice | number }}</span>
+        </div>
+        <div class="slider-thumb-wrapper max-thumb-wrapper" [ngStyle]="getMaxThumbStyle()">
+          <span class="slider-tooltip">₹{{ selectedMaxPrice | number }}{{ selectedMaxPrice >= sliderMax ? '+' : '' }}</span>
+        </div>
+      </div>
+      
       <div class="price-labels uppercase tracking-widest">
-        <span>{{ minPrice }}</span>
-        <span>{{ maxPrice }}</span>
+        <span>Min: ₹{{ selectedMinPrice | number }}</span>
+        <span>Max: ₹{{ selectedMaxPrice | number }}{{ selectedMaxPrice >= sliderMax ? '+' : '' }}</span>
       </div>
     </div>
 
-    <button class="update-btn uppercase tracking-widest gold-glow">
+    <button (click)="emitChange()" class="update-btn uppercase tracking-widest gold-glow">
       Update Gallery
     </button>
   </div>

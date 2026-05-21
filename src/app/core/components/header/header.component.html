@@ -49,9 +49,18 @@
         <span *ngIf="itemCount() > 0" class="cart-badge">{{ itemCount() }}</span>
       </button>
 
-      <button class="icon-btn" routerLink="/auth" routerLinkActive="active" (click)="closeMenu()">
+      <button class="icon-btn" routerLink="/auth" routerLinkActive="active" (click)="closeMenu()" *ngIf="!isAuthenticated()">
         <span class="material-symbols-outlined">account_circle</span>
       </button>
+
+      <!-- User Authenticated State -->
+      <div class="user-info" *ngIf="isAuthenticated()">
+        <span class="user-name">{{ currentUser()?.name }}</span>
+        <button class="logout-btn" (click)="logout()" title="Logout">
+          <span class="material-symbols-outlined">logout</span>
+        </button>
+      </div>
+
       <button class="menu-btn" (click)="toggleMenu()">
         <span class="material-symbols-outlined">{{ isMenuOpen ? 'close' : 'menu' }}</span>
       </button>
@@ -74,6 +83,13 @@
         <span class="nav-number">0{{ navItems.indexOf(item) + 1 }}</span>
         <span class="nav-label">{{ item.label }}</span>
         <span class="material-symbols-outlined nav-arrow">trending_flat</span>
+      </a>
+
+      <!-- Mobile Logout -->
+      <a class="mobile-nav-item logout-mobile" (click)="logout()" *ngIf="isAuthenticated()">
+        <span class="nav-number">0{{ navItems.length + 1 }}</span>
+        <span class="nav-label">Logout</span>
+        <span class="material-symbols-outlined nav-arrow">logout</span>
       </a>
     </nav>
   </div>

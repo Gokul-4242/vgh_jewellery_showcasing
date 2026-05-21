@@ -50,7 +50,13 @@
       </div>
 
       <div class="sidebar-wrapper" [class.mobile-active]="isFiltersVisible">
-        <app-filters [jewelryTypes]="jewelryTypes" [purityLevels]="purityLevels" (filterChange)="onFilterChange($event)"></app-filters>
+        <app-filters 
+          [jewelryTypes]="jewelryTypes" 
+          [purityLevels]="purityLevels" 
+          [minPrice]="selectedMinPrice" 
+          [maxPrice]="selectedMaxPrice" 
+          (filterChange)="onFilterChange($event)">
+        </app-filters>
       </div>
 
       <!-- Product Grid -->

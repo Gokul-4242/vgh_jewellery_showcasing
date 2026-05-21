@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
+import { AuthService } from '../../services/auth.service';
 import { Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, tap, filter } from 'rxjs/operators';
 import { ChangeDetectorRef, OnInit } from '@angular/core';
@@ -27,8 +28,12 @@ export class HeaderComponent {
   isMenuOpen = false;
   private readonly cartService = inject(CartService);
   private readonly productService = inject(ProductService);
+  private readonly authService = inject(AuthService);
   private readonly cdr = inject(ChangeDetectorRef);
+  
   itemCount = this.cartService.itemCount;
+  currentUser = this.authService.currentUser;
+  isAuthenticated = this.authService.isAuthenticated;
 
 
   navItems = [
@@ -128,5 +133,10 @@ export class HeaderComponent {
   closeMenu() {
     this.isMenuOpen = false;
     document.body.style.overflow = '';
+  }
+
+  logout() {
+    this.authService.logout();
+    this.closeMenu();
   }
 }

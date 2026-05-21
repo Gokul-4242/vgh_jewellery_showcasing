@@ -16,18 +16,18 @@
             <p class="error-text" *ngIf="errorMsg">{{ errorMsg }}</p>
           </div>
 
-          <form (ngSubmit)="onLoginSubmit()" class="auth-form">
+          <form novalidate (ngSubmit)="onLoginSubmit()" class="auth-form">
             <div class="field-group stagger-in delay-3">
-              <label for="loginEmail" class="field-label">Email Address</label>
-              <input type="email" id="loginEmail" name="email" [(ngModel)]="loginData.email" class="aura-input" placeholder="name@vghjewellers.com" required>
+              <label for="loginIdentifier" class="field-label">Email or Phone Number <span class="required-asterisk">*</span></label>
+              <input type="text" id="loginIdentifier" name="identifier" [(ngModel)]="loginData.identifier" class="aura-input" placeholder="name@vghjewellers.com or 9876543210" required>
             </div>
 
             <div class="field-group stagger-in delay-4">
-              <label for="loginPassword" class="field-label">Password</label>
+              <label for="loginPassword" class="field-label">Password <span class="required-asterisk">*</span></label>
               <div class="password-wrapper">
-                <input type="password" id="loginPassword" name="password" [(ngModel)]="loginData.password" class="aura-input" placeholder="••••••••" required>
-                <button type="button" class="password-toggle">
-                  <span class="material-symbols-outlined">visibility</span>
+                <input [type]="showLoginPassword ? 'text' : 'password'" id="loginPassword" name="password" [(ngModel)]="loginData.password" class="aura-input" placeholder="••••••••" required>
+                <button type="button" class="password-toggle" (click)="showLoginPassword = !showLoginPassword">
+                  <span class="material-symbols-outlined">{{ showLoginPassword ? 'visibility_off' : 'visibility' }}</span>
                 </button>
               </div>
             </div>
@@ -55,9 +55,9 @@
             <p class="error-text" *ngIf="errorMsg">{{ errorMsg }}</p>
           </div>
 
-          <form (ngSubmit)="onSignupSubmit()" class="auth-form">
+          <form novalidate (ngSubmit)="onSignupSubmit()" class="auth-form">
             <div class="field-group">
-              <label for="fullName" class="field-label">Full Name</label>
+              <label for="fullName" class="field-label">Full Name <span class="required-asterisk">*</span></label>
               <div class="input-icon-wrapper">
                 <span class="material-symbols-outlined input-icon">person</span>
                 <input type="text" id="fullName" name="fullName" [(ngModel)]="signupData.fullName" class="aura-input icon-input" placeholder="Alexander Thorne" required>
@@ -65,28 +65,46 @@
             </div>
 
             <div class="field-group">
-              <label for="signupEmail" class="field-label">Email Address</label>
+              <label for="signupEmail" class="field-label">Email Address <span class="required-asterisk">*</span></label>
               <div class="input-icon-wrapper">
                 <span class="material-symbols-outlined input-icon">mail</span>
                 <input type="email" id="signupEmail" name="email" [(ngModel)]="signupData.email" class="aura-input icon-input" placeholder="alexander@vgh.luxury" required>
               </div>
             </div>
 
+            <div class="field-group">
+              <label for="signupPhone" class="field-label">Phone Number <span class="required-asterisk">*</span></label>
+              <div class="input-icon-wrapper">
+                <span class="material-symbols-outlined input-icon">phone</span>
+                <input type="tel" id="signupPhone" name="phone" [(ngModel)]="signupData.phone" class="aura-input icon-input" placeholder="9876543210" required>
+              </div>
+            </div>
+
             <div class="two-col-grid">
               <div class="field-group">
-                <label for="signupPassword" class="field-label">Password</label>
-                <input type="password" id="signupPassword" name="password" [(ngModel)]="signupData.password" class="aura-input" placeholder="••••••••" required>
+                <label for="signupPassword" class="field-label">Password <span class="required-asterisk">*</span></label>
+                <div class="password-wrapper">
+                  <input [type]="showSignupPassword ? 'text' : 'password'" id="signupPassword" name="password" [(ngModel)]="signupData.password" class="aura-input" placeholder="••••••••" required>
+                  <button type="button" class="password-toggle" (click)="showSignupPassword = !showSignupPassword">
+                    <span class="material-symbols-outlined">{{ showSignupPassword ? 'visibility_off' : 'visibility' }}</span>
+                  </button>
+                </div>
               </div>
               <div class="field-group">
-                <label for="confirmPassword" class="field-label">Confirm</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="signupData.confirmPassword" class="aura-input" placeholder="••••••••" required>
+                <label for="confirmPassword" class="field-label">Confirm <span class="required-asterisk">*</span></label>
+                <div class="password-wrapper">
+                  <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" [(ngModel)]="signupData.confirmPassword" class="aura-input" placeholder="••••••••" required>
+                  <button type="button" class="password-toggle" (click)="showConfirmPassword = !showConfirmPassword">
+                    <span class="material-symbols-outlined">{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</span>
+                  </button>
+                </div>
               </div>
             </div>
 
             <div class="terms-group">
-              <input type="checkbox" id="terms" class="form-checkbox">
+              <input type="checkbox" id="terms" name="agreeToTerms" [(ngModel)]="signupData.agreeToTerms" class="form-checkbox" required>
               <label for="terms" class="terms-label">
-                I agree to the <a class="gold-link" href="#">Terms of Excellence</a> and <a class="gold-link" href="#">Privacy Policy</a>.
+                I agree to the <a class="gold-link" href="#">Terms of Excellence</a> and <a class="gold-link" href="#">Privacy Policy</a>. <span class="required-asterisk">*</span>
               </label>
             </div>
 
@@ -103,4 +121,20 @@
       </div>
     </div>
   </main>
+
+  <!-- Custom Toast Message for Validation Errors -->
+  <div class="toast-container" [class.toast-show]="showValidationToast">
+    <div class="toast-box glass">
+      <div class="toast-icon-wrapper">
+        <span class="material-symbols-outlined toast-icon">warning</span>
+      </div>
+      <div class="toast-content">
+        <h4 class="toast-title">Validation Notice</h4>
+        <p class="toast-message">{{ validationToastMsg }}</p>
+      </div>
+      <button type="button" class="toast-close-btn" (click)="closeValidationToast()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </div>
 </div>
