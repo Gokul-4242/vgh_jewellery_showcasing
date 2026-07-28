@@ -2,15 +2,13 @@
   <!-- Cinematic Hero Section -->
   <section class="contact-hero">
     <div class="hero-bg">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN_1s3pk301Cxl2xXgrudZmzlKVbr-QQ2-QgLvz_8gjrW294AOnXbU0yqSpBH9XFT2T7UdoKKSbt_Sb0AzLAs6rcDfjV6qAxMAQCt6v2Ug_JjDYsQ4ZIhL4_DEXGEM0WiTOPAHUInnmkZr1T47IQIVT6TnTZoNKwpalgDikYB3ircS0hvrxZhLJinFRkRlGbLwSSrnykCujHU8X-nZgTTGNuw_f6nCDCUzhaZAMHPrLDwAVTh2jJwvpWsmJJ3T_YiY1JS9Ofzzm6Ah" 
-           alt="VGH Jewellers Nagercoil Nagercoil Custom Design Support" class="hero-img">
+      <img src="images/banner for the contact page.png" 
+           alt="VGH Jewellers Custom Design Support" class="hero-img">
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content glass hero-content-vgh animate-fade-up">
       <h1 class="font-playfair hero-title-vgh hero-title-italic">Custom Consultation</h1>
-      <p class="hero-desc-vgh">
-      Custom jewellery made to your design and budget.
-      </p>
+      <p class="hero-desc-vgh">Custom jewellery made to your design and budget.</p>
       <button (click)="scrollToForm()" class="btn-primary gold-glow hero-btn-vgh">Discuss Your Design</button>
     </div>
   </section>
@@ -18,13 +16,14 @@
   <!-- Main Contact Content -->
   <section class="contact-grid-section">
     <div class="contact-grid">
+
       <!-- Left: Contact Information -->
       <div class="contact-info-col animate-fade-up">
         <div class="info-header">
           <h2 class="font-playfair section-title">Connect with Us</h2>
           <p class="section-desc">
-           Have questions or looking for a custom design?
-Reach out to us directly—we’re here to help you with designs, pricing, and details.
+            Have questions or looking for a custom design?
+            Reach out to us directly—we're here to help you with designs, pricing, and details.
           </p>
         </div>
 
@@ -74,26 +73,65 @@ Reach out to us directly—we’re here to help you with designs, pricing, and d
             <span class="material-symbols-outlined">edit_note</span>
           </div>
           <h3 class="font-playfair form-title">Request a Consultation</h3>
-          <p class="form-subtitle">Fill in your details and we’ll get back to you shortly.</p>
-          
-          <form class="bespoke-form" (ngSubmit)="onSubmit()">
+          <p class="form-subtitle">Fill in your details and we'll get back to you shortly.</p>
+
+          <!-- ── SUCCESS STATE ─────────────────────────────────────── -->
+          <div *ngIf="submitSuccess" class="success-panel animate-fade-up">
+            <div class="success-icon">
+              <span class="material-symbols-outlined">check_circle</span>
+            </div>
+            <h4 class="success-title">Enquiry Sent!</h4>
+            <p class="success-desc">
+              Thank you for reaching out. We have received your enquiry and will get back to you within 24 hours.
+              Check your email for a confirmation.
+            </p>
+            <div class="reference-badge" *ngIf="referenceId">
+              Reference: <strong>{{ referenceId }}</strong>
+            </div>
+            <button class="reset-btn" (click)="resetForm()">Submit Another Enquiry</button>
+          </div>
+
+          <!-- ── FORM ──────────────────────────────────────────────── -->
+          <form class="bespoke-form" (ngSubmit)="onSubmit()" *ngIf="!submitSuccess" #enquiryForm="ngForm">
+
+            <!-- Row 1: Full Name + Email -->
             <div class="form-row">
               <div class="form-group">
                 <label for="fullName" class="form-label-aura">Full Name</label>
-                <input type="text" id="fullName" class="aura-input" name="fullName" [(ngModel)]="formData.fullName" placeholder="Julianne Moore" required>
+                <input type="text" id="fullName" class="aura-input" name="fullName"
+                       [(ngModel)]="formData.fullName" placeholder="e.g. Arun Kumar" required>
               </div>
               <div class="form-group">
                 <label for="email" class="form-label-aura">Email Address</label>
-                <input type="email" id="email" class="aura-input" name="email" [(ngModel)]="formData.email" placeholder="julianne@example.com" required>
+                <input type="email" id="email" class="aura-input" name="email"
+                       [(ngModel)]="formData.email" placeholder="you@example.com" required>
               </div>
             </div>
 
+            <!-- Row 2: Phone -->
+            <div class="form-group">
+              <label for="phone" class="form-label-aura">Phone / WhatsApp Number</label>
+              <div class="phone-input-wrapper">
+                <span class="phone-prefix">
+                  <span class="material-symbols-outlined phone-icon">call</span>
+                  +91
+                </span>
+                <input type="tel" id="phone" class="aura-input phone-input" name="phone"
+                       [(ngModel)]="formData.phone"
+                       placeholder="79043 94546"
+                       pattern="[0-9\s\-\+]{7,15}"
+                       maxlength="15"
+                       required>
+              </div>
+            </div>
+
+            <!-- Row 3: Inquiry Type Dropdown -->
             <div class="form-group">
               <label id="inquiry-type-label" class="form-label-aura">Inquiry Type</label>
-              <div 
+              <div
                 #dropdownRef
-                class="custom-select-aura" 
-                (click)="toggleDropdown()" 
+                class="custom-select-aura"
+                (click)="toggleDropdown()"
                 (keydown.enter)="toggleDropdown()"
                 role="button"
                 tabindex="0"
@@ -103,34 +141,60 @@ Reach out to us directly—we’re here to help you with designs, pricing, and d
                   <span>{{ formData.inquiryType }}</span>
                   <span class="material-symbols-outlined dropdown-chevron">expand_more</span>
                 </div>
-                
                 <div class="dropdown-menu-aura animate-scale-in" *ngIf="isDropdownOpen">
                   <div class="menu-label">Inquiry Selection</div>
-                  <div 
-                    *ngFor="let type of inquiryTypes" 
+                  <div
+                    *ngFor="let type of inquiryTypes"
                     class="menu-option"
+                    [class.menu-option-selected]="formData.inquiryType === type"
                     role="button"
                     tabindex="0"
                     (click)="selectOption(type); $event.stopPropagation()"
                     (keydown.enter)="selectOption(type); $event.stopPropagation()">
+                    <span class="material-symbols-outlined option-check" *ngIf="formData.inquiryType === type">check</span>
                     {{ type }}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="message" class="form-label-aura">Your Message</label>
-              <textarea id="message" class="aura-input" name="message" [(ngModel)]="formData.message" rows="5" placeholder="Tell us about the piece of your dreams..." required></textarea>
+            <!-- "Other" free-text input -->
+            <div class="form-group other-input-group" *ngIf="isOtherSelected">
+              <label for="customInquiry" class="form-label-aura">Please Specify</label>
+              <input type="text" id="customInquiry" class="aura-input" name="customInquiry"
+                     [(ngModel)]="formData.customInquiry"
+                     placeholder="Describe your inquiry..."
+                     autocomplete="off" required>
             </div>
 
-            <button type="submit" class="submit-btn gold-glow">
-              Get a Callback
+            <!-- Row 4: Message -->
+            <div class="form-group">
+              <label for="message" class="form-label-aura">Your Message</label>
+              <textarea id="message" class="aura-input" name="message"
+                        [(ngModel)]="formData.message" rows="5"
+                        placeholder="Tell us about the piece of your dreams, your budget, or any specific requirements..."
+                        required></textarea>
+            </div>
+
+            <!-- Error Banner -->
+            <div class="error-banner" *ngIf="submitError">
+              <span class="material-symbols-outlined">error</span>
+              {{ submitError }}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn gold-glow" [disabled]="isSubmitting">
+              <span *ngIf="!isSubmitting" class="btn-content">
+                <span class="material-symbols-outlined">send</span>
+                Get a Callback
+              </span>
+              <span *ngIf="isSubmitting" class="btn-content">
+                <span class="spinner"></span>
+                Sending...
+              </span>
             </button>
-            <!-- <p class="form-footer-note">
-              By submitting, you agree to our privacy policy and terms of service.
-            </p> -->
           </form>
+
         </div>
       </div>
     </div>

@@ -37,12 +37,12 @@ export class AboutUsComponent {
     {
       title: 'BIS Hallmarked Gold',
       description: 'Every gold ornament is BIS hallmarked, ensuring certified purity and standard quality you can rely on.',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAEAcdfUITGAOO9JmNINTbtukYsBvbg6D1ejd_SEQQbFpnys6JNHNveHNiRAVbxiGSXQ2flhdGkhi8rt_rHJUOzsg3ut74PaUsriEwN6uhIiX_S0Bs4WaM76UMA1_oAc8wpgiCWPX5OpkLlGe-jtbklieOAy_gTde8mLO4sfWBt6973Z_LtTke9Ym9E4LqulY3qA_8xTLQ3uWFgkueGQWx3PQVb01c3eg9Gy3u7ZU2LEFErqnre3L-2g4ikJBzwAo4Zmwdh6w8W-epP'
+      image: '/images/BIS HALLMARKED.png'
     },
     {
       title: 'Purity Tested Jewellery',
       description: 'Each piece comes with a purity testing report, so you know exactly what you’re buying no compromises.',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDf9EIeLpMeuXfLZyUAr3Eg59aQYIS9hADdBRoy5m0KL3hX6HIDRMgXU5YkVxBlrpSnLz13a7t1mg5U8_4CF8J88wnoYBzE_WVUDwN9zv_68AtnZXsLw0fzHthxMaA3pjQw77UGMtXw56AVYsRRQNxhxEFgYrL2Q9sPuFDx6eSfVPP5SsFXwhFqT50sozKU4xJnqoSQd9EleEzHthHh8t6B8s5j0TceHpxL8mZHSmxWhc_UM0hvVhI4f2u6fgNjM_5fXTiVYLKEnJMV'
+      image: '/images/PURITY TESTED JEWELLERY.png'
     }
   ];
 }

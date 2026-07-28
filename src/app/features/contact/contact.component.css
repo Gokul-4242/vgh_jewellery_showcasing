@@ -358,7 +358,28 @@
   animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+
+/* Other inquiry free-text input */
+.other-input-group {
+  animation: slide-in-other 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+@keyframes slide-in-other {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 120px;
+  }
+}
+
 .submit-btn {
+
   margin-top: 1rem;
   padding: 1.25rem;
   background: var(--primary);
@@ -392,3 +413,178 @@
   animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .delay-200 { animation-delay: 0.2s; }
+
+/* ── Phone Input ──────────────────────────────────────────────── */
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.phone-input-wrapper:focus-within {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+.phone-prefix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+  border-right: 1px solid rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.06);
+  height: 100%;
+  min-height: 3.4rem;
+}
+.phone-icon {
+  font-size: 1.1rem !important;
+}
+.phone-input {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  flex: 1;
+}
+.phone-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* ── Dropdown selected option highlight ───────────────────────── */
+.menu-option-selected {
+  color: var(--primary) !important;
+  padding-left: 0.5rem;
+}
+.option-check {
+  font-size: 14px !important;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ── Error Banner ─────────────────────────────────────────────── */
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.875rem;
+  animation: fade-up 0.3s ease forwards;
+}
+.error-banner .material-symbols-outlined {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── Submit Button States ─────────────────────────────────────── */
+.submit-btn {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: var(--primary);
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  width: 100%;
+}
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-content .material-symbols-outlined {
+  font-size: 1.1rem;
+}
+
+/* ── Spinner ──────────────────────────────────────────────────── */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #0d0d0d;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Success Panel ────────────────────────────────────────────── */
+.success-panel {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.success-icon .material-symbols-outlined {
+  font-size: 5rem;
+  color: var(--primary);
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
+}
+.success-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #fff;
+  margin: 0;
+}
+.success-desc {
+  color: var(--text-darker);
+  line-height: 1.8;
+  max-width: 380px;
+  font-size: 0.95rem;
+  margin: 0;
+}
+.reference-badge {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--primary);
+  border-radius: 999px;
+  padding: 6px 20px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.reset-btn {
+  margin-top: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--primary);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.reset-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--primary);
+}
+
