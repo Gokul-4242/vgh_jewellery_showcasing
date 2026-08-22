@@ -1,0 +1,44 @@
+<div class="chatbot-widget">
+  <button class="chatbot-toggle" type="button" (click)="toggleChat()" aria-label="Toggle chatbot">
+    <span class="material-symbols-outlined">smart_toy</span>
+    <span class="chatbot-toggle-label">Chat</span>
+  </button>
+
+  <div class="chatbot-panel" *ngIf="isOpen()">
+    <div class="chatbot-header">
+      <div>
+        <h3>VGH Assistant</h3>
+      </div>
+      <button type="button" class="close-btn" (click)="toggleChat()" aria-label="Close chat">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="chatbot-messages">
+      <div
+        *ngFor="let message of messages()"
+        class="chat-message"
+        [class.user]="message.sender === 'user'"
+        [class.bot]="message.sender === 'bot'"
+      >
+        <div class="message-bubble">{{ message.text }}</div>
+      </div>
+
+      <div *ngIf="isLoading()" class="chat-message bot">
+        <div class="message-bubble typing">Thinking...</div>
+      </div>
+    </div>
+
+    <form class="chatbot-form" (ngSubmit)="sendMessage()">
+      <input
+        type="text"
+        name="message"
+        [ngModel]="draft"
+        (ngModelChange)="draft = $event"
+        placeholder="Ask about jewellery..."
+        aria-label="Type your message"
+      />
+      <button type="submit" [disabled]="isLoading() || !draft.trim()">Send</button>
+    </form>
+  </div>
+</div>

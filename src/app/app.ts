@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
+import { ChatbotWidgetComponent } from './shared/components/chatbot-widget/chatbot-widget.component';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
@@ -12,6 +13,7 @@ import { filter } from 'rxjs/operators';
     RouterOutlet,
     HeaderComponent,
     FooterComponent,
+    ChatbotWidgetComponent,
     CommonModule
   ],
   templateUrl: './app.html',

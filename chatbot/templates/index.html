@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LLM Chatbot</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 1rem; }
+      #messages { border: 1px solid #ddd; padding: 1rem; height: 60vh; overflow:auto; }
+      #chat-form { margin-top: 1rem; display:flex; gap:0.5rem }
+      input[type=text]{ flex:1; padding:0.5rem }
+      button{ padding:0.5rem 1rem }
+    </style>
+  </head>
+  <body>
+    <h1>LLM Chatbot</h1>
+    <div id="messages"></div>
+
+    <form id="chat-form">
+      <input id="message" type="text" placeholder="Say something..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+
+    <script src="/static/chat.js"></script>
+  </body>
+</html>
