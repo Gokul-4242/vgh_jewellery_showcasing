@@ -1,20 +1,44 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { CheckoutStepperComponent } from '../../shared/components/checkout-stepper/checkout-stepper';
-import { OrderService } from '../../core/services/order.service';
+import { CartService } from '../../core/services/cart.service';
+import { AuthService } from '../../core/services/auth.service';
+import * as CheckoutActions from '../../core/store/checkout/checkout.actions';
+import {
+  selectPlacingOrder,
+  selectCheckoutError,
+  selectShippingInfo
+} from '../../core/store/checkout/checkout.selectors';
 
 @Component({
   selector: 'app-checkout-payment',
   standalone: true,
-  imports: [CommonModule, FormsModule, CheckoutStepperComponent],
+  imports: [CommonModule, FormsModule, RouterLink, CheckoutStepperComponent],
   templateUrl: './checkout-payment.html',
   styleUrl: './checkout-payment.css'
 })
-export class CheckoutPayment {
+export class CheckoutPayment implements OnInit {
   private readonly router = inject(Router);
-  private readonly orderService = inject(OrderService);
+  private readonly store = inject(Store);
+  readonly cartService = inject(CartService);
+  private readonly authService = inject(AuthService);
+
+  ngOnInit() {
+    this.cartService.init();
+  }
+
+  // Store signals
+  cartItems = this.cartService.detailedItems;
+  subtotal = this.cartService.subtotal;
+  tax = this.cartService.tax;
+  total = this.cartService.total;
+  itemCount = this.cartService.itemCount;
+  isPlacingOrder = this.store.selectSignal(selectPlacingOrder);
+  checkoutError = this.store.selectSignal(selectCheckoutError);
+  shippingInfo = this.store.selectSignal(selectShippingInfo);
 
   paymentMethod = signal<'card' | 'upi' | 'banking'>('card');
 
@@ -28,27 +52,36 @@ export class CheckoutPayment {
 
   setPaymentMethod(method: 'card' | 'upi' | 'banking') {
     this.paymentMethod.set(method);
+    this.store.dispatch(CheckoutActions.setPaymentMethod({ method }));
   }
 
   onCompletePurchase() {
-    console.log('Sending Payment details:', this.paymentData);
-    
-    // In a real app, this array would be pulled from a global CartService state.
-    // For MVP integration testing, we construct the shape the backend expects.
-    const cartPayload = [
-      { productId: 'REPLACE_WITH_REAL_MONGO_PRODUCT_ID', quantity: 1 }
-    ];
+    const items = this.cartItems();
+    if (!items || items.length === 0) {
+      alert('Your cart is empty. Please add items to complete checkout.');
+      this.router.navigate(['/']);
+      return;
+    }
 
-    this.orderService.createOrder(cartPayload).subscribe({
-      next: (response) => {
-        console.log('Backend Successfully Processed Order! Invoice details:', response);
-        // Backend atomic stock deducted, safe to route to confirmation!
-        this.router.navigate(['/checkout/confirmation']);
-      },
-      error: (err) => {
-        console.error('Transaction Failed:', err);
-        alert('Order failed to process. Check console.');
-      }
-    });
+    const cartPayload = items.map((i) => ({
+      productId: i.id,
+      quantity: i.quantity
+    }));
+
+    const user = this.authService.currentUser();
+    const userId = user?._id || user?.id || '60d0fe4f5311236168a109ca';
+
+    this.store.dispatch(
+      CheckoutActions.setPaymentData({ paymentData: this.paymentData })
+    );
+
+    this.store.dispatch(
+      CheckoutActions.placeOrder({
+        items: cartPayload,
+        userId,
+        customer: this.shippingInfo() || undefined,
+        paymentMethod: this.paymentMethod()
+      })
+    );
   }
 }

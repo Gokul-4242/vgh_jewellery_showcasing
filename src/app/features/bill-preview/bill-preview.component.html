@@ -1,0 +1,236 @@
+<div class="bill-preview-page no-select">
+  <!-- Subtle Background Orbs -->
+  <div class="background-effects-container">
+    <div class="bg-shape-top"></div>
+    <div class="bg-shape-bottom"></div>
+  </div>
+
+  <!-- Security Alert Banner -->
+  <div *ngIf="screenshotAlert()" class="security-toast-alert animate-fade-down">
+    <span class="material-symbols-outlined text-amber-400">shield_lock</span>
+    <span>{{ screenshotAlert() }}</span>
+  </div>
+
+  <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex flex-col gap-6">
+    <!-- Top Bar Navigation & Actions -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 glass-panel p-4 sm:p-6 rounded-xl border border-primary/20">
+      <div>
+        <div class="flex items-center gap-2 text-primary">
+          <span class="material-symbols-outlined text-xl">receipt_long</span>
+          <span class="text-xs uppercase tracking-widest font-bold">Official Bill Copy Preview</span>
+        </div>
+        <h2 class="text-2xl font-display text-white mt-1">Order Estimation & Invoice Summary</h2>
+      </div>
+
+      <div class="flex items-center gap-3 flex-wrap">
+        <div class="security-badge">
+          <span class="material-symbols-outlined text-sm text-primary">lock</span>
+          <span class="text-2xs uppercase tracking-wider text-slate-300">Screenshot Protected</span>
+        </div>
+        <button routerLink="/cart" class="btn-secondary-aura px-5 py-2.5 text-xs font-semibold uppercase tracking-wider">
+          Back to Bag
+        </button>
+        <button (click)="proceedToShipping()" class="btn-primary-aura px-6 py-2.5 text-xs font-semibold uppercase tracking-wider gold-glow">
+          Proceed to Shipping
+        </button>
+      </div>
+    </div>
+
+    <!-- Invoice Sheet Wrapper with Anti-Capture Blur Shield -->
+    <div class="invoice-container-wrapper relative">
+      <!-- Inactive window shield -->
+      <div *ngIf="isWindowBlurred()" class="privacy-blur-overlay">
+        <div class="shield-box text-center p-8 rounded-2xl glass-panel border border-primary/30 max-w-md">
+          <span class="material-symbols-outlined text-5xl text-primary mb-3">visibility_off</span>
+          <h3 class="text-xl font-display text-white mb-2">Confidential Bill Preview</h3>
+          <p class="text-xs text-slate-300 font-body leading-relaxed">
+            Content is hidden while the browser window is inactive to protect live pricing and quotation privacy. Click here to resume.
+          </p>
+        </div>
+      </div>
+
+      <!-- The Printable/Viewable Luxury Bill Sheet -->
+      <div class="invoice-sheet" [class.blurred-content]="isWindowBlurred()">
+        <!-- Watermark -->
+        <div class="diagonal-watermark">
+          <span>VGH JEWELLERS • BILL COPY PREVIEW • CONFIDENTIAL</span>
+        </div>
+
+        <!-- Invoice Header -->
+        <div class="invoice-header flex flex-col sm:flex-row justify-between items-start gap-6 border-b border-white/10 pb-8">
+          <div class="flex items-start gap-4">
+            <div class="size-14 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined text-3xl">diamond</span>
+            </div>
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-display font-bold text-primary tracking-wider uppercase">{{ storeSettings.name }}</h1>
+              <p class="text-2xs text-slate-400 uppercase tracking-widest mt-1">{{ storeSettings.tagline }}</p>
+              <p class="text-xs text-slate-300 mt-2 font-body">{{ storeSettings.address }}</p>
+              <p class="text-2xs text-slate-400 font-body mt-1">GSTIN: <span class="text-slate-200 font-mono">{{ storeSettings.gstNo }}</span> • Phone: {{ storeSettings.contact }}</p>
+            </div>
+          </div>
+
+          <div class="invoice-badge-box text-right self-start sm:self-auto">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs uppercase tracking-widest font-semibold">
+              <span class="material-symbols-outlined text-sm">schedule</span>
+              <span>ESTIMATE / PREVIEW</span>
+            </div>
+            <p class="text-2xs text-slate-400 mt-2">Certified Bullion Quotation</p>
+          </div>
+        </div>
+
+        <!-- Addresses & Customer Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-b border-white/10 text-xs font-body">
+          <div class="billed-from-box p-4 rounded-lg bg-white/5 border border-white/5">
+            <p class="text-2xs uppercase tracking-widest text-primary font-bold mb-2">Billed From</p>
+            <p class="text-white font-semibold">{{ storeSettings.name }}</p>
+            <p class="text-slate-400 mt-1">{{ storeSettings.address }}</p>
+            <p class="text-slate-400 mt-1">Email: {{ storeSettings.email }}</p>
+            <p class="text-slate-400 mt-1">Web: {{ storeSettings.website }}</p>
+          </div>
+
+          <div class="billed-to-box p-4 rounded-lg bg-white/5 border border-white/5">
+            <p class="text-2xs uppercase tracking-widest text-primary font-bold mb-2">Billed To (Customer)</p>
+            <p class="text-white font-semibold">{{ shipping().name || 'Direct Online Customer' }}</p>
+            <p class="text-slate-400 mt-1">{{ shipping().address || 'Address provided at checkout shipping' }}</p>
+            <p class="text-slate-400 mt-1">Phone: {{ shipping().phone || 'Provided at checkout' }}</p>
+            <p class="text-slate-400 mt-1">Email: {{ shipping().email || 'Registered account' }}</p>
+          </div>
+        </div>
+
+        <!-- Meta Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-white/10 font-body text-center">
+          <div class="p-3 rounded-lg bg-white/5">
+            <span class="text-2xs text-slate-400 uppercase tracking-widest block">Invoice No</span>
+            <span class="text-sm font-semibold text-white font-mono mt-1 block">#{{ invoice().invoiceNo }}</span>
+          </div>
+          <div class="p-3 rounded-lg bg-white/5">
+            <span class="text-2xs text-slate-400 uppercase tracking-widest block">Invoice Date</span>
+            <span class="text-sm font-semibold text-white mt-1 block">{{ invoice().date }}</span>
+          </div>
+          <div class="p-3 rounded-lg bg-white/5">
+            <span class="text-2xs text-slate-400 uppercase tracking-widest block">Gold Rate (22K)</span>
+            <span class="text-sm font-semibold text-primary mt-1 block">₹{{ invoice().goldRate | number }} /g</span>
+          </div>
+          <div class="p-3 rounded-lg bg-white/5">
+            <span class="text-2xs text-slate-400 uppercase tracking-widest block">Silver Rate</span>
+            <span class="text-sm font-semibold text-slate-200 mt-1 block">₹{{ invoice().silverRate || 0 | number }} /g</span>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="py-6 overflow-x-auto">
+          <table class="w-full text-left font-body text-xs border-collapse invoice-table">
+            <thead>
+              <tr class="border-b border-primary/20 text-slate-400 text-2xs uppercase tracking-widest">
+                <th class="py-3 px-3">Item Description</th>
+                <th class="py-3 px-2 text-center">Purity</th>
+                <th class="py-3 px-2 text-right">Gross Wt (g)</th>
+                <th class="py-3 px-2 text-right">Rate/g</th>
+                <th class="py-3 px-2 text-right">Wast %</th>
+                <th class="py-3 px-2 text-right">Making</th>
+                <th class="py-3 px-3 text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of invoice().items" class="border-b border-white/5 text-slate-200 hover:bg-white/5 transition-colors">
+                <td class="py-4 px-3">
+                  <span class="font-display font-semibold text-white text-sm block">{{ item.name }}</span>
+                  <span class="text-2xs text-slate-400 uppercase tracking-wider block mt-0.5">SKU: {{ item.code }}</span>
+                </td>
+                <td class="py-4 px-2 text-center text-primary font-medium">{{ item.purity }}</td>
+                <td class="py-4 px-2 text-right font-mono">{{ item.weight }}g</td>
+                <td class="py-4 px-2 text-right font-mono">₹{{ item.rate | number }}</td>
+                <td class="py-4 px-2 text-right font-mono">{{ item.wastage || 0 }}%</td>
+                <td class="py-4 px-2 text-right font-mono">₹{{ item.makingCharges | number }}</td>
+                <td class="py-4 px-3 text-right font-mono font-semibold text-white">₹{{ item.total | number }}</td>
+              </tr>
+              <tr *ngIf="invoice().items.length === 0">
+                <td colspan="7" class="py-8 text-center text-slate-400">
+                  No items in bag to preview.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Breakdown & Totals -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-8 pt-6 border-t border-white/10 font-body">
+          <div class="sm:col-span-7 space-y-4">
+            <h5 class="text-xs uppercase tracking-widest text-primary font-bold">Terms & Quality Assurance</h5>
+            <ul class="text-2xs text-slate-400 space-y-2 list-disc list-inside leading-relaxed">
+              <li>All bullion calculations are synchronized live with today's hallmarked commodity rates.</li>
+              <li>Pure BIS hallmarked gold & certified high-purity silver craftsmanship.</li>
+              <li>This digital copy is an authorized quotation preview generated for customer order reference.</li>
+              <li>Final invoice is issued upon successful checkout and transaction verification.</li>
+            </ul>
+
+            <div class="pt-6 mt-6 border-t border-white/5 flex items-center gap-4 text-slate-400 text-2xs">
+              <span class="material-symbols-outlined text-primary text-xl">verified</span>
+              <span>100% Genuine & Certified Hallmarked Craftsmanship by VGH Jewellers.</span>
+            </div>
+          </div>
+
+          <div class="sm:col-span-5 space-y-3 bg-white/5 p-6 rounded-xl border border-white/10">
+            <div class="flex justify-between text-xs text-slate-300">
+              <span>Pure Bullion Value</span>
+              <span class="font-mono">₹{{ (invoice().subtotal - invoice().wastageTotal - invoice().makingTotal) | number }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-300">
+              <span>Wastage Value</span>
+              <span class="font-mono">₹{{ invoice().wastageTotal | number }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-300">
+              <span>Making Charges</span>
+              <span class="font-mono">₹{{ invoice().makingTotal | number }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-300 border-t border-white/10 pt-2">
+              <span>Subtotal</span>
+              <span class="font-mono font-medium text-white">₹{{ invoice().subtotal | number }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-300">
+              <span>Jewellery GST ({{ invoice().gstRate }}%)</span>
+              <span class="font-mono">₹{{ invoice().gst | number }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-primary font-bold">
+              <span>Insured Shipping</span>
+              <span class="uppercase text-2xs tracking-widest">Complimentary</span>
+            </div>
+
+            <div class="pt-4 border-t border-primary/20 flex justify-between items-end">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-slate-400 block">Net Payable Amount</span>
+                <span class="text-2xs text-slate-500">All duties & taxes included</span>
+              </div>
+              <span class="text-2xl font-body font-bold text-primary glow-text">₹{{ invoice().grandTotal | number }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Authorized Signature -->
+        <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-6 text-xs text-slate-400">
+          <div>
+            <p class="font-display font-semibold text-white">VGH Jewellers Concierge</p>
+            <p class="text-2xs mt-1">Thank you for curating with VGH Jewellers</p>
+          </div>
+          <div class="text-center sm:text-right">
+            <div class="h-10 border-b border-primary/40 w-44 mx-auto sm:ml-auto mb-2 flex items-center justify-center font-display italic text-primary/70 text-sm">
+              VGH Authenticated
+            </div>
+            <p class="text-2xs uppercase tracking-widest text-slate-400">Authorized Signatory</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Action CTA -->
+    <div class="flex justify-end gap-4 mt-4">
+      <button routerLink="/cart" class="btn-secondary-aura px-8 py-3 text-xs font-semibold uppercase tracking-wider">
+        Back to Shopping Bag
+      </button>
+      <button (click)="proceedToShipping()" class="btn-primary-aura px-10 py-3 text-xs font-semibold uppercase tracking-wider gold-glow">
+        Proceed to Shipping & Checkout →
+      </button>
+    </div>
+  </div>
+</div>

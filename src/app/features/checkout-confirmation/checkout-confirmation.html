@@ -23,68 +23,84 @@
 
       <!-- Hero Text -->
       <h1 class="hero-title">Thank You for Your Order</h1>
-      <p class="hero-subtitle">A touch of elegance is on its way to you.</p>
+      <p class="hero-subtitle">A touch of timeless VGH luxury is on its way to you.</p>
 
       <!-- Order Info Grid -->
       <div class="info-grid">
         <div class="info-card">
           <span class="material-symbols-outlined">confirmation_number</span>
-          <p class="info-label">Order Number</p>
+          <p class="info-label">Order Reference</p>
           <p class="info-value">#{{ orderNumber() }}</p>
         </div>
         <div class="info-card">
           <span class="material-symbols-outlined">local_shipping</span>
-          <p class="info-label">Delivery Estimate</p>
+          <p class="info-label">Estimated Delivery</p>
           <p class="info-value">{{ deliveryEstimate() }}</p>
         </div>
       </div>
 
       <!-- Order Summary Card -->
-      <div class="summary-container">
-        <div class="summary-header">
-          <h3>Order Summary</h3>
+      <div class="summary-container" *ngIf="confirmedInvoice() as invoice">
+        <div class="summary-header flex justify-between items-center">
+          <h3>Purchased Pieces</h3>
+          <span class="text-xs uppercase tracking-wider text-primary">{{ invoice.items.length }} Item(s)</span>
         </div>
         
         <div class="summary-body">
-          <!-- Single Item (Placeholder for future map) -->
-          <div class="product-row">
-            <div class="product-img-box">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVS5vkCsWHHTZY7vDyvFMjD07812yhqrzsHL2fVDm31wa4qIuyGNjOv83D5n-VuQt-YzlBOMTORPMDJ8-v--2_qpGOI56-1_SbcIo1Mh4Tr7LUWo6FAXMUDwRRJUHgIB9k_ulqZ71WyrsgTDByqrSaJmEzm9gH3joFORAqHrMLFPMYu-vQTZg3a4tObyOWKueBwxjnC44Jfws5E68iY8wFIZ9G-C36c4TCjCP-eWB0aOBBQMY-i-8X7p_ea2oDTTJb1NhPWPkpDY8U" alt="Luxury gold ring">
+          <!-- Dynamic Items -->
+          <div *ngFor="let item of invoice.items" class="product-row">
+            <div class="product-img-box flex items-center justify-center bg-white/5 border border-primary/20 rounded-lg">
+              <span class="material-symbols-outlined text-primary text-2xl">diamond</span>
             </div>
             <div class="product-info">
-              <h4 class="product-name">Ethereal Band in 24K Gold</h4>
-              <p class="product-desc">Size: 7 • Finish: Polished</p>
+              <h4 class="product-name">{{ item.name }}</h4>
+              <p class="product-desc">{{ item.purity }} • {{ item.weight }}g • SKU: {{ item.code }}</p>
             </div>
-            <div class="product-price">₹1,250.00</div>
+            <div class="product-price font-mono">₹{{ item.total | number }}</div>
+          </div>
+
+          <div *ngIf="invoice.items.length === 0" class="py-4 text-center text-slate-400 text-xs">
+            Direct Concierge Order
           </div>
 
           <!-- Totals -->
           <div class="totals-section">
             <div class="total-row">
               <span>Subtotal</span>
-              <span>₹1,250.00</span>
+              <span class="font-mono">₹{{ invoice.subtotal | number }}</span>
             </div>
             <div class="total-row">
-              <span>Complimentary Shipping</span>
-              <span class="shipping-free-label">Free</span>
+              <span>Jewellery GST (3%)</span>
+              <span class="font-mono">₹{{ invoice.gst | number }}</span>
+            </div>
+            <div class="total-row">
+              <span>Insured Shipping</span>
+              <span class="shipping-free-label">Complimentary</span>
             </div>
             <div class="total-row final">
-              <span class="final-label">Total Amount</span>
-              <span class="final-amount">₹1,250.00</span>
+              <span class="final-label">Total Amount Paid</span>
+              <span class="final-amount font-mono text-primary font-bold">₹{{ invoice.grandTotal | number }}</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Action Buttons -->
-      <div class="action-buttons">
-        <button class="btn-primary" (click)="onTrackOrder()">Track Order</button>
-        <button class="btn-outline" routerLink="/">Continue Shopping</button>
+      <div class="action-buttons flex flex-wrap gap-4 justify-center">
+        <button class="btn-primary flex items-center gap-2" (click)="onViewBillPreview()">
+          <span class="material-symbols-outlined text-lg">receipt_long</span>
+          <span>View Official Bill Copy</span>
+        </button>
+        <button class="btn-outline flex items-center gap-2" (click)="onTrackOrder()">
+          <span class="material-symbols-outlined text-lg">navigation</span>
+          <span>Track Order</span>
+        </button>
+        <button class="btn-outline" routerLink="/">Continue Curating</button>
       </div>
 
       <!-- Footer Help Text -->
       <p class="confirmation-footer">
-        A confirmation email has been sent to your registered address. For any inquiries, please contact our concierge at support@vghjewellers.com
+        An authenticated invoice summary has been generated for your order. For any customized inquiries, please contact our concierge at concierge@vghjewellers.com
       </p>
     </div>
   </div>

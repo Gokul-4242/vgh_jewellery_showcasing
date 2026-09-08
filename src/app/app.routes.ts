@@ -10,6 +10,7 @@ import { CartComponent } from './features/cart/cart';
 import { CheckoutShipping } from './features/checkout-shipping/checkout-shipping';
 import { CheckoutPayment } from './features/checkout-payment/checkout-payment';
 import { CheckoutConfirmationComponent } from './features/checkout-confirmation/checkout-confirmation';
+import { BillPreviewComponent } from './features/bill-preview/bill-preview.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'cart', component: CartComponent },
+  { path: 'checkout/bill-preview', component: BillPreviewComponent },
   { path: 'checkout/shipping', component: CheckoutShipping },
   { path: 'checkout/payment', component: CheckoutPayment },
   { path: 'checkout/confirmation', component: CheckoutConfirmationComponent },

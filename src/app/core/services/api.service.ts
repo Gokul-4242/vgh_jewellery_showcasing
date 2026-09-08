@@ -17,6 +17,13 @@ export class ApiService {
     const token = localStorage.getItem('token');
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
+    } else {
+      let guestId = localStorage.getItem('guestId');
+      if (!guestId) {
+        guestId = 'guest_' + Math.random().toString(36).substring(2, 11);
+        localStorage.setItem('guestId', guestId);
+      }
+      headers = headers.set('x-guest-id', guestId);
     }
     
     return headers;

@@ -9,12 +9,12 @@
     <!-- Top Navigation Bar -->
     <header class="sticky top-0 z-50 w-full glass-panel border-b border-primary/20 checkout-header">
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div class="flex items-center gap-3 text-primary">
+        <a routerLink="/" class="flex items-center gap-3 text-primary">
           <div class="size-6">
             <span class="material-symbols-outlined">diamond</span>
           </div>
           <h2 class="text-xl font-display font-bold tracking-widest uppercase">VGH Jewellers</h2>
-        </div>
+        </a>
         <div class="flex items-center gap-4">
           <span class="material-symbols-outlined text-primary text-sm">lock</span>
           <span class="secure-checkout-label">Secure Checkout</span>
@@ -28,6 +28,12 @@
         <!-- Progress Stepper -->
         <app-checkout-stepper [currentStep]="2"></app-checkout-stepper>
 
+        <!-- Error Banner -->
+        <div *ngIf="checkoutError()" class="p-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 flex items-center gap-3 text-sm animate-fade-in">
+          <span class="material-symbols-outlined text-red-400">error</span>
+          <span>{{ checkoutError() }}</span>
+        </div>
+
         <!-- Payment Selector -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 switcher-grid">
           <!-- Card Option -->
@@ -35,31 +41,32 @@
                [class.active-option]="paymentMethod() === 'card'"
                (click)="setPaymentMethod('card')">
             <span class="material-symbols-outlined text-3xl">credit_card</span>
-            <span class="payment-method-label">Card</span>
+            <span class="payment-method-label">Credit / Debit Card</span>
           </div>
           <!-- UPI Option -->
           <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
                [class.active-option]="paymentMethod() === 'upi'"
                (click)="setPaymentMethod('upi')">
             <span class="material-symbols-outlined text-3xl">qr_code_2</span>
-            <span class="payment-method-label">UPI</span>
+            <span class="payment-method-label">UPI / QR Pay</span>
           </div>
           <!-- Net Banking Option -->
           <div class="payment-option rounded-xl p-6 flex flex-col items-center gap-3 cursor-pointer transition-all"
                [class.active-option]="paymentMethod() === 'banking'"
                (click)="setPaymentMethod('banking')">
             <span class="material-symbols-outlined text-3xl">account_balance</span>
-            <span class="payment-method-label">Banking</span>
+            <span class="payment-method-label">Net Banking</span>
           </div>
         </div>
 
         <!-- Card Form Container -->
         <div *ngIf="paymentMethod() === 'card'" class="glass-panel rounded-xl p-8 space-y-8 animate-fade-in">
           <div class="flex justify-between items-center">
-            <h3 class="text-xl font-display text-white">Credit / Debit Card Details</h3>
+            <h3 class="text-xl font-display text-white">Card Payment Details</h3>
             <div class="flex gap-2">
               <div class="card-badge">VISA</div>
-              <div class="card-badge">MC</div>
+              <div class="card-badge">MASTERCARD</div>
+              <div class="card-badge">RUPAY</div>
             </div>
           </div>
           
@@ -87,30 +94,44 @@
             </div>
             <div class="pt-2 flex items-center gap-3">
               <input id="saveCard" class="checkbox-aura" type="checkbox" name="saveCard" [(ngModel)]="paymentData.saveCard">
-              <label for="saveCard" class="checkbox-save-label">Save card for faster checkout</label>
+              <label for="saveCard" class="checkbox-save-label">Save card securely for future purchases</label>
             </div>
           </form>
         </div>
 
-        <!-- Placeholder for other methods -->
-        <div *ngIf="paymentMethod() !== 'card'" class="glass-panel rounded-xl p-12 text-center space-y-4 animate-fade-in">
-          <span class="material-symbols-outlined text-5xl text-primary/40">account_balance_wallet</span>
-          <p class="text-slate-400 font-body tracking-widest uppercase text-sm">Secure {{ paymentMethod() | uppercase }} Portal Incoming</p>
+        <!-- UPI / Netbanking Form Container -->
+        <div *ngIf="paymentMethod() === 'upi'" class="glass-panel rounded-xl p-8 space-y-6 text-center animate-fade-in">
+          <span class="material-symbols-outlined text-5xl text-primary mb-2">qr_code_2</span>
+          <h3 class="text-xl font-display text-white">Instant UPI Concierge Payment</h3>
+          <p class="text-slate-400 font-body text-xs max-w-md mx-auto">
+            Scan and pay securely using any UPI app (Google Pay, PhonePe, Paytm, BHIM). Stock is automatically reserved upon order processing.
+          </p>
+          <div class="max-w-xs mx-auto p-4 rounded-xl bg-white/5 border border-primary/20 text-xs font-mono text-primary">
+            vghjewellers@upi
+          </div>
+        </div>
+
+        <div *ngIf="paymentMethod() === 'banking'" class="glass-panel rounded-xl p-8 space-y-6 text-center animate-fade-in">
+          <span class="material-symbols-outlined text-5xl text-primary mb-2">account_balance</span>
+          <h3 class="text-xl font-display text-white">Direct Bank Transfer / Net Banking</h3>
+          <p class="text-slate-400 font-body text-xs max-w-md mx-auto">
+            HDFC, ICICI, SBI, Axis, and all major Indian banks supported with direct encrypted verification.
+          </p>
         </div>
 
         <!-- Trust Badges -->
-        <div class="flex flex-wrap items-center justify-center gap-10 py-4 opacity-50 badges-container">
+        <div class="flex flex-wrap items-center justify-center gap-10 py-4 opacity-70 badges-container">
           <div class="trust-badge">
             <span class="material-symbols-outlined">verified_user</span>
-            <span>SSL Secured</span>
+            <span>256-Bit SSL Secured</span>
           </div>
           <div class="trust-badge">
             <span class="material-symbols-outlined">shield_with_heart</span>
-            <span>Secure Pay</span>
+            <span>Zero Fraud Liability</span>
           </div>
           <div class="trust-badge">
             <span class="material-symbols-outlined">gpp_good</span>
-            <span>VGH Authenticated</span>
+            <span>VGH Certified Authentic</span>
           </div>
         </div>
       </div>
@@ -118,52 +139,61 @@
       <!-- Right Sidebar: Order Summary -->
       <aside class="w-full summary-sidebar flex flex-col gap-6">
         <div class="glass-panel rounded-xl p-8 sticky top-32 flex flex-col h-full summary-panel">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="material-symbols-outlined text-primary">shopping_bag</span>
-            <h2 class="summary-title">Order Summary</h2>
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">shopping_bag</span>
+              <h2 class="summary-title">Order Summary</h2>
+            </div>
+            <span class="text-xs uppercase tracking-widest text-primary">{{ itemCount() }} Item(s)</span>
           </div>
           
-          <div class="space-y-6 flex-1">
-            <div class="flex justify-between items-start border-b border-white/5 pb-6">
-              <div>
-                <h4 class="text-lg font-display text-white">VGH Jewellers Premium</h4>
-                <p class="membership-badge-label">Limited Edition Membership</p>
+          <div class="space-y-4 flex-1 max-h-80 overflow-y-auto pr-1">
+            <div *ngFor="let item of cartItems()" class="flex justify-between items-center border-b border-white/5 pb-4">
+              <div class="flex-1 pr-3 min-w-0">
+                <h4 class="text-sm font-display text-white truncate">{{ item.name }}</h4>
+                <p class="text-2xs text-slate-400">Qty: {{ item.quantity }} • {{ item.material }}</p>
               </div>
-              <span class="text-white font-body font-medium">₹1,200.00</span>
+              <span class="text-white font-body text-sm font-medium whitespace-nowrap">{{ item.total | currency:'INR' }}</span>
             </div>
-            
-            <div class="space-y-4 pt-2 font-body text-sm">
-              <div class="flex justify-between items-center text-slate-400">
-                <span>Subtotal</span>
-                <span class="text-slate-100 font-medium">₹1,200.00</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-slate-400">Premium Processing</span>
-                <span class="text-slate-100 font-medium">₹35.00</span>
-              </div>
-              <div class="flex justify-between items-center text-slate-400">
-                <span>Estimated Tax</span>
-                <span class="text-slate-100 font-medium">₹15.00</span>
-              </div>
+
+            <div *ngIf="cartItems().length === 0" class="text-center py-6 text-slate-400 text-xs">
+              Cart is empty.
             </div>
           </div>
 
-          <div class="mt-8 space-y-8">
+          <div class="space-y-3 pt-6 border-t border-white/10 font-body text-sm">
+            <div class="flex justify-between items-center text-slate-400">
+              <span>Subtotal</span>
+              <span class="text-slate-100 font-medium">{{ subtotal() | currency:'INR' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Insured Delivery</span>
+              <span class="text-primary text-2xs uppercase tracking-widest font-bold">Complimentary</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-400">
+              <span>Jewellery GST (3%)</span>
+              <span class="text-slate-100 font-medium">{{ tax() | currency:'INR' }}</span>
+            </div>
+          </div>
+
+          <div class="mt-8 space-y-6">
             <div class="flex justify-between items-end pt-6 border-t border-white/10">
               <span class="text-lg font-display uppercase tracking-widest text-white">Total</span>
               <div class="text-right">
-                <span class="text-3xl font-body font-light text-primary glow-text">₹1,250.00</span>
+                <span class="text-3xl font-body font-light text-primary glow-text">{{ total() | currency:'INR' }}</span>
                 <p class="tax-info-label">Duties & taxes included</p>
               </div>
             </div>
             
-            <button (click)="onCompletePurchase()" class="complete-btn gold-glow">
-              Complete Purchase
+            <button (click)="onCompletePurchase()" [disabled]="isPlacingOrder() || cartItems().length === 0" class="complete-btn gold-glow flex items-center justify-center gap-2">
+              <span *ngIf="isPlacingOrder()" class="material-symbols-outlined animate-spin text-lg">progress_activity</span>
+              <span>{{ isPlacingOrder() ? 'Processing Order...' : 'Complete Purchase' }}</span>
             </button>
             
-            <!-- <p class="terms-disclaimer">
-              By clicking 'Complete Purchase', you agree to VGH Jewellers' terms of service and luxury standards.
-            </p> -->
+            <a routerLink="/checkout/bill-preview" class="w-full py-2.5 px-4 rounded-lg bg-white/5 border border-primary/20 hover:border-primary text-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span class="material-symbols-outlined text-base">receipt_long</span>
+              <span>Review Bill Copy Preview</span>
+            </a>
           </div>
         </div>
 
@@ -171,13 +201,11 @@
         <div class="security-card rounded-xl p-6 border border-primary/10 flex items-start gap-4">
           <span class="material-symbols-outlined text-primary mt-0.5">info</span>
           <div>
-            <p class="security-title">Fraud Protection</p>
-            <p class="security-desc">Your payment is secure and encrypted. We do not store your card details.</p>
+            <p class="security-title">Encrypted Payment Guarantee</p>
+            <p class="security-desc">Your order is cryptographically authenticated. Stock is reserved atomically upon confirmation.</p>
           </div>
         </div>
       </aside>
     </main>
-
-
   </div>
 </div>

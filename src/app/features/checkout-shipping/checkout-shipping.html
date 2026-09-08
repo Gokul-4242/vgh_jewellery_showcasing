@@ -1,29 +1,30 @@
-<div class="checkout-shipping-container">
-  <!-- Background Accents -->
-  <div class="background-effects-container">
-    <div class="bg-shape-top"></div>
-    <div class="bg-shape-bottom"></div>
-  </div>
+<div class="min-h-screen bg-black text-slate-100 flex flex-col font-body selection:bg-primary selection:text-black">
+  <!-- Subtle Background Glows -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-  <div class="relative z-10 flex h-full grow flex-col">
-    <!-- Simplified Checkout Header (Optional: Can be hidden if using global header) -->
-    <header class="sticky top-0 z-50 w-full glass-panel border-b border-primary/20 checkout-header">
-      <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div class="flex items-center gap-12">
-          <div class="flex items-center gap-3 text-primary">
-            <div class="size-6">
-              <span class="material-symbols-outlined">diamond</span>
-            </div>
-            <h1 class="text-xl font-display font-bold tracking-widest uppercase">VGH Jewellers</h1>
-          </div>
+  <div class="relative z-10 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-white/10 px-6 lg:px-20 py-4 flex items-center justify-between glass-panel sticky top-0 z-50">
+      <div class="flex items-center gap-4">
+        <a routerLink="/" class="flex items-center gap-2 group">
+          <span class="font-display text-2xl tracking-widest text-white group-hover:text-primary transition-all">VGH</span>
+          <span class="text-xs tracking-[0.25em] text-primary uppercase font-light">Haute Joaillerie</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <div class="hidden sm:flex items-center gap-2 text-xs uppercase tracking-widest text-slate-400">
+          <span class="material-symbols-outlined text-primary text-sm">lock</span>
+          <span>Insured & Encrypted Checkout</span>
         </div>
-        <div class="flex items-center gap-6">
-          <button class="cart-nav-btn" [routerLink]="['/cart']">
-            <span class="material-symbols-outlined">shopping_bag</span>
-            <span class="cart-badge-count">3</span>
+        <div class="flex items-center gap-4">
+          <button routerLink="/cart" class="cart-nav-btn" aria-label="View Shopping Cart">
+            <span class="material-symbols-outlined text-2xl text-slate-300">shopping_bag</span>
+            <span class="cart-badge-count">{{ itemCount() }}</span>
           </button>
-          <div class="size-10 rounded-full border border-primary/20 overflow-hidden user-avatar">
-            <span class="material-symbols-outlined text-4xl text-primary/40">account_circle</span>
+          <div class="size-10 rounded-full border border-primary/20 overflow-hidden user-avatar flex items-center justify-center bg-white/5">
+            <span class="material-symbols-outlined text-2xl text-primary/70">account_circle</span>
           </div>
         </div>
       </div>
@@ -37,15 +38,21 @@
 
         <!-- Form Section -->
         <div class="glass-panel rounded-xl p-8 lg:p-12 animate-fade-up delay-2">
-          <div class="mb-10">
-            <h2 class="font-display text-4xl mb-3 text-white">Shipping Information</h2>
-            <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Enter your destination for delivery options</p>
+          <div class="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <h2 class="font-display text-4xl mb-3 text-white">Shipping Information</h2>
+              <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Enter destination for insured luxury delivery</p>
+            </div>
+            <a routerLink="/checkout/bill-preview" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-primary/30 text-primary text-xs uppercase tracking-wider hover:bg-primary/10 transition-all">
+              <span class="material-symbols-outlined text-base">receipt_long</span>
+              <span>Bill Preview</span>
+            </a>
           </div>
           
           <form (ngSubmit)="onContinue()" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             <div class="md:col-span-2">
-              <label for="fullName" class="form-label-aura">Full Name</label>
-              <input id="fullName" class="aura-input" name="fullName" [(ngModel)]="shippingData.fullName" placeholder="Johnathan Doe" type="text" required>
+              <label for="name" class="form-label-aura">Full Name</label>
+              <input id="name" class="aura-input" name="name" [(ngModel)]="shippingData.name" placeholder="Johnathan Doe" type="text" required>
             </div>
             <div>
               <label for="email" class="form-label-aura">Email Address</label>
@@ -53,30 +60,81 @@
             </div>
             <div>
               <label for="phone" class="form-label-aura">Phone Number</label>
-              <input id="phone" class="aura-input" name="phone" [(ngModel)]="shippingData.phone" placeholder="+1 (555) 000-0000" type="tel" required>
+              <input id="phone" class="aura-input" name="phone" [(ngModel)]="shippingData.phone" placeholder="+91 98765 43210" type="tel" required>
             </div>
+
+            <!-- PIN Code Field with Auto-Lookup -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="postalCode" class="form-label-aura">PIN / Postal Code</label>
+                <!-- <span *ngIf="pincodeLoading()" class="text-xs text-primary flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs animate-spin">progress_activity</span>
+                  <span>Verifying PIN...</span>
+                </span> -->
+              </div>
+              <input 
+                id="postalCode" 
+                class="aura-input" 
+                name="postalCode" 
+                [ngModel]="shippingData.postalCode" 
+                (ngModelChange)="onPincodeChange($event)" 
+                (blur)="onPincodeBlur()"
+                placeholder="e.g. 641001 (6 digits)" 
+                maxlength="6"
+                type="text" 
+                required>
+              
+              <!-- Error Message (shown only when invalid/error) -->
+              <p *ngIf="!pincodeVerified() && pincodeMessage()" class="text-xs mt-1.5 flex items-center gap-1 text-rose-400">
+                <span class="material-symbols-outlined text-sm">error</span>
+                <span>{{ pincodeMessage() }}</span>
+              </p>
+            </div>
+
+            <div class="md:col-span-2">
+              <label for="houseNo" class="form-label-aura">House No. / Door No.</label>
+              <input id="houseNo" class="aura-input" name="houseNo" [(ngModel)]="shippingData.address" placeholder="90/16, Ram Nagar" type="text" required>
+            </div>
+
             <div class="md:col-span-2">
               <label for="address" class="form-label-aura">Street Address</label>
-              <input id="address" class="aura-input" name="address" [(ngModel)]="shippingData.address" placeholder="123 Luxury Avenue, Suite 400" type="text" required>
+              <input id="address" class="aura-input" name="address" [(ngModel)]="shippingData.address" placeholder="Ram  Nagar 2nd Street" type="text" required>
             </div>
+
             <div>
-              <label for="city" class="form-label-aura">City</label>
-              <input id="city" class="aura-input" name="city" [(ngModel)]="shippingData.city" placeholder="New York" type="text" required>
+              <label for="city" class="form-label-aura">City / District</label>
+              <input id="city" class="aura-input" name="city" [(ngModel)]="shippingData.city" placeholder="Coimbatore" type="text" required>
             </div>
+
             <div>
-              <label for="postalCode" class="form-label-aura">Postal Code</label>
-              <input id="postalCode" class="aura-input" name="postalCode" [(ngModel)]="shippingData.postalCode" placeholder="10001" type="text" required>
+              <label for="state" class="form-label-aura">State</label>
+              <input id="state" class="aura-input" name="state" [(ngModel)]="shippingData.state" placeholder="Tamil Nadu" type="text" required>
             </div>
+
             <div class="md:col-span-2">
               <label for="country" class="form-label-aura">Country / Region</label>
               <div class="select-wrapper">
                 <select id="country" class="aura-input" name="country" [(ngModel)]="shippingData.country">
+                  <option value="India">India</option>
                   <option value="United States">United States</option>
                   <option value="United Kingdom">United Kingdom</option>
-                  <option value="France">France</option>
                   <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="Singapore">Singapore</option>
                 </select>
                 <span class="material-symbols-outlined select-arrow">expand_more</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Delivery Info Banner -->
+            <div *ngIf="deliveryInfo()" class="md:col-span-2 p-4 rounded-xl bg-primary/10 border border-primary/30 flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary text-xl mt-0.5">local_shipping</span>
+              <div class="text-xs space-y-1">
+                <p class="font-medium text-white">
+                  Estimated Delivery: <span class="text-primary font-bold">{{ deliveryInfo()?.estimatedDays }} Business Days</span> via {{ deliveryInfo()?.courierPartner }}
+                </p>
+                <p class="text-slate-300">
+                  Insured Armoured Transit • Complimentary Shipping • {{ deliveryInfo()?.codAvailable ? 'Cash on Delivery Available' : 'Prepaid Only' }}
+                </p>
               </div>
             </div>
             
@@ -93,57 +151,59 @@
       <!-- Right Side: Sidebar Summary -->
       <aside class="lg:col-span-4 flex flex-col gap-8">
         <div class="glass-panel rounded-xl p-8 sticky-summary animate-fade-up delay-3">
-          <h3 class="text-2xl font-display mb-8 text-white">Order Summary</h3>
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="text-2xl font-display text-white">Order Summary</h3>
+            <span class="text-xs uppercase tracking-widest text-primary">{{ itemCount() }} Item(s)</span>
+          </div>
           
-          <div class="space-y-6 mb-8">
-            <!-- Item 1 -->
-            <div class="flex gap-4 group cart-item-card">
+          <!-- Dynamic Items List -->
+          <div class="space-y-5 mb-8 max-h-96 overflow-y-auto pr-1">
+            <div *ngFor="let item of cartItems()" class="flex gap-4 group cart-item-card">
               <div class="size-20 rounded-lg bg-white/5 overflow-hidden border border-white/10 flex-shrink-0">
-                <img class="w-full h-full object-cover cart-item-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYt5qhTK9S0yNYaRo1QVkVqzPtAG0IShRs86gY9rOobMcX8Hoi2dJ_8VW_QuvZFf25pACSvP3QbKPpepUM26NcuJRqoPgFJoEgo06GL7joynevyydS4nDnTA-vFYdvp21nLhwBGjSFVVdOlrQ5ZmcAldIxV3ZUFu5RSeihQ0LRPXy3vXFZg7tp87YfnJNzvAlyy9NN8_wM-nelY0utit5McSZxnctgWTSdM8oYu_C5-uL3bjO-Fy9LxcF7sRzQd4HCcd3yF1iGL5jo" alt="Solstice Gold Frames">
+                <img class="w-full h-full object-cover cart-item-img" [src]="item.image" [alt]="item.name">
               </div>
-              <div class="flex flex-col justify-center">
-                <p class="item-title">Solstice Gold Frames</p>
-                <p class="item-quantity">Quantity: 1</p>
-                <p class="text-sm font-body font-light text-primary mt-1.5">₹1,250.00</p>
+              <div class="flex flex-col justify-center flex-1 min-w-0">
+                <p class="item-title truncate">{{ item.name }}</p>
+                <p class="item-quantity text-xs text-slate-400">Quantity: {{ item.quantity }}</p>
+                <p class="text-sm font-body font-light text-primary mt-1.5">{{ item.total | currency:'INR' }}</p>
               </div>
             </div>
-            <!-- Item 2 -->
-            <div class="flex gap-4 group cart-item-card">
-              <div class="size-20 rounded-lg bg-white/5 overflow-hidden border border-white/10 flex-shrink-0">
-                <img class="w-full h-full object-cover cart-item-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALc1c5ED3Y5muzzD772fToO2kWclQzA6tjThPBzitaH0K16eTdB4weOAdOYyGX9wjOYR7pRd1nzoHZcBdylsOmdlXdQEGEOzJ1zEry4Qld4sNOxnrfarU073hBRxJRxit6HDxMY24MtjjMmCmjn-aG3ke3-rC1BACb8dKndxRPq_0euA58QSuef1MXXG9ZgFVed_iiE5nqhUM8qbZ5yP94EjBH6daW8iYoU0qZWyMK5E-QPcHsVHMeFUpSf-eKcU8mKN2SOLxMBkob" alt="Chronos VII Watch">
-              </div>
-              <div class="flex flex-col justify-center">
-                <p class="item-title">Chronos VII Watch</p>
-                <p class="item-quantity">Quantity: 1</p>
-                <p class="text-sm font-body font-light text-primary mt-1.5">₹4,800.00</p>
-              </div>
+
+            <div *ngIf="cartItems().length === 0" class="text-center py-6 text-slate-400 text-xs">
+              <p>Your shopping bag is empty.</p>
+              <a routerLink="/" class="text-primary underline mt-2 inline-block">Explore Collections</a>
             </div>
           </div>
 
           <div class="space-y-4 pt-8 border-t border-white/10 font-body summary-totals">
             <div class="flex justify-between">
               <span class="text-slate-400">Subtotal</span>
-              <span class="text-slate-100 font-medium">₹6,050.00</span>
+              <span class="text-slate-100 font-medium">{{ subtotal() | currency:'INR' }}</span>
             </div>
             <div class="flex justify-between">
               <span class="text-slate-400">Shipping</span>
               <span class="shipping-free-label">Free Delivery</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Estimated Tax</span>
-              <span class="text-slate-100 font-medium">₹484.00</span>
+              <span class="text-slate-400">Jewellery GST (3%)</span>
+              <span class="text-slate-100 font-medium">{{ tax() | currency:'INR' }}</span>
             </div>
             <div class="pt-6 mt-6 border-t border-white/10 flex justify-between items-end">
               <span class="text-lg font-display uppercase tracking-widest text-white">Total</span>
               <div class="text-right">
-                <p class="text-3xl font-body font-light text-primary glow-text">₹6,534.00</p>
+                <p class="text-3xl font-body font-light text-primary glow-text">{{ total() | currency:'INR' }}</p>
                 <p class="tax-info-label">All taxes included</p>
               </div>
             </div>
           </div>
 
-          <div class="mt-8 pt-8 border-t border-white/10">
-            <div class="flex items-start gap-4 mb-4">
+          <div class="mt-6 pt-6 border-t border-white/10 space-y-4">
+            <a routerLink="/checkout/bill-preview" class="w-full py-2.5 px-4 rounded-lg bg-white/5 border border-primary/20 hover:border-primary text-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+              <span class="material-symbols-outlined text-base">receipt_long</span>
+              <span>Review Bill Copy Preview</span>
+            </a>
+
+            <div class="flex items-start gap-4">
               <span class="material-symbols-outlined text-primary text-xl">verified_user</span>
               <div>
                 <p class="security-title">Secure Checkout</p>
@@ -154,7 +214,5 @@
         </div>
       </aside>
     </main>
-
-
   </div>
 </div>

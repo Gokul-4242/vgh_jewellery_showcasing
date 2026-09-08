@@ -200,16 +200,32 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart() {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.cartService.addToCart(id, 1).subscribe({
+    if (id && this.product) {
+      const weightVal = parseFloat(this.product.specs?.find(s => s.label === 'Weight')?.value || '0');
+      const makingVal = parseFloat(this.product.specs?.find(s => s.label === 'Making Charge')?.value.replace('₹', '') || '0');
+      const wastageVal = parseFloat(this.product.specs?.find(s => s.label === 'Wastage')?.value.replace('%', '') || '0');
+      const matVal = this.product.specs?.find(s => s.label === 'Material')?.value || 'Gold';
+
+      const snapshot = {
+        _id: id,
+        name: this.product.name,
+        category: this.product.collection,
+        price: this.product.price,
+        images: [{ url: this.selectedImage || (this.product.images.length > 0 ? this.product.images[0] : '') }],
+        weight: weightVal,
+        material: matVal,
+        makingCharge: makingVal,
+        wastagePercent: wastageVal,
+        description: 'VGH Certified Fine Jewellery'
+      };
+
+      this.cartService.addToCart(id, 1, snapshot).subscribe({
         next: () => {
           this.router.navigate(['/cart']);
         },
         error: (err) => {
           console.error('Error adding to cart', err);
-          if (err.status === 401) {
-            this.router.navigate(['/auth']);
-          }
+          this.router.navigate(['/cart']);
         }
       });
     }
