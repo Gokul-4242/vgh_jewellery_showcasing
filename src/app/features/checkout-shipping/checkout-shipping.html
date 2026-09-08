@@ -12,40 +12,33 @@
 
         <!-- Form Section -->
         <div class="glass-panel rounded-xl p-8 lg:p-12 animate-fade-up delay-2">
-          <div class="mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-              <h2 class="font-display text-4xl mb-3 text-white">Shipping Information</h2>
-              <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Enter destination for insured luxury delivery</p>
-            </div>
-            <a routerLink="/checkout/bill-preview" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-primary/30 text-primary text-xs uppercase tracking-wider hover:bg-primary/10 transition-all">
-              <span class="material-symbols-outlined text-base">receipt_long</span>
-              <span>Bill Preview</span>
-            </a>
+          <div class="mb-8">
+            <h2 class="font-display text-4xl mb-3 text-white">Shipping Information</h2>
+            <p class="text-slate-400 font-body text-sm uppercase tracking-widest">Enter destination for insured luxury delivery</p>
           </div>
           
-          <form (ngSubmit)="onContinue()" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            <div class="md:col-span-2">
+          <form (ngSubmit)="onContinue()" class="shipping-form-grid">
+            <!-- Full Name -->
+            <div class="full-width form-field-group">
               <label for="name" class="form-label-aura">Full Name</label>
               <input id="name" class="aura-input" name="name" [(ngModel)]="shippingData.name" placeholder="Johnathan Doe" type="text" required>
             </div>
-            <div>
+
+            <!-- Email Address -->
+            <div class="form-field-group">
               <label for="email" class="form-label-aura">Email Address</label>
               <input id="email" class="aura-input" name="email" [(ngModel)]="shippingData.email" placeholder="j.doe@vghjewellers.com" type="email" required>
             </div>
-            <div>
+
+            <!-- Phone Number -->
+            <div class="form-field-group">
               <label for="phone" class="form-label-aura">Phone Number</label>
               <input id="phone" class="aura-input" name="phone" [(ngModel)]="shippingData.phone" placeholder="+91 98765 43210" type="tel" required>
             </div>
 
-            <!-- PIN Code Field with Auto-Lookup -->
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <label for="postalCode" class="form-label-aura">PIN / Postal Code</label>
-                <!-- <span *ngIf="pincodeLoading()" class="text-xs text-primary flex items-center gap-1">
-                  <span class="material-symbols-outlined text-xs animate-spin">progress_activity</span>
-                  <span>Verifying PIN...</span>
-                </span> -->
-              </div>
+            <!-- PIN Code Field -->
+            <div class="form-field-group">
+              <label for="postalCode" class="form-label-aura">PIN / Postal Code</label>
               <input 
                 id="postalCode" 
                 class="aura-input" 
@@ -65,32 +58,38 @@
               </p>
             </div>
 
-            <div class="md:col-span-2">
+            <!-- House No. / Door No. -->
+            <div class="form-field-group">
               <label for="houseNo" class="form-label-aura">House No. / Door No.</label>
-              <input id="houseNo" class="aura-input" name="houseNo" [(ngModel)]="shippingData.address" placeholder="90/16, Ram Nagar" type="text" required>
+              <input id="houseNo" class="aura-input" name="houseNo" [(ngModel)]="shippingData.houseNo" placeholder="e.g. 90/16, Ram Nagar" type="text">
             </div>
 
-            <div class="md:col-span-2">
+            <!-- Street Address (Full Width) -->
+            <div class="full-width form-field-group">
               <label for="address" class="form-label-aura">Street Address</label>
-              <input id="address" class="aura-input" name="address" [(ngModel)]="shippingData.address" placeholder="Ram  Nagar 2nd Street" type="text" required>
+              <input id="address" class="aura-input" name="address" [(ngModel)]="shippingData.address" placeholder="e.g. Ram Nagar 2nd Street" type="text" required>
             </div>
 
-            <div>
+            <!-- City -->
+            <div class="form-field-group">
               <label for="city" class="form-label-aura">City</label>
-              <input id="city" class="aura-input" name="city" [(ngModel)]="shippingData.city" placeholder="Coimbatore" type="text" required>
+              <input id="city" class="aura-input" name="city" [(ngModel)]="shippingData.city" placeholder="e.g. Coimbatore" type="text" required>
             </div>
 
-            <div>
+            <!-- District -->
+            <div class="form-field-group">
               <label for="district" class="form-label-aura">District</label>
-              <input id="district" class="aura-input" name="district" [(ngModel)]="shippingData.district" placeholder="Coimbatore" type="text" required>
+              <input id="district" class="aura-input" name="district" [(ngModel)]="shippingData.district" placeholder="e.g. Coimbatore" type="text" required>
             </div>
 
-            <div>
+            <!-- State -->
+            <div class="form-field-group">
               <label for="state" class="form-label-aura">State</label>
-              <input id="state" class="aura-input" name="state" [(ngModel)]="shippingData.state" placeholder="Tamil Nadu" type="text" required>
+              <input id="state" class="aura-input" name="state" [(ngModel)]="shippingData.state" placeholder="e.g. Tamil Nadu" type="text" required>
             </div>
 
-            <div>
+            <!-- Country / Region -->
+            <div class="form-field-group">
               <label id="country-label" class="form-label-aura">Country / Region</label>
               <div
                 #countryDropdownRef
@@ -123,7 +122,7 @@
             </div>
 
             <!-- Dynamic Delivery Info Banner -->
-            <div *ngIf="deliveryInfo()" class="md:col-span-2 p-4 rounded-xl bg-primary/10 border border-primary/30 flex items-start gap-3">
+            <div *ngIf="deliveryInfo()" class="full-width p-4 rounded-xl bg-primary/10 border border-primary/30 flex items-start gap-3 mt-1">
               <span class="material-symbols-outlined text-primary text-xl mt-0.5">local_shipping</span>
               <div class="text-xs space-y-1">
                 <p class="font-medium text-white">
@@ -135,7 +134,7 @@
               </div>
             </div>
             
-            <div class="md:col-span-2 pt-6">
+            <div class="full-width pt-2">
               <button class="proceed-btn gold-glow" type="submit">
                 <span>Proceed to Payment</span>
                 <span class="material-symbols-outlined text-xl">arrow_right_alt</span>

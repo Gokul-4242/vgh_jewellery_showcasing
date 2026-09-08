@@ -25,6 +25,7 @@ function getInitialShipping(): CustomerDetails {
     email: '',
     phone: '',
     address: '',
+    houseNo: '',
     city: '',
     district: '',
     postalCode: '',

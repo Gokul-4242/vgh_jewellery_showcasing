@@ -109,18 +109,26 @@
   </div>
 
   <!-- Related Products Section -->
-  <div class="related-products-section animate-fade-up">
+  <div class="related-products-section animate-fade-up" *ngIf="relatedProducts.length > 0">
     <div class="related-header">
-      <h3 class="related-title font-playfair">Complete the Set</h3>
-      <a class="view-more-link" href="#">
-        View More
+      <div>
+        <h3 class="related-title font-playfair">{{ similarSectionTitle }}</h3>
+        <p class="text-xs text-slate-400 mt-1 uppercase tracking-widest font-body">{{ similarSectionSubtitle }}</p>
+      </div>
+      <a class="view-more-link" [routerLink]="viewMoreRoute">
+        {{ viewMoreLabel }}
         <span class="material-symbols-outlined view-more-icon">arrow_forward</span>
       </a>
     </div>
     <div class="related-grid">
-      <div class="related-item-card" *ngFor="let rel of relatedProducts">
+      <div class="related-item-card" 
+           *ngFor="let rel of relatedProducts"
+           (click)="onSelectSimilarProduct(rel)"
+           role="button"
+           tabindex="0"
+           (keydown.enter)="onSelectSimilarProduct(rel)">
         <div class="related-img-wrapper glass">
-          <img [src]="rel.imageSrc" [alt]="rel.name" class="related-img">
+          <img [src]="rel.imageSrc" [alt]="rel.name" class="related-img" loading="lazy">
         </div>
         <h5 class="related-item-name">{{ rel.name }}</h5>
         <p class="related-item-price">{{ rel.price | currency:'INR' }}</p>

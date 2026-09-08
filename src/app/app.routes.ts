@@ -17,6 +17,8 @@ export const routes: Routes = [
   { path: 'gold-collection', component: GoldCollectionComponent },
   { path: 'silver-collection', component: SilverCollectionComponent },
   { path: 'product-details/:id', component: ProductDetailsComponent },
+  { path: 'product_details/:id', component: ProductDetailsComponent },
+  { path: 'product details/:id', component: ProductDetailsComponent },
 
   { path: 'about-us', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },

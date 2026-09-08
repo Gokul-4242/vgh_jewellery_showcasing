@@ -34,10 +34,6 @@ export class CartComponent {
     this.cartService.removeFromCart(productId);
   }
 
-  proceedToBillPreview() {
-    this.router.navigate(['/checkout/bill-preview']);
-  }
-
   proceedToCheckout() {
     this.router.navigate(['/checkout/shipping']);
   }

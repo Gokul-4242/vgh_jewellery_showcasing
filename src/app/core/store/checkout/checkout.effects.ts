@@ -24,7 +24,7 @@ export class CheckoutEffects {
             fullName: customer?.name || 'Customer',
             email: customer?.email || '',
             phone: customer?.phone || '',
-            addressLine1: customer?.address || '',
+            addressLine1: [customer?.houseNo, customer?.address].filter(Boolean).join(', ') || customer?.address || '',
             city: customer?.city || customer?.district || 'Coimbatore',
             state: customer?.state || 'Tamil Nadu',
             pincode: customer?.postalCode || '641001',

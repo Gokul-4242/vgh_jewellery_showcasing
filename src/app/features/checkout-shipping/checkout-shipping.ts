@@ -70,6 +70,7 @@ export class CheckoutShipping implements OnInit {
     name: '',
     email: '',
     phone: '',
+    houseNo: '',
     address: '',
     city: '',
     district: '',

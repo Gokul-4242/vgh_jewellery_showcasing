@@ -17,6 +17,7 @@ export interface CustomerDetails {
   name: string;
   phone: string;
   address: string;
+  houseNo?: string;
   email?: string;
   city?: string;
   district?: string;

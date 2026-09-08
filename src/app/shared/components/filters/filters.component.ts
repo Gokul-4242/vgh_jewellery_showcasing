@@ -30,7 +30,8 @@ export class FiltersComponent implements OnInit, OnChanges {
     types: FilterOption[],
     purities: FilterOption[],
     minPrice: number,
-    maxPrice: number
+    maxPrice: number,
+    isReset?: boolean
   }>();
 
   ngOnInit(): void {
@@ -45,12 +46,12 @@ export class FiltersComponent implements OnInit, OnChanges {
 
   private initPrices() {
     this.selectedMinPrice = this.parsePrice(this.minPrice, 0);
-    this.selectedMaxPrice = this.parsePrice(this.maxPrice, 100000);
+    this.selectedMaxPrice = this.parsePrice(this.maxPrice, 500000);
     this.sliderMin = 0;
     
-    // Set sliderMax to a higher limit so the user can drag to increase prices
-    if (this.selectedMaxPrice <= 2000) {
-      this.sliderMax = 10000; // 10k for Silver
+    // Set sliderMax according to the maxPrice passed
+    if (this.selectedMaxPrice <= 50000) {
+      this.sliderMax = 50000; // 50k for Silver
     } else {
       this.sliderMax = 500000; // 5 Lakhs for Gold
     }
@@ -136,7 +137,13 @@ export class FiltersComponent implements OnInit, OnChanges {
     this.jewelryTypes.forEach(t => t.checked = false);
     this.purityLevels.forEach(p => p.active = false);
     this.initPrices();
-    this.emitChange();
+    this.filterChange.emit({
+      types: this.jewelryTypes,
+      purities: this.purityLevels,
+      minPrice: this.selectedMinPrice,
+      maxPrice: this.selectedMaxPrice,
+      isReset: true
+    });
   }
 
   emitChange() {
