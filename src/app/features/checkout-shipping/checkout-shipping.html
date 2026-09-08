@@ -3,33 +3,7 @@
   <div class="fixed top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
   <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-  <div class="relative z-10 flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="border-b border-white/10 px-6 lg:px-20 py-4 flex items-center justify-between glass-panel sticky top-0 z-50">
-      <div class="flex items-center gap-4">
-        <a routerLink="/" class="flex items-center gap-2 group">
-          <span class="font-display text-2xl tracking-widest text-white group-hover:text-primary transition-all">VGH</span>
-          <span class="text-xs tracking-[0.25em] text-primary uppercase font-light">Haute Joaillerie</span>
-        </a>
-      </div>
-
-      <div class="flex items-center gap-6">
-        <div class="hidden sm:flex items-center gap-2 text-xs uppercase tracking-widest text-slate-400">
-          <span class="material-symbols-outlined text-primary text-sm">lock</span>
-          <span>Insured & Encrypted Checkout</span>
-        </div>
-        <div class="flex items-center gap-4">
-          <button routerLink="/cart" class="cart-nav-btn" aria-label="View Shopping Cart">
-            <span class="material-symbols-outlined text-2xl text-slate-300">shopping_bag</span>
-            <span class="cart-badge-count">{{ itemCount() }}</span>
-          </button>
-          <div class="size-10 rounded-full border border-primary/20 overflow-hidden user-avatar flex items-center justify-center bg-white/5">
-            <span class="material-symbols-outlined text-2xl text-primary/70">account_circle</span>
-          </div>
-        </div>
-      </div>
-    </header>
-
+  <div class="relative z-10 flex flex-col min-h-screen pt-20">
     <main class="flex-1 flex flex-col lg:grid lg:grid-cols-12 gap-12 px-6 lg:px-20 py-12 max-w-7xl mx-auto w-full">
       <!-- Left Side: Form -->
       <div class="lg:col-span-8 flex flex-col gap-8">
@@ -102,8 +76,13 @@
             </div>
 
             <div>
-              <label for="city" class="form-label-aura">City / District</label>
+              <label for="city" class="form-label-aura">City</label>
               <input id="city" class="aura-input" name="city" [(ngModel)]="shippingData.city" placeholder="Coimbatore" type="text" required>
+            </div>
+
+            <div>
+              <label for="district" class="form-label-aura">District</label>
+              <input id="district" class="aura-input" name="district" [(ngModel)]="shippingData.district" placeholder="Coimbatore" type="text" required>
             </div>
 
             <div>
@@ -111,17 +90,35 @@
               <input id="state" class="aura-input" name="state" [(ngModel)]="shippingData.state" placeholder="Tamil Nadu" type="text" required>
             </div>
 
-            <div class="md:col-span-2">
-              <label for="country" class="form-label-aura">Country / Region</label>
-              <div class="select-wrapper">
-                <select id="country" class="aura-input" name="country" [(ngModel)]="shippingData.country">
-                  <option value="India">India</option>
-                  <option value="United States">United States</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="United Arab Emirates">United Arab Emirates</option>
-                  <option value="Singapore">Singapore</option>
-                </select>
-                <span class="material-symbols-outlined select-arrow">expand_more</span>
+            <div>
+              <label id="country-label" class="form-label-aura">Country / Region</label>
+              <div
+                #countryDropdownRef
+                class="custom-select-aura relative"
+                (click)="toggleCountryDropdown()"
+                (keydown.enter)="toggleCountryDropdown()"
+                role="button"
+                tabindex="0"
+                aria-labelledby="country-label"
+                [class.select-active]="isCountryDropdownOpen">
+                <div class="selected-value">
+                  <span>{{ shippingData.country || 'India' }}</span>
+                  <span class="material-symbols-outlined dropdown-chevron">expand_more</span>
+                </div>
+                <div class="dropdown-menu-aura animate-scale-in" *ngIf="isCountryDropdownOpen">
+                  <div class="menu-label">Select Country / Region</div>
+                  <div
+                    *ngFor="let c of countries"
+                    class="menu-option"
+                    [class.menu-option-selected]="(shippingData.country || 'India') === c"
+                    role="button"
+                    tabindex="0"
+                    (click)="selectCountry(c); $event.stopPropagation()"
+                    (keydown.enter)="selectCountry(c); $event.stopPropagation()">
+                    <span class="material-symbols-outlined option-check" *ngIf="(shippingData.country || 'India') === c">check</span>
+                    <span>{{ c }}</span>
+                  </div>
+                </div>
               </div>
             </div>
 

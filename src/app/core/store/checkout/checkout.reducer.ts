@@ -26,6 +26,7 @@ function getInitialShipping(): CustomerDetails {
     phone: '',
     address: '',
     city: '',
+    district: '',
     postalCode: '',
     country: 'India'
   };

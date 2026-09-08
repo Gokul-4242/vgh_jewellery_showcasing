@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectorRef, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
@@ -26,6 +26,33 @@ export class CheckoutShipping implements OnInit {
   private readonly pincodeService = inject(PincodeService);
   private readonly cdr = inject(ChangeDetectorRef);
 
+  @ViewChild('countryDropdownRef') countryDropdownRef!: ElementRef;
+  isCountryDropdownOpen = false;
+  countries = [
+    'India',
+    'United States',
+    'United Kingdom',
+    'United Arab Emirates',
+    'Singapore'
+  ];
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (this.isCountryDropdownOpen && this.countryDropdownRef && !this.countryDropdownRef.nativeElement.contains(event.target)) {
+      this.isCountryDropdownOpen = false;
+    }
+  }
+
+  toggleCountryDropdown() {
+    this.isCountryDropdownOpen = !this.isCountryDropdownOpen;
+  }
+
+  selectCountry(country: string) {
+    this.shippingData.country = country;
+    this.isCountryDropdownOpen = false;
+    this.cdr.markForCheck();
+  }
+
   // Dynamic signals from Store
   cartItems = this.cartService.detailedItems;
   itemCount = this.cartService.itemCount;
@@ -45,6 +72,7 @@ export class CheckoutShipping implements OnInit {
     phone: '',
     address: '',
     city: '',
+    district: '',
     state: '',
     postalCode: '',
     country: 'India'
@@ -99,13 +127,13 @@ export class CheckoutShipping implements OnInit {
         const isSuccess = Boolean(res && (res.success || res.valid || res.data?.valid) && res.data);
         if (isSuccess && res.data) {
           const d = res.data;
-          const detectedCity = d.city || d.district || '';
+          const detectedDistrict = d.district || d.city || '';
           const detectedState = d.state || '';
           const detectedCountry = d.country || 'India';
 
           this.shippingData = {
             ...this.shippingData,
-            city: detectedCity,
+            district: detectedDistrict,
             state: detectedState,
             country: detectedCountry
           };
@@ -132,7 +160,7 @@ export class CheckoutShipping implements OnInit {
   }
 
   onContinue() {
-    if (!this.shippingData.name || !this.shippingData.email || !this.shippingData.address || !this.shippingData.city || !this.shippingData.postalCode) {
+    if (!this.shippingData.name || !this.shippingData.email || !this.shippingData.address || !this.shippingData.city || !this.shippingData.district || !this.shippingData.postalCode) {
       alert('Please complete all required shipping information.');
       return;
     }

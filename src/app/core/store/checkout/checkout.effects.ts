@@ -25,7 +25,7 @@ export class CheckoutEffects {
             email: customer?.email || '',
             phone: customer?.phone || '',
             addressLine1: customer?.address || '',
-            city: customer?.city || 'Coimbatore',
+            city: customer?.city || customer?.district || 'Coimbatore',
             state: customer?.state || 'Tamil Nadu',
             pincode: customer?.postalCode || '641001',
             country: customer?.country || 'India'

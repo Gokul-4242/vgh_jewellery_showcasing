@@ -19,6 +19,7 @@ export interface CustomerDetails {
   address: string;
   email?: string;
   city?: string;
+  district?: string;
   state?: string;
   postalCode?: string;
   country?: string;
